@@ -177,3 +177,117 @@ To capture deeper value, add **qualitative** and **business-related** data:
 > 
 
 ### **Fair Developer Score (FDS) — Mathematical Specification**
+The **Fair Developer Score (FDS)** quantifies a developer’s contribution across batches of work by combining:
+
+```
+FDS = ∑ (Effort × Importance)  over all batches
+```
+
+---
+
+### Part 1: Effort — How Much the Developer Pushed
+
+```
+Effort(u, b) = Share(u, b) × (
+    0.25 × Z_scale +
+    0.15 × Z_reach +
+    0.20 × Z_centrality +
+    0.20 × Z_dominance +
+    0.15 × Z_novelty +
+    0.05 × Z_speed
+)
+```
+
+| Metric      | Description                                                                 |
+|-------------|-----------------------------------------------------------------------------|
+| **Share**   | Author’s proportion of effective churn in the batch                        |
+| **Scale**   | log(1 + churn) – penalizes monster commits                                 |
+| **Reach**   | Directory entropy – wider directory spread = higher score                  |
+| **Centrality** | PageRank over co-change graph – importance of touched modules          |
+| **Dominance** | Credit for starting, ending, and leading the batch                       |
+| **Novelty** | Ratio of new lines (e.g., new files/APIs) to churn                         |
+| **Speed**   | exp(–hours since previous commit / 24) – favors fast iteration             |
+
+All metrics are **MAD-Z normalized** per repo × quarter and clipped to [−3, +3].
+
+---
+
+### Part 2: Importance — How Valuable the Batch Was
+
+```
+Importance(b) = 
+    0.30 × Z_scale +
+    0.20 × Z_scope +
+    0.15 × Z_centrality +
+    0.15 × Z_complexity +
+    0.10 × Z_type +
+    0.10 × Z_release_proximity
+```
+
+| Metric             | Description                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+| **Scale**          | log(1 + total churn) – entire batch size                                   |
+| **Scope**          | Weighted blend: 0.5×files + 0.3×entropy + 0.2×unique dirs                   |
+| **Centrality**     | PageRank score of modules touched in the batch                             |
+| **Complexity**     | sqrt(unique_dirs) × log(1 + churn) – coordination overhead                 |
+| **Type Priority**  | Importance inferred from commit type (see table below)                     |
+| **Release Proximity** | exp(–days to nearest tag / 30) – urgency boost near releases           |
+
+**Type Priority Weights:**
+
+| Type         | Weight |
+|--------------|--------|
+| `security`   | 1.20   |
+| `hotfix`     | 1.15   |
+| `feature`    | 1.10   |
+| `perf`       | 1.05   |
+| `bugfix`     | 1.00   |
+| `refactor`   | 0.90   |
+| `other`      | 0.80   |
+| `docs`       | 0.60   |
+
+---
+
+### Worked Example: Batch #1
+
+**Effort Metrics (user-specific)**
+
+| Metric      | Z-score |
+|-------------|---------|
+| Scale       | +0.67   |
+| Reach       | +0.45   |
+| Centrality  | –1.89   |
+| Dominance   | 0.00    |
+| Novelty     | +0.67   |
+| Speed       | 0.00    |
+
+ **Effort ≈ 0.47**
+
+**Importance Metrics (batch-wide)**
+
+| Metric          | Z-score |
+|------------------|---------|
+| Scale            | +1.28   |
+| Scope            | +2.06   |
+| Centrality       | –0.77   |
+| Complexity       | +0.53   |
+| Type Priority    | –0.58   |
+| Release Proximity| –0.53   |
+
+ **Importance ≈ 0.54**
+
+**Final Contribution for Batch #1:**
+
+```
+Contribution = Effort × Importance ≈ 0.47 × 0.54 ≈ 0.26
+```
+
+---
+
+### Standardization Notes
+
+All raw metrics are normalized via:
+
+- **MAD-Z transformation** per repo × quarter
+- Clipping to [–3, +3] for outlier resistance
+- Ensures fair comparison across diverse developers and teams
