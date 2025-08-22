@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - facebook/react</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --brand-primary: #6f42c1;
+            --brand-accent: #20c997;
+            --sidebar-bg: #111827;
+            --sidebar-text: #e5e7eb;
+            --sidebar-muted: #9ca3af;
+        }
+        .status-pending { color: #ffc107; }
+        .status-running { color: #17a2b8; }
+        .status-completed { color: #28a745; }
+        .status-failed { color: #dc3545; }
+        .metric-card { transition: transform 0.2s; }
+        .metric-card:hover { transform: translateY(-2px); }
+        .developer-score { font-size: 1.2rem; font-weight: bold; }
+        .progress-container { margin: 20px 0; }
+        .batch-info { background: #f8f9fa; border-left: 4px solid var(--brand-primary); padding: 10px; margin: 10px 0; }
+        /* Layout */
+        body { background: linear-gradient(135deg, #f8fafc, #eef2ff); }
+        .app-shell { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: var(--sidebar-bg); color: var(--sidebar-text); padding: 1.25rem 1rem; position: sticky; top: 0; height: 100vh; }
+        .sidebar .brand { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+        .sidebar .brand-logo { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; background: linear-gradient(135deg, #667eea, #764ba2); font-weight: 700; }
+        .sidebar .brand-name { font-weight: 700; letter-spacing: .2px; }
+        .sidebar .nav-section { margin-top: .75rem; margin-bottom: .5rem; font-size: .75rem; color: var(--sidebar-muted); text-transform: uppercase; }
+        .sidebar .nav-link { color: var(--sidebar-text); border-radius: .5rem; padding: .6rem .75rem; display: flex; align-items: center; gap: .5rem; text-decoration: none; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { background: rgba(255,255,255,.08); }
+        .sidebar .small { color: var(--sidebar-muted); }
+        .main { flex: 1; }
+        .topbar { background: #fff; border-bottom: 1px solid #e5e7eb; }
+        .topbar .container-fluid { padding: .75rem 1.25rem; }
+    </style>
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">FD</div>
+                <div>
+                    <div class="brand-name">Fair Developer</div>
+                    <div class="small">FDS Analyzer</div>
+                </div>
+            </div>
+            <div class="nav-section">Navigation</div>
+            <nav class="d-grid gap-1">
+                <a class="nav-link " href="/">🏠 Home</a>
+                <a class="nav-link " href="/analyses/">📁 Analyses</a>
+                <a class="nav-link" href="#" onclick="window.location.reload()">🔄 Refresh</a>
+            </nav>
+            <div class="nav-section">Tools</div>
+            <nav class="d-grid gap-1">
+                <a class="nav-link" href="#" onclick="alert('Coming soon');">⚙️ Settings</a>
+                <a class="nav-link" href="#" onclick="alert('Coming soon');">⬇️ Export</a>
+                <a class="nav-link" href="#" onclick="alert('Coming soon');">🧪 Test Runner</a>
+            </nav>
+            <div class="mt-auto small" style="position:absolute; bottom:1rem; color:var(--sidebar-muted)">© 2025 FDS</div>
+        </aside>
+        <main class="main">
+            <div class="topbar">
+                <div class="container-fluid d-flex align-items-center justify-content-between">
+                    <div class="fw-semibold text-truncate" style="color:#6b7280; max-width:50%">
+                        
+                          Viewing: https://github.com/facebook/react
+                        
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/analysis/34/">Overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/analysis/34/dashboard/">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/analysis/34/compare/">Compare</a>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-4">
+        <!-- Messages -->
+        
+
+        <!-- Page Content -->
+        
+<!-- Analysis Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>📊 Analysis Results</h2>
+    <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-success fs-6 status-completed" id="analysis-status">
+            Completed
+        </span>
+        
+        <a href="/analysis/34/dashboard/" class="btn btn-success btn-sm">Open Dashboard</a>
+        
+        <!-- Delete Button -->
+        <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            🗑️ Delete
+        </button>
+    </div>
+</div>
+
+<!-- Repository Info -->
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <h5 class="card-title">
+                    <a href="https://github.com/facebook/react" target="_blank" class="text-decoration-none">
+                        https://github.com/facebook/react
+                    </a>
+                </h5>
+                <p class="text-muted mb-2">
+                    Analysis ID: 34 | 
+                    Created: Aug 12, 2025 03:04
+                    
+                        | Duration: 401.4s
+                    
+                </p>
+            </div>
+            <div class="col-md-4 text-end">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Summary Statistics -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-center metric-card">
+                <div class="card-body">
+                    <h3 class="text-primary">800</h3>
+                    <p class="text-muted">Total Commits</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center metric-card">
+                <div class="card-body">
+                    <h3 class="text-success">66</h3>
+                    <p class="text-muted">Active Developers</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center metric-card">
+                <div class="card-body">
+                    <h3 class="text-info">132</h3>
+                    <p class="text-muted">Builds</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center metric-card">
+                <div class="card-body">
+                    <h3 class="text-warning">91.8</h3>
+                    <p class="text-muted">Total FDS</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Developer Scores -->
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">🏆 Top Developers by FDS Score</h5>
+            <a href="/analysis/34/compare/" class="btn btn-sm btn-outline-primary">
+                Compare Developers
+            </a>
+        </div>
+        <div class="card-body">
+            
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Developer</th>
+                                <th>FDS Score</th>
+                                <th>Avg Effort</th>
+                                <th>Avg Importance</th>
+                                <th>Commits</th>
+                                <th>Builds</th>
+                                <th>Share</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        1
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>sebastian@calyptus.eu</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        60.066
+                                    </span>
+                                </td>
+                                <td>0.246</td>
+                                <td>0.669</td>
+                                <td>271</td>
+                                <td>76</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 1%"
+                                             title="0.600">
+                                        </div>
+                                    </div>
+                                    <small>0.60</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/sebastian@calyptus.eu/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        2
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>6425824+josephsavona@users.noreply.github.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        13.475
+                                    </span>
+                                </td>
+                                <td>0.279</td>
+                                <td>0.722</td>
+                                <td>62</td>
+                                <td>21</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 1%"
+                                             title="0.717">
+                                        </div>
+                                    </div>
+                                    <small>0.72</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/6425824+josephsavona@users.noreply.github.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        3
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>poteto@users.noreply.github.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        7.078
+                                    </span>
+                                </td>
+                                <td>0.094</td>
+                                <td>0.297</td>
+                                <td>153</td>
+                                <td>48</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.495">
+                                        </div>
+                                    </div>
+                                    <small>0.49</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/poteto@users.noreply.github.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        4
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>34200447+mofeiZ@users.noreply.github.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        3.937
+                                    </span>
+                                </td>
+                                <td>0.170</td>
+                                <td>0.560</td>
+                                <td>51</td>
+                                <td>26</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 1%"
+                                             title="0.597">
+                                        </div>
+                                    </div>
+                                    <small>0.60</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/34200447+mofeiZ@users.noreply.github.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        5
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>michaelfaith@users.noreply.github.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        2.293
+                                    </span>
+                                </td>
+                                <td>0.118</td>
+                                <td>0.675</td>
+                                <td>14</td>
+                                <td>9</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 1%"
+                                             title="0.548">
+                                        </div>
+                                    </div>
+                                    <small>0.55</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/michaelfaith@users.noreply.github.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        6
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>rickhanlonii@gmail.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.800
+                                    </span>
+                                </td>
+                                <td>-0.194</td>
+                                <td>0.695</td>
+                                <td>24</td>
+                                <td>16</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.273">
+                                        </div>
+                                    </div>
+                                    <small>0.27</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/rickhanlonii@gmail.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        7
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>sebastian.silbermann@vercel.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.788
+                                    </span>
+                                </td>
+                                <td>-0.183</td>
+                                <td>0.510</td>
+                                <td>42</td>
+                                <td>29</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.137">
+                                        </div>
+                                    </div>
+                                    <small>0.14</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/sebastian.silbermann@vercel.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        8
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>jackpope1@gmail.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.529
+                                    </span>
+                                </td>
+                                <td>-0.169</td>
+                                <td>0.529</td>
+                                <td>22</td>
+                                <td>18</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.237">
+                                        </div>
+                                    </div>
+                                    <small>0.24</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/jackpope1@gmail.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        9
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>mattca@meta.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.496
+                                    </span>
+                                </td>
+                                <td>-0.312</td>
+                                <td>-0.517</td>
+                                <td>3</td>
+                                <td>2</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.072">
+                                        </div>
+                                    </div>
+                                    <small>0.07</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/mattca@meta.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        10
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>mail@hendrik-liebau.de</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.447
+                                    </span>
+                                </td>
+                                <td>-0.340</td>
+                                <td>0.819</td>
+                                <td>12</td>
+                                <td>8</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.028">
+                                        </div>
+                                    </div>
+                                    <small>0.03</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/mail@hendrik-liebau.de/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        11
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>silencerichard@163.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.303
+                                    </span>
+                                </td>
+                                <td>-0.368</td>
+                                <td>-0.822</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.059">
+                                        </div>
+                                    </div>
+                                    <small>0.06</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/silencerichard@163.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        12
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>jkassens@meta.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.268
+                                    </span>
+                                </td>
+                                <td>-0.171</td>
+                                <td>0.719</td>
+                                <td>19</td>
+                                <td>10</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.191">
+                                        </div>
+                                    </div>
+                                    <small>0.19</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/jkassens@meta.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        13
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>joesavona@fb.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.212
+                                    </span>
+                                </td>
+                                <td>0.223</td>
+                                <td>0.070</td>
+                                <td>8</td>
+                                <td>5</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 1%"
+                                             title="0.856">
+                                        </div>
+                                    </div>
+                                    <small>0.86</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/joesavona@fb.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        14
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>inottn@outlook.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.196
+                                    </span>
+                                </td>
+                                <td>-0.305</td>
+                                <td>-0.210</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.075">
+                                        </div>
+                                    </div>
+                                    <small>0.08</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/inottn@outlook.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        15
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>story@hey.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.171
+                                    </span>
+                                </td>
+                                <td>-0.082</td>
+                                <td>0.339</td>
+                                <td>12</td>
+                                <td>9</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.380">
+                                        </div>
+                                    </div>
+                                    <small>0.38</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/story@hey.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        16
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>38493346+hyoban@users.noreply.github.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.158
+                                    </span>
+                                </td>
+                                <td>-0.575</td>
+                                <td>-0.275</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.007">
+                                        </div>
+                                    </div>
+                                    <small>0.01</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/38493346+hyoban@users.noreply.github.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        17
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>57368278+jorge-cab@users.noreply.github.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.146
+                                    </span>
+                                </td>
+                                <td>-0.071</td>
+                                <td>0.530</td>
+                                <td>4</td>
+                                <td>4</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.369">
+                                        </div>
+                                    </div>
+                                    <small>0.37</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/57368278+jorge-cab@users.noreply.github.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        18
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>jmbrown@meta.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.109
+                                    </span>
+                                </td>
+                                <td>-0.175</td>
+                                <td>0.799</td>
+                                <td>11</td>
+                                <td>8</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.185">
+                                        </div>
+                                    </div>
+                                    <small>0.19</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/jmbrown@meta.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        19
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>572511+niklasholm@users.noreply.github.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.096
+                                    </span>
+                                </td>
+                                <td>-0.606</td>
+                                <td>-0.158</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.006">
+                                        </div>
+                                    </div>
+                                    <small>0.01</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/572511+niklasholm@users.noreply.github.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        20
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>rdlesyutin@gmail.com</strong>
+                                </td>
+                                <td>
+                                    <span class="developer-score text-success">
+                                        0.086
+                                    </span>
+                                </td>
+                                <td>-0.265</td>
+                                <td>0.331</td>
+                                <td>9</td>
+                                <td>7</td>
+                                <td>
+                                    <div class="progress" style="width: 60px; height: 20px;">
+                                        <div class="progress-bar" role="progressbar" 
+                                             style="width: 0%"
+                                             title="0.069">
+                                        </div>
+                                    </div>
+                                    <small>0.07</small>
+                                </td>
+                                <td>
+                                    <a href="/analysis/34/developer/rdlesyutin@gmail.com/" 
+                                       class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        
+                        
+                        
+                            
+                                <li class="page-item active">
+                                    <span class="page-link">1</span>
+                                </li>
+                            
+                        
+                            
+                                <li class="page-item">
+                                    <a class="page-link" href="?dev_page=2">2</a>
+                                </li>
+                            
+                        
+                        
+                        
+                            <li class="page-item">
+                                <a class="page-link" href="?dev_page=2">Next</a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+                
+            
+        </div>
+    </div>
+
+    <!-- Top Builds -->
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">⭐ Most Important Builds</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                
+                <div class="col-md-6 mb-3">
+                    <div class="batch-info">
+                        <div class="d-flex justify-content-between">
+                            <strong>Build 77</strong>
+                            <span class="badge bg-success">9.18</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                2 authors • 
+                                14 commits • 
+                                Importance: 1.15
+                            </small>
+                        </div>
+                        <div class="mt-1">
+                            <a href="/analysis/34/batch/77/" 
+                               class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="batch-info">
+                        <div class="d-flex justify-content-between">
+                            <strong>Build 33</strong>
+                            <span class="badge bg-success">7.23</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                6 authors • 
+                                19 commits • 
+                                Importance: 1.41
+                            </small>
+                        </div>
+                        <div class="mt-1">
+                            <a href="/analysis/34/batch/33/" 
+                               class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="batch-info">
+                        <div class="d-flex justify-content-between">
+                            <strong>Build 43</strong>
+                            <span class="badge bg-success">7.06</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                6 authors • 
+                                21 commits • 
+                                Importance: 1.10
+                            </small>
+                        </div>
+                        <div class="mt-1">
+                            <a href="/analysis/34/batch/43/" 
+                               class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="batch-info">
+                        <div class="d-flex justify-content-between">
+                            <strong>Build 47</strong>
+                            <span class="badge bg-success">6.98</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                6 authors • 
+                                25 commits • 
+                                Importance: 1.32
+                            </small>
+                        </div>
+                        <div class="mt-1">
+                            <a href="/analysis/34/batch/47/" 
+                               class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="batch-info">
+                        <div class="d-flex justify-content-between">
+                            <strong>Build 42</strong>
+                            <span class="badge bg-success">6.41</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                10 authors • 
+                                24 commits • 
+                                Importance: 1.37
+                            </small>
+                        </div>
+                        <div class="mt-1">
+                            <a href="/analysis/34/batch/42/" 
+                               class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="batch-info">
+                        <div class="d-flex justify-content-between">
+                            <strong>Build 41</strong>
+                            <span class="badge bg-success">6.30</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                6 authors • 
+                                17 commits • 
+                                Importance: 1.37
+                            </small>
+                        </div>
+                        <div class="mt-1">
+                            <a href="/analysis/34/batch/41/" 
+                               class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="batch-info">
+                        <div class="d-flex justify-content-between">
+                            <strong>Build 49</strong>
+                            <span class="badge bg-success">5.68</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                7 authors • 
+                                22 commits • 
+                                Importance: 1.22
+                            </small>
+                        </div>
+                        <div class="mt-1">
+                            <a href="/analysis/34/batch/49/" 
+                               class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="batch-info">
+                        <div class="d-flex justify-content-between">
+                            <strong>Build 15</strong>
+                            <span class="badge bg-success">4.76</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                4 authors • 
+                                21 commits • 
+                                Importance: 1.30
+                            </small>
+                        </div>
+                        <div class="mt-1">
+                            <a href="/analysis/34/batch/15/" 
+                               class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="batch-info">
+                        <div class="d-flex justify-content-between">
+                            <strong>Build 4</strong>
+                            <span class="badge bg-success">3.64</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                6 authors • 
+                                23 commits • 
+                                Importance: 1.00
+                            </small>
+                        </div>
+                        <div class="mt-1">
+                            <a href="/analysis/34/batch/4/" 
+                               class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="batch-info">
+                        <div class="d-flex justify-content-between">
+                            <strong>Build 109</strong>
+                            <span class="badge bg-success">2.17</span>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                4 authors • 
+                                10 commits • 
+                                Importance: 1.46
+                            </small>
+                        </div>
+                        <div class="mt-1">
+                            <a href="/analysis/34/batch/109/" 
+                               class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- FDS Distribution Chart -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">📈 FDS Score Distribution</h5>
+        </div>
+        <div class="card-body">
+            <canvas id="fdsChart" style="max-height: 400px;"></canvas>
+        </div>
+    </div>
+
+
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">🗑️ Delete Analysis</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this analysis?</p>
+                <div class="alert alert-warning">
+                    <strong>⚠️ Warning:</strong> This action cannot be undone. All analysis data including:
+                    <ul class="mb-0 mt-2">
+                        <li>Developer scores and rankings</li>
+                        <li>Batch metrics and collaboration data</li>
+                        <li>Historical analysis results</li>
+                    </ul>
+                    will be permanently deleted.
+                </div>
+                <div class="bg-light p-3 rounded">
+                    <strong>Repository:</strong> https://github.com/facebook/react<br>
+                    <strong>Analysis ID:</strong> 34<br>
+                    <strong>Created:</strong> Aug 12, 2025 03:04
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="post" action="/analysis/34/delete/" style="display: inline;">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="N7AWexBj926Z2mvuK06q2uaHxNzTvYVQfqArMTLbAbJ0M1XSYHOkRD5rripFiwi6">
+                    <button type="submit" class="btn btn-danger">
+                        🗑️ Delete Analysis
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-muted py-3" style="background:transparent">
+        <div class="container small">
+            <span>&copy; 2025 Fair Developer Score Analyzer</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Status polling for running analyses
+        function pollAnalysisStatus(analysisId) {
+            const statusElement = document.getElementById('analysis-status');
+            const progressElement = document.getElementById('analysis-progress');
+            
+            if (!statusElement) return;
+            
+            const interval = setInterval(async () => {
+                try {
+                    const response = await fetch(`/analysis/${analysisId}/status/`);
+                    const data = await response.json();
+                    
+                    if (data.status !== 'running' && data.status !== 'pending') {
+                        clearInterval(interval);
+                        location.reload(); // Reload page to show results
+                    } else {
+                        statusElement.textContent = data.status.charAt(0).toUpperCase() + data.status.slice(1);
+                        if (progressElement) {
+                            progressElement.style.display = 'block';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error polling status:', error);
+                }
+            }, 2000); // Poll every 2 seconds
+        }
+        
+        // Format numbers for display
+        function formatNumber(num, decimals = 2) {
+            if (num === null || num === undefined) return 'N/A';
+            return parseFloat(num).toFixed(decimals);
+        }
+        
+        // Copy text to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show success feedback
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Copied to clipboard!'
+                });
+            });
+        }
+    </script>
+    
+    
+
+
+
+<script>
+// Create FDS distribution chart
+const ctx = document.getElementById('fdsChart').getContext('2d');
+const fdsScores = [
+    
+        60.0658,
+    
+        13.4751,
+    
+        7.0776,
+    
+        3.9371,
+    
+        2.2928,
+    
+        0.8,
+    
+        0.7881,
+    
+        0.5286,
+    
+        0.4955,
+    
+        0.447,
+    
+        0.3027,
+    
+        0.268,
+    
+        0.2124,
+    
+        0.196,
+    
+        0.1707,
+    
+        0.1579,
+    
+        0.1455,
+    
+        0.1086,
+    
+        0.0955,
+    
+        0.0859,
+    
+];
+
+const developers = [
+    
+        "sebastian@calyp",
+    
+        "6425824+josephs",
+    
+        "poteto@users.no",
+    
+        "34200447+mofeiZ",
+    
+        "michaelfaith@us",
+    
+        "rickhanlonii@gm",
+    
+        "sebastian.silbe",
+    
+        "jackpope1@gmail",
+    
+        "mattca@meta.com",
+    
+        "mail@hendrik-li",
+    
+        "silencerichard@",
+    
+        "jkassens@meta.c",
+    
+        "joesavona@fb.co",
+    
+        "inottn@outlook.",
+    
+        "story@hey.com",
+    
+        "38493346+hyoban",
+    
+        "57368278+jorge-",
+    
+        "jmbrown@meta.co",
+    
+        "572511+niklasho",
+    
+        "rdlesyutin@gmai",
+    
+];
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: developers,
+        datasets: [{
+            label: 'FDS Score',
+            data: fdsScores,
+            backgroundColor: 'rgba(54, 162, 235, 0.8)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: 'Fair Developer Scores'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'FDS Score'
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Developers'
+                }
+            }
+        }
+    }
+});
+</script>
+
+
+</body>
+</html>

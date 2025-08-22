@@ -1,0 +1,158 @@
+2025-07-31 15:38:44,778 - __main__ - INFO - ============================================================
+2025-07-31 15:38:44,779 - __main__ - INFO - STEP 1: DATA PREPROCESSING
+2025-07-31 15:38:44,779 - __main__ - INFO - ============================================================
+2025-07-31 15:38:44,779 - preprocessing.data_processor - INFO - Loading data from ../../data/github_commit_data_test/linux_kernel_commits_clustered.csv
+2025-07-31 15:39:28,435 - __main__ - INFO - STARTING COMPLETE FDS ANALYSIS PIPELINE
+2025-07-31 15:39:28,435 - __main__ - INFO - Input file: ../../data/github_commit_data_test/linux_kernel_commits_clustered.csv
+2025-07-31 15:39:28,436 - __main__ - INFO - Output directory: ../../data/github_commit_data_test/fds_analysis
+2025-07-31 15:39:28,436 - __main__ - INFO - Started at: 2025-07-31 15:39:28
+2025-07-31 15:39:28,436 - __main__ - INFO - ============================================================
+2025-07-31 15:39:28,436 - __main__ - INFO - STEP 1: DATA PREPROCESSING
+2025-07-31 15:39:28,436 - __main__ - INFO - ============================================================
+2025-07-31 15:39:28,436 - preprocessing.data_processor - INFO - Loading data from ../../data/github_commit_data_test/linux_kernel_commits_clustered.csv
+2025-07-31 15:39:28,444 - preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 0.995
+2025-07-31 15:39:28,449 - __main__ - ERROR - Preprocessing failed: 'pagerank_iterations'
+2025-07-31 15:39:28,450 - __main__ - ERROR - PIPELINE FAILED: 'pagerank_iterations'
+2025-07-31 15:39:42,705 - __main__ - INFO - STARTING COMPLETE FDS ANALYSIS PIPELINE
+2025-07-31 15:39:42,705 - __main__ - INFO - Input file: ../../data/github_commit_data_test/linux_kernel_commits_clustered.csv
+2025-07-31 15:39:42,705 - __main__ - INFO - Output directory: ../../data/github_commit_data_test/fds_analysis
+2025-07-31 15:39:42,705 - __main__ - INFO - Started at: 2025-07-31 15:39:42
+2025-07-31 15:39:42,705 - __main__ - INFO - ============================================================
+2025-07-31 15:39:42,706 - __main__ - INFO - STEP 1: DATA PREPROCESSING
+2025-07-31 15:39:42,706 - __main__ - INFO - ============================================================
+2025-07-31 15:39:42,706 - preprocessing.data_processor - INFO - Loading data from ../../data/github_commit_data_test/linux_kernel_commits_clustered.csv
+2025-07-31 15:39:42,714 - preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 0.995
+2025-07-31 15:39:43,087 - preprocessing.data_processor - INFO - Built directory graph: 26 nodes, 204 edges
+2025-07-31 15:39:43,093 - preprocessing.data_processor - INFO - Detected 11 potential new file commits
+2025-07-31 15:39:43,093 - preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-07-31 15:39:43,097 - preprocessing.data_processor - INFO - Saved processed data to ..\..\data\github_commit_data_test\fds_analysis\linux_kernel_commits_processed.csv
+2025-07-31 15:39:43,098 - __main__ - INFO - Preprocessing completed in 0.39 seconds
+2025-07-31 15:39:43,098 - __main__ - INFO -    Processed 300 commits with 247 batches
+2025-07-31 15:39:43,098 - __main__ - INFO - ============================================================
+2025-07-31 15:39:43,098 - __main__ - INFO - STEP 2: DEVELOPER EFFORT CALCULATION
+2025-07-31 15:39:43,098 - __main__ - INFO - ============================================================
+2025-07-31 15:39:43,098 - effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-07-31 15:39:43,099 - __main__ - ERROR - Effort calculation failed: 'min_batch_size'
+2025-07-31 15:39:43,099 - __main__ - ERROR - PIPELINE FAILED: 'min_batch_size'
+2025-07-31 15:39:56,933 - __main__ - INFO - STARTING COMPLETE FDS ANALYSIS PIPELINE
+2025-07-31 15:39:56,934 - __main__ - INFO - Input file: ../../data/github_commit_data_test/linux_kernel_commits_clustered.csv
+2025-07-31 15:39:56,934 - __main__ - INFO - Output directory: ../../data/github_commit_data_test/fds_analysis
+2025-07-31 15:39:56,934 - __main__ - INFO - Started at: 2025-07-31 15:39:56
+2025-07-31 15:39:56,934 - __main__ - INFO - ============================================================
+2025-07-31 15:39:56,934 - __main__ - INFO - STEP 1: DATA PREPROCESSING
+2025-07-31 15:39:56,934 - __main__ - INFO - ============================================================
+2025-07-31 15:39:56,934 - preprocessing.data_processor - INFO - Loading data from ../../data/github_commit_data_test/linux_kernel_commits_clustered.csv
+2025-07-31 15:39:56,941 - preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 0.995
+2025-07-31 15:39:57,100 - preprocessing.data_processor - INFO - Built directory graph: 26 nodes, 204 edges
+2025-07-31 15:39:57,106 - preprocessing.data_processor - INFO - Detected 11 potential new file commits
+2025-07-31 15:39:57,106 - preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-07-31 15:39:57,109 - preprocessing.data_processor - INFO - Saved processed data to ..\..\data\github_commit_data_test\fds_analysis\linux_kernel_commits_processed.csv
+2025-07-31 15:39:57,111 - __main__ - INFO - Preprocessing completed in 0.18 seconds
+2025-07-31 15:39:57,111 - __main__ - INFO -    Processed 300 commits with 247 batches
+2025-07-31 15:39:57,111 - __main__ - INFO - ============================================================
+2025-07-31 15:39:57,111 - __main__ - INFO - STEP 2: DEVELOPER EFFORT CALCULATION
+2025-07-31 15:39:57,111 - __main__ - INFO - ============================================================
+2025-07-31 15:39:57,111 - effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-07-31 15:39:57,921 - effort_calculator.developer_effort - INFO - Calculated effort metrics for 300 commits
+2025-07-31 15:39:57,929 - __main__ - INFO - Saved effort data to ..\..\data\github_commit_data_test\fds_analysis\linux_kernel_commits_with_effort.csv
+2025-07-31 15:39:57,929 - __main__ - INFO - Effort calculation completed in 0.82 seconds
+2025-07-31 15:39:57,929 - __main__ - INFO - ============================================================
+2025-07-31 15:39:57,929 - __main__ - INFO - STEP 3: BATCH IMPORTANCE CALCULATION
+2025-07-31 15:39:57,929 - __main__ - INFO - ============================================================
+2025-07-31 15:39:57,929 - importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-07-31 15:39:57,930 - __main__ - ERROR - Importance calculation failed: 'min_batch_churn'
+2025-07-31 15:39:57,930 - __main__ - ERROR - PIPELINE FAILED: 'min_batch_churn'
+2025-07-31 15:40:14,734 - __main__ - INFO - STARTING COMPLETE FDS ANALYSIS PIPELINE
+2025-07-31 15:40:14,734 - __main__ - INFO - Input file: ../../data/github_commit_data_test/linux_kernel_commits_clustered.csv
+2025-07-31 15:40:14,735 - __main__ - INFO - Output directory: ../../data/github_commit_data_test/fds_analysis
+2025-07-31 15:40:14,735 - __main__ - INFO - Started at: 2025-07-31 15:40:14
+2025-07-31 15:40:14,735 - __main__ - INFO - ============================================================
+2025-07-31 15:40:14,735 - __main__ - INFO - STEP 1: DATA PREPROCESSING
+2025-07-31 15:40:14,735 - __main__ - INFO - ============================================================
+2025-07-31 15:40:14,735 - preprocessing.data_processor - INFO - Loading data from ../../data/github_commit_data_test/linux_kernel_commits_clustered.csv
+2025-07-31 15:40:14,742 - preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 0.995
+2025-07-31 15:40:14,898 - preprocessing.data_processor - INFO - Built directory graph: 26 nodes, 204 edges
+2025-07-31 15:40:14,904 - preprocessing.data_processor - INFO - Detected 11 potential new file commits
+2025-07-31 15:40:14,904 - preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-07-31 15:40:14,908 - preprocessing.data_processor - INFO - Saved processed data to ..\..\data\github_commit_data_test\fds_analysis\linux_kernel_commits_processed.csv
+2025-07-31 15:40:14,909 - __main__ - INFO - Preprocessing completed in 0.17 seconds
+2025-07-31 15:40:14,909 - __main__ - INFO -    Processed 300 commits with 247 batches
+2025-07-31 15:40:14,909 - __main__ - INFO - ============================================================
+2025-07-31 15:40:14,909 - __main__ - INFO - STEP 2: DEVELOPER EFFORT CALCULATION
+2025-07-31 15:40:14,909 - __main__ - INFO - ============================================================
+2025-07-31 15:40:14,909 - effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-07-31 15:40:15,721 - effort_calculator.developer_effort - INFO - Calculated effort metrics for 300 commits
+2025-07-31 15:40:15,730 - __main__ - INFO - Saved effort data to ..\..\data\github_commit_data_test\fds_analysis\linux_kernel_commits_with_effort.csv
+2025-07-31 15:40:15,730 - __main__ - INFO - Effort calculation completed in 0.82 seconds
+2025-07-31 15:40:15,730 - __main__ - INFO - ============================================================
+2025-07-31 15:40:15,730 - __main__ - INFO - STEP 3: BATCH IMPORTANCE CALCULATION
+2025-07-31 15:40:15,730 - __main__ - INFO - ============================================================
+2025-07-31 15:40:15,730 - importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-07-31 15:40:15,886 - importance_calculator.batch_importance - INFO - Calculated importance for 247 batches
+2025-07-31 15:40:15,896 - __main__ - INFO - Saved importance data to ..\..\data\github_commit_data_test\fds_analysis\linux_kernel_commits_with_importance.csv
+2025-07-31 15:40:15,899 - __main__ - INFO - Saved batch metrics to ..\..\data\github_commit_data_test\fds_analysis\linux_kernel_batch_metrics.csv
+2025-07-31 15:40:15,899 - __main__ - INFO - Importance calculation completed in 0.17 seconds
+2025-07-31 15:40:15,899 - __main__ - INFO - ============================================================
+2025-07-31 15:40:15,900 - __main__ - INFO - STEP 4: FINAL FDS CALCULATION
+2025-07-31 15:40:15,900 - __main__ - INFO - ============================================================
+2025-07-31 15:40:15,901 - fds_calculator - INFO - Calculated 300 individual contributions
+2025-07-31 15:40:15,911 - fds_calculator - INFO - Calculated FDS for 42 authors in 90-day window
+2025-07-31 15:40:15,928 - fds_calculator - INFO - Saved contributions to ..\..\data\github_commit_data_test\fds_analysis\fds_results\linux_kernel_contributions.csv
+2025-07-31 15:40:15,929 - fds_calculator - INFO - Saved fds_scores to ..\..\data\github_commit_data_test\fds_analysis\fds_results\linux_kernel_fds_scores.csv
+2025-07-31 15:40:15,930 - fds_calculator - INFO - Saved detailed_metrics to ..\..\data\github_commit_data_test\fds_analysis\fds_results\linux_kernel_detailed_metrics.csv
+2025-07-31 15:40:15,932 - fds_calculator - INFO - Saved batch_breakdown to ..\..\data\github_commit_data_test\fds_analysis\fds_results\linux_kernel_batch_breakdown.csv
+2025-07-31 15:40:15,937 - __main__ - INFO - FDS calculation completed in 0.04 seconds
+2025-07-31 15:40:15,937 - __main__ - INFO - ============================================================
+2025-07-31 15:40:15,937 - __main__ - INFO - PIPELINE COMPLETED SUCCESSFULLY!
+2025-07-31 15:40:15,937 - __main__ - INFO - ============================================================
+2025-07-31 15:40:15,937 - __main__ - INFO - Total execution time: 1.20 seconds
+2025-07-31 15:40:15,937 - __main__ - INFO - Analyzed 300 commits from 55 developers
+2025-07-31 15:40:15,937 - __main__ - INFO - Generated FDS scores for 42 active contributors
+2025-07-31 15:40:15,937 - __main__ - INFO - Finished at: 2025-07-31 15:40:15
+2025-07-31 15:46:09,856 - __main__ - INFO - STARTING COMPLETE FDS ANALYSIS PIPELINE
+2025-07-31 15:46:09,857 - __main__ - INFO - Input file: ../../data/github_commit_data_test/linux_kernel_commits_clustered.csv
+2025-07-31 15:46:09,857 - __main__ - INFO - Output directory: ../../data/github_commit_data_test/fds_analysis
+2025-07-31 15:46:09,857 - __main__ - INFO - Started at: 2025-07-31 15:46:09
+2025-07-31 15:46:09,857 - __main__ - INFO - ============================================================
+2025-07-31 15:46:09,857 - __main__ - INFO - STEP 1: DATA PREPROCESSING
+2025-07-31 15:46:09,857 - __main__ - INFO - ============================================================
+2025-07-31 15:46:09,857 - preprocessing.data_processor - INFO - Loading data from ../../data/github_commit_data_test/linux_kernel_commits_clustered.csv
+2025-07-31 15:46:09,867 - preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 0.995
+2025-07-31 15:46:10,052 - preprocessing.data_processor - INFO - Built directory graph: 26 nodes, 204 edges
+2025-07-31 15:46:10,060 - preprocessing.data_processor - INFO - Detected 11 potential new file commits
+2025-07-31 15:46:10,060 - preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-07-31 15:46:10,064 - preprocessing.data_processor - INFO - Saved processed data to ..\..\data\github_commit_data_test\fds_analysis\linux_kernel_commits_processed.csv
+2025-07-31 15:46:10,065 - __main__ - INFO - Preprocessing completed in 0.21 seconds
+2025-07-31 15:46:10,065 - __main__ - INFO -    Processed 300 commits with 187 batches
+2025-07-31 15:46:10,065 - __main__ - INFO - ============================================================
+2025-07-31 15:46:10,065 - __main__ - INFO - STEP 2: DEVELOPER EFFORT CALCULATION
+2025-07-31 15:46:10,065 - __main__ - INFO - ============================================================
+2025-07-31 15:46:10,066 - effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-07-31 15:46:10,806 - effort_calculator.developer_effort - INFO - Calculated effort metrics for 300 commits
+2025-07-31 15:46:10,813 - __main__ - INFO - Saved effort data to ..\..\data\github_commit_data_test\fds_analysis\linux_kernel_commits_with_effort.csv
+2025-07-31 15:46:10,814 - __main__ - INFO - Effort calculation completed in 0.75 seconds
+2025-07-31 15:46:10,814 - __main__ - INFO - ============================================================
+2025-07-31 15:46:10,814 - __main__ - INFO - STEP 3: BATCH IMPORTANCE CALCULATION
+2025-07-31 15:46:10,814 - __main__ - INFO - ============================================================
+2025-07-31 15:46:10,814 - importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-07-31 15:46:10,950 - importance_calculator.batch_importance - INFO - Calculated importance for 187 batches
+2025-07-31 15:46:10,959 - __main__ - INFO - Saved importance data to ..\..\data\github_commit_data_test\fds_analysis\linux_kernel_commits_with_importance.csv
+2025-07-31 15:46:10,962 - __main__ - INFO - Saved batch metrics to ..\..\data\github_commit_data_test\fds_analysis\linux_kernel_batch_metrics.csv
+2025-07-31 15:46:10,962 - __main__ - INFO - Importance calculation completed in 0.15 seconds
+2025-07-31 15:46:10,962 - __main__ - INFO - ============================================================
+2025-07-31 15:46:10,962 - __main__ - INFO - STEP 4: FINAL FDS CALCULATION
+2025-07-31 15:46:10,962 - __main__ - INFO - ============================================================
+2025-07-31 15:46:10,963 - fds_calculator - INFO - Calculated 300 individual contributions
+2025-07-31 15:46:10,968 - fds_calculator - INFO - Calculated FDS for 29 authors in 90-day window
+2025-07-31 15:46:10,984 - fds_calculator - INFO - Saved contributions to ..\..\data\github_commit_data_test\fds_analysis\fds_results\linux_kernel_contributions.csv
+2025-07-31 15:46:10,985 - fds_calculator - INFO - Saved fds_scores to ..\..\data\github_commit_data_test\fds_analysis\fds_results\linux_kernel_fds_scores.csv
+2025-07-31 15:46:10,986 - fds_calculator - INFO - Saved detailed_metrics to ..\..\data\github_commit_data_test\fds_analysis\fds_results\linux_kernel_detailed_metrics.csv
+2025-07-31 15:46:10,988 - fds_calculator - INFO - Saved batch_breakdown to ..\..\data\github_commit_data_test\fds_analysis\fds_results\linux_kernel_batch_breakdown.csv
+2025-07-31 15:46:10,995 - __main__ - INFO - FDS calculation completed in 0.03 seconds
+2025-07-31 15:46:10,995 - __main__ - INFO - ============================================================
+2025-07-31 15:46:10,995 - __main__ - INFO - PIPELINE COMPLETED SUCCESSFULLY!
+2025-07-31 15:46:10,996 - __main__ - INFO - ============================================================
+2025-07-31 15:46:10,996 - __main__ - INFO - Total execution time: 1.14 seconds
+2025-07-31 15:46:10,996 - __main__ - INFO - Analyzed 300 commits from 55 developers
+2025-07-31 15:46:10,996 - __main__ - INFO - Generated FDS scores for 29 active contributors
+2025-07-31 15:46:10,996 - __main__ - INFO - Finished at: 2025-07-31 15:46:10

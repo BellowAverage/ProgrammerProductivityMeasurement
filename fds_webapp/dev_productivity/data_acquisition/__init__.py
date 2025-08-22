@@ -1,0 +1,1 @@
+# Data acquisition module for Django integration

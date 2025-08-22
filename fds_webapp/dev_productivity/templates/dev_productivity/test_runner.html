@@ -1,0 +1,17 @@
+{% extends 'dev_productivity/base.html' %}
+{% block title %}Test Runner{% endblock %}
+{% block content %}
+<div class="card shadow-sm border-0">
+  <div class="card-body">
+    <h5 class="mb-3">Test Runner</h5>
+    <p class="text-muted">Use the CLI tools to run tests locally.</p>
+    <ol class="small">
+      <li>Open a terminal in the project root</li>
+      <li>Set your token: <code>set GITHUB_TOKEN=... </code></li>
+      <li>Run bulk analyses: <code>python fds_webapp/run_bulk_analyses.py</code></li>
+    </ol>
+  </div>
+</div>
+{% endblock %}
+
+

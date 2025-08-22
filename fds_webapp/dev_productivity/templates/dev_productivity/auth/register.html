@@ -1,0 +1,106 @@
+{% extends 'dev_productivity/auth/base_auth.html' %}
+
+{% block title %}Register - FDS Analyzer{% endblock %}
+{% block auth_title %}Create Account{% endblock %}
+{% block auth_subtitle %}Quick and easy registration - only username and password required{% endblock %}
+
+{% block content %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.first_name.label_tag }}
+            {{ form.first_name }}
+            {% if form.first_name.errors %}
+                <div class="text-danger small mt-1">{{ form.first_name.errors.0 }}</div>
+            {% endif %}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form.last_name.label_tag }}
+            {{ form.last_name }}
+            {% if form.last_name.errors %}
+                <div class="text-danger small mt-1">{{ form.last_name.errors.0 }}</div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="mb-3">
+        {{ form.email.label_tag }}
+        {{ form.email }}
+        {% if form.email.errors %}
+            <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
+        {% endif %}
+    </div>
+    
+    <div class="mb-3">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {% if form.username.errors %}
+            <div class="text-danger small mt-1">{{ form.username.errors.0 }}</div>
+        {% endif %}
+        {% if form.username.help_text %}
+            <div class="form-text">{{ form.username.help_text }}</div>
+        {% endif %}
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.organization.label_tag }}
+            {{ form.organization }}
+            {% if form.organization.errors %}
+                <div class="text-danger small mt-1">{{ form.organization.errors.0 }}</div>
+            {% endif %}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form.job_title.label_tag }}
+            {{ form.job_title }}
+            {% if form.job_title.errors %}
+                <div class="text-danger small mt-1">{{ form.job_title.errors.0 }}</div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="mb-3">
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+        {% if form.password1.errors %}
+            <div class="text-danger small mt-1">{{ form.password1.errors.0 }}</div>
+        {% endif %}
+        {% if form.password1.help_text %}
+            <div class="form-text">{{ form.password1.help_text }}</div>
+        {% endif %}
+    </div>
+    
+    <div class="mb-3">
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+            <div class="text-danger small mt-1">{{ form.password2.errors.0 }}</div>
+        {% endif %}
+    </div>
+    
+    <div class="mb-4">
+        <div class="form-check">
+            {{ form.terms_accepted }}
+            <label class="form-check-label" for="{{ form.terms_accepted.id_for_label }}">
+                {{ form.terms_accepted.label }}
+            </label>
+            {% if form.terms_accepted.errors %}
+                <div class="text-danger small mt-1">{{ form.terms_accepted.errors.0 }}</div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary w-100 mb-3">
+        <i class="bi bi-person-plus me-2"></i>Create Account
+    </button>
+</form>
+
+<div class="text-center">
+    <p class="text-muted mb-0">
+        Already have an account? 
+        <a href="{% url 'login' %}">Sign in here</a>
+    </p>
+</div>
+{% endblock %}

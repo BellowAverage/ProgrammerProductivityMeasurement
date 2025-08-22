@@ -1,0 +1,101 @@
+hash,author_name,author_email,commit_ts_utc,dt_prev_commit_sec,dt_prev_author_sec,files_changed,insertions,deletions,is_merge,dirs_touched,file_types,msg_subject,batch_id,noise_factor,raw_churn,effective_churn,directory_centrality,key_path_lines,new_file_indicator,new_file_lines
+2507789a724d607fa9e162dcadeb9f51b071fc49,Gerd Hoffmann,kraxel@redhat.com,1746606501,-1749488.0,,0,0,0,False,0,,drm/virtio: implement virtio_gpu_shutdown,11,1.0,0,0.0,0.0,0,False,0
+564a69ad90d15c782176e1a8c9e1c95661e1aed0,Viresh Kumar,viresh.kumar@linaro.org,1747827226,-676601.0,,0,0,0,False,0,,virtio-mmio: Remove virtqueue list from mmio device,9,1.0,0,0.0,0.0,0,False,0
+482bd84f1fab20ac6c4d112945ae2d1bdb36839f,Michael S. Tsirkin,mst@redhat.com,1748355989,528763.0,,0,0,0,False,0,,virtio: document ENOSPC,10,1.0,0,0.0,0.0,0,False,0
+4d0efa600ecf30aa61c14681164290f75c328f8a,Viresh Kumar,viresh.kumar@linaro.org,1748503827,-4332.0,,0,0,0,False,0,,virtio-vdpa: Remove virtqueue list,8,1.0,0,0.0,0.0,0,False,0
+c0883c1af14c5d351201ace00b1a46df2b157329,Alok Tiwari,alok.a.tiwari@oracle.com,1748508159,-511989.0,,0,0,0,False,0,,virtio: Fix typo in register_virtio_device() doc comment,7,1.0,0,0.0,0.0,0,False,0
+32d89a405adc204d82bea6ae2ba27a62d35568b4,Pei Xiao,xiaopei01@kylinos.cn,1749020148,-42733.0,,0,0,0,False,0,,vhost: Use ERR_CAST inlined function instead of ERR_PTR(PTR_ERR(...)),6,1.0,0,0.0,0.0,0,False,0
+6f0f3d7fc4e05797b801ded4910a64d16db230e9,Dragos Tatulea,dtatulea@nvidia.com,1749062881,-589880.0,,0,0,0,False,0,,vdpa/mlx5: Fix needs_teardown flag calculation,5,1.0,0,0.0,0.0,0,False,0
+652abad08571a067b16c5bb47ad5ea7478517e7d,Alok Tiwari,alok.a.tiwari@oracle.com,1749652761,-22912.0,,0,0,0,False,0,,vhost-scsi: Fix typos and formatting in comments and logs,4,1.0,0,0.0,0.0,0,False,0
+69cd720a8a5e9ef0f05ce5dd8c9ea6e018245c82,Mike Christie,michael.christie@oracle.com,1749675673,-443843.0,,0,0,0,False,0,,vhost-scsi: Fix log flooding with target does not exist errors,3,1.0,0,0.0,0.0,0,False,0
+8a0d18a9348f61c63b33a23b9eece1f66af1d70c,Alok Tiwari,alok.a.tiwari@oracle.com,1750009151,-652379.0,,0,0,0,False,0,,vhost: Fix typos,0,1.0,0,0.0,0.0,0,False,0
+569c392e191361cd05fba1fd87ed02ef0d130ef7,Dr. David Alan Gilbert,linux@treblig.org,1750119516,-1.0,,0,0,0,False,0,,vhost: vringh: Remove unused iotlb functions,2,1.0,0,0.0,0.0,0,False,0
+6e9ef6937c726b97d4a6d49332d06e999acc15f5,Dr. David Alan Gilbert,linux@treblig.org,1750119517,110366.0,,0,0,0,False,0,,vhost: vringh: Remove unused functions,1,1.0,0,0.0,0.0,0,False,0
+95109b46764665e3de4a118185e4f732e8e849fd,WangYuli,wangyuli@uniontech.com,1750661530,-474103.0,,0,0,0,False,0,,virtio: virtio_dma_buf: fix missing parameter documentation,0,1.0,0,0.0,0.0,0,False,0
+400cad513c78f9af72c5a20f3611c1f1dc71d465,Alok Tiwari,alok.a.tiwari@oracle.com,1751135633,-840631.0,,0,0,0,False,0,,vhost-scsi: Fix check for inline_sg_cnt exceeding preallocated limit,0,1.0,0,0.0,0.0,0,False,0
+d9ea58b5dc6b4b50fbb6a10c73f840e8b10442b7,Anders Roxell,anders.roxell@linaro.org,1751633615,-843537.0,,0,0,0,False,0,,vdpa: Fix IDR memory leak in VDUSE module exit,0,1.0,0,0.0,0.0,0,False,0
+cc51a66815999afb7e9cd845968de4fdf07567b7,Dragos Tatulea,dtatulea@nvidia.com,1751976264,342649.0,,0,0,0,False,0,,vdpa/mlx5: Fix release of uninitialized resources on error path,0,1.0,0,0.0,0.0,0,False,0
+89a216ed973e49d6f39a6976bcead3b631171b64,Michael S. Tsirkin,mst@redhat.com,1752094531,5488030.0,,0,0,0,False,0,,"virtio: fix comments, readability",12,1.0,0,0.0,0.0,0,False,0
+709580086fbba45c1796c28bab8b4a27887ee32d,Rob Herring (Arm),robh@kernel.org,1752170850,-10.0,,0,0,0,False,0,,"dt-bindings: PCI: Convert st,spear1340-pcie to DT schema",52,1.0,0,0.0,0.0,0,False,0
+5c2796adb127c6569e14afab8f18f8bc8db58fb1,Rob Herring (Arm),robh@kernel.org,1752170860,-8.0,,0,0,0,False,0,,"dt-bindings: PCI: Convert axis,artpec6-pcie to DT schema",51,1.0,0,0.0,0.0,0,False,0
+f6b5ad2c6c10bea11b8e22cfb9732238f921579a,Rob Herring (Arm),robh@kernel.org,1752170868,-17.0,,0,0,0,False,0,,"dt-bindings: PCI: Convert apm,xgene-pcie to DT schema",50,1.0,0,0.0,0.0,0,False,0
+9e71c41469391c14f8dc5e6242f0d0ed89ce8978,Rob Herring (Arm),robh@kernel.org,1752170885,-18.0,,0,0,0,False,0,,"dt-bindings: PCI: Convert marvell,armada-3700-pcie to DT schema",49,1.0,0,0.0,0.0,0,False,0
+bf9d32f203a23950917d2949c812b89bcb8a0340,Rob Herring (Arm),robh@kernel.org,1752170903,-19.0,,0,0,0,False,0,,"dt-bindings: PCI: Convert amazon,al-alpine-v[23]-pcie to DT schema",48,1.0,0,0.0,0.0,0,False,0
+51e78d97e7bf553c03f47d2c5e9650a1e18f78e7,Rob Herring (Arm),robh@kernel.org,1752170922,-655714.0,,0,0,0,False,0,,dt-bindings: PCI: Remove 83xx-512x-pci.txt,47,1.0,0,0.0,0.0,0,False,0
+7d9896e9f6d02d8aa85e63f736871f96c59a5263,Cindy Lu,lulu@redhat.com,1752477152,-5721.0,,0,0,0,False,0,,vhost: Reintroduce kthread API and add mode selection,0,1.0,0,0.0,0.0,0,False,0
+b4ba1207d45adaafa2982c035898b36af2d3e518,Jason Wang,jasowang@redhat.com,1752482873,-1.0,,0,0,0,False,0,,vhost: fail early when __vhost_add_used() fails,0,1.0,0,0.0,0.0,0,False,0
+67a873df0c410915275f735fedb401b9637d6faf,Jason Wang,jasowang@redhat.com,1752482874,-1.0,,0,0,0,False,0,,vhost: basic in order support,0,1.0,0,0.0,0.0,0,False,0
+45347e79b544928d8ace9eb07c4d8f4fcc525752,Jason Wang,jasowang@redhat.com,1752482875,-259993.0,,0,0,0,False,0,,vhost_net: basic in_order support,0,1.0,0,0.0,0.0,0,False,0
+10a886aaed293c4db3417951f396827216299e3d,Will Deacon,will@kernel.org,1752742868,-1.0,,0,0,0,False,0,,vhost/vsock: Avoid allocating arbitrarily-sized SKBs,0,1.0,0,0.0,0.0,0,False,0
+0dab92484474587b82e8e0455839eaf5ac7bf894,Will Deacon,will@kernel.org,1752742869,-1.0,,0,0,0,False,0,,vsock/virtio: Validate length in packet header before skb_put(),0,1.0,0,0.0,0.0,0,False,0
+87dbae5e36613a6020f3d64a2eaeac0a1e0e6dc6,Will Deacon,will@kernel.org,1752742870,-1.0,,0,0,0,False,0,,vsock/virtio: Move length check to callers of virtio_vsock_skb_rx_put(),0,1.0,0,0.0,0.0,0,False,0
+03a92f036a04fed2b00d69f5f46f1a486e70dc5c,Will Deacon,will@kernel.org,1752742871,-1.0,,0,0,0,False,0,,vsock/virtio: Resize receive buffers so that each SKB fits in a 4K page,0,1.0,0,0.0,0.0,0,False,0
+2304c64a2866c58534560c63dc6e79d09b8f8d8d,Will Deacon,will@kernel.org,1752742872,-1.0,,0,0,0,False,0,,vsock/virtio: Rename virtio_vsock_alloc_skb(),0,1.0,0,0.0,0.0,0,False,0
+fac6b82e0f3eaca33c8c67ec401681b21143ae17,Will Deacon,will@kernel.org,1752742873,-1.0,,0,0,0,False,0,,vsock/virtio: Move SKB allocation lower-bound check to callers,0,1.0,0,0.0,0.0,0,False,0
+ab9aa2f3afc2713c14f6c4c6b90c9a0933b837f1,Will Deacon,will@kernel.org,1752742874,-1.0,,0,0,0,False,0,,vhost/vsock: Allocate nonlinear SKBs for handling large receive buffers,0,1.0,0,0.0,0.0,0,False,0
+8ca76151d2c8219edea82f1925a2a25907ff6a9d,Will Deacon,will@kernel.org,1752742875,-1.0,,0,0,0,False,0,,vsock/virtio: Rename virtio_vsock_skb_rx_put(),0,1.0,0,0.0,0.0,0,False,0
+6693731487a8145a9b039bc983d77edc47693855,Will Deacon,will@kernel.org,1752742876,-1298767.0,,0,0,0,False,0,,vsock/virtio: Allocate nonlinear SKBs for handling large transmit buffers,0,1.0,0,0.0,0.0,0,False,0
+fbcbd66fddd2e9ad295d6e3707e2421f062727d5,Ziyue Zhang,ziyue.zhang@oss.qualcomm.com,1752826636,-1169663.0,,0,0,0,False,0,,"dt-bindings: PCI: qcom,pcie-sa8775p: Document 'link_down' reset",46,1.0,0,0.0,0.0,0,False,0
+4859d6f8a54b0e654391da1b70acf13201b4bad8,Jiri Kosina,jkosina@suse.com,1753995132,-77.0,,0,0,0,True,0,,Merge branch 'for-6.17/pidff' into for-linus,56,1.0,0,0.0,0.0,0,False,0
+ddb7a62af2e766eabb4ab7080e6ed8d6b8915302,Jiri Kosina,jkosina@suse.com,1753995209,-46.0,,0,0,0,True,0,,Merge branch 'for-6.17/selftests' into for-linus,55,1.0,0,0.0,0.0,0,False,0
+c62f87e2b1892fc35ed45597101586e27f70b076,Jiri Kosina,jkosina@suse.com,1753995255,-896.0,,0,0,0,True,0,,Merge branch 'for-6.17/uclogic' into for-linus,54,1.0,0,0.0,0.0,0,False,0
+6531a2cf07ef156956840853692755cc7e1621b7,Dave Airlie,airlied@redhat.com,1753996151,1825301.0,,0,0,0,True,0,,Merge tag 'drm-xe-next-fixes-2025-07-31' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-ne,53,1.0,0,0.0,0.0,0,False,0
+2de2f9274f7a1415dd88f71d7565044e1a4b8e79,Bjorn Helgaas,bhelgaas@google.com,1753996299,-1.0,,0,0,0,True,0,,Merge branch 'pci/aer',45,1.0,0,0.0,0.0,0,False,0
+010c31057776ac43cfe773f719eccccbbc3e0f45,Bjorn Helgaas,bhelgaas@google.com,1753996300,0.0,,0,0,0,True,0,,Merge branch 'pci/aspm',44,1.0,0,0.0,0.0,0,False,0
+e6035a0809e05ec093e456c04fa2bad4f8a66e13,Bjorn Helgaas,bhelgaas@google.com,1753996300,-1.0,,0,0,0,True,0,,Merge branch 'pci/boot-display',43,1.0,0,0.0,0.0,0,False,0
+fc9a7d38d5f44cebd0964fdad67533ad1240cfe3,Bjorn Helgaas,bhelgaas@google.com,1753996301,-1.0,,0,0,0,True,0,,Merge branch 'pci/enumeration',42,1.0,0,0.0,0.0,0,False,0
+9fef768d867c70cdbb43a2152ce539618ce07b2e,Bjorn Helgaas,bhelgaas@google.com,1753996302,-1.0,,0,0,0,True,0,,Merge branch 'pci/iommu',41,1.0,0,0.0,0.0,0,False,0
+0e142889f47bbb48cb880b79873ad644a9165857,Bjorn Helgaas,bhelgaas@google.com,1753996302,0.0,,0,0,0,True,0,,Merge branch 'pci/hotplug',41,1.0,0,0.0,0.0,0,False,0
+29ccb7b97e2734e411a5e8e5cec1c8b7b2686503,Bjorn Helgaas,bhelgaas@google.com,1753996303,-1.0,,0,0,0,True,0,,Merge branch 'pci/resources',41,1.0,0,0.0,0.0,0,False,0
+618c1ead12a44c6a16922e7853943c79b202c995,Bjorn Helgaas,bhelgaas@google.com,1753996303,0.0,,0,0,0,True,0,,Merge branch 'pci/pwrctrl',41,1.0,0,0.0,0.0,0,False,0
+11fdf08767d101eb72bb1ab1365cde605ebff18b,Bjorn Helgaas,bhelgaas@google.com,1753996304,-1.0,,0,0,0,True,0,,Merge branch 'pci/dt-bindings',41,1.0,0,0.0,0.0,0,False,0
+b8222fe27cc2b68e08989f4b91c6dcd5b69dbc25,Bjorn Helgaas,bhelgaas@google.com,1753996305,0.0,,0,0,0,True,0,,Merge branch 'pci/endpoint/core',40,1.0,0,0.0,0.0,0,False,0
+63e6f0df6a07945709c02822e89ec61ce7fe7c9a,Bjorn Helgaas,bhelgaas@google.com,1753996305,-1.0,,0,0,0,True,0,,Merge branch 'pci/endpoint/doorbell',39,1.0,0,0.0,0.0,0,False,0
+7f837a2648a614337a879cc2f7131c3015e8557b,Bjorn Helgaas,bhelgaas@google.com,1753996306,0.0,,0,0,0,True,0,,Merge branch 'pci/endpoint/epf-vntb',38,1.0,0,0.0,0.0,0,False,0
+769ce531faa659ff3cea347d14ff50dcf2d3d4b8,Bjorn Helgaas,bhelgaas@google.com,1753996306,-1.0,,0,0,0,True,0,,Merge branch 'pci/controller/msi-parent',37,1.0,0,0.0,0.0,0,False,0
+480b315376eeabbcd206e41df7e7c1e9ed8d71b9,Bjorn Helgaas,bhelgaas@google.com,1753996307,-18.0,,0,0,0,True,0,,Merge branch 'pci/controller/linkup-fix',36,1.0,0,0.0,0.0,0,False,0
+dc6061ed6becae8baabc5c6fd1c4cbf1f8ffa41f,Bjorn Helgaas,bhelgaas@google.com,1753996325,-8.0,,0,0,0,True,0,,Merge branch 'pci/controller/brcmstb',36,1.0,0,0.0,0.0,0,False,0
+4441df6adcb355d5ce6e1a94e31ea3296059d53f,Bjorn Helgaas,bhelgaas@google.com,1753996333,0.0,,0,0,0,True,0,,Merge branch 'pci/controller/cadence',36,1.0,0,0.0,0.0,0,False,0
+f623d50c125d6e1c2782daaf694fae185ab7e27c,Bjorn Helgaas,bhelgaas@google.com,1753996333,-1.0,,0,0,0,True,0,,Merge branch 'pci/controller/dwc',36,1.0,0,0.0,0.0,0,False,0
+4cf171327a80fb73a039d6e71704364f2e5a916e,Bjorn Helgaas,bhelgaas@google.com,1753996334,0.0,,0,0,0,True,0,,Merge branch 'pci/controller/dw-rockchip',35,1.0,0,0.0,0.0,0,False,0
+ed1e2002b748a1ae58e94c1ed93051f3d82b71ce,Bjorn Helgaas,bhelgaas@google.com,1753996334,-1.0,,0,0,0,True,0,,Merge branch 'pci/controller/imx6',34,1.0,0,0.0,0.0,0,False,0
+d5b0b60ab054ef8006a6339ba8f6eeda3ba8a120,Bjorn Helgaas,bhelgaas@google.com,1753996335,-1.0,,0,0,0,True,0,,Merge branch 'pci/controller/mvebu',33,1.0,0,0.0,0.0,0,False,0
+90eb421c46fd7e31f03b4e5f8a36eb81ca3f42bb,Bjorn Helgaas,bhelgaas@google.com,1753996336,-1.0,,0,0,0,True,0,,Merge branch 'pci/controller/rockchip',31,1.0,0,0.0,0.0,0,False,0
+81b3be6cc58a43c9272ca94c9c0f1ce38b3107cb,Bjorn Helgaas,bhelgaas@google.com,1753996336,0.0,,0,0,0,True,0,,Merge branch 'pci/controller/qcom',32,1.0,0,0.0,0.0,0,False,0
+e070bde5b3238527b09065c5516aa91b5d4dbfaf,Bjorn Helgaas,bhelgaas@google.com,1753996337,-1.0,,0,0,0,True,0,,Merge branch 'pci/controller/sophgo',29,1.0,0,0.0,0.0,0,False,0
+090fc11428a3c0636c23b7f8368446b719ee79c2,Bjorn Helgaas,bhelgaas@google.com,1753996337,0.0,,0,0,0,True,0,,Merge branch 'pci/controller/rockchip-host',30,1.0,0,0.0,0.0,0,False,0
+0edfffd24c641d62cb734223b0185e362935abc2,Bjorn Helgaas,bhelgaas@google.com,1753996338,-1.0,,0,0,0,True,0,,Merge branch 'pci/controller/xgene',27,1.0,0,0.0,0.0,0,False,0
+656626e81a7eb9f5138445a6e72d81be975446d2,Bjorn Helgaas,bhelgaas@google.com,1753996338,0.0,,0,0,0,True,0,,Merge branch 'pci/controller/vmd',28,1.0,0,0.0,0.0,0,False,0
+58d2b6b6b214d8b4914cd4c821a8bd0c75436c2c,Bjorn Helgaas,bhelgaas@google.com,1753996339,-2735.0,,0,0,0,True,0,,Merge branch 'pci/misc',26,1.0,0,0.0,0.0,0,False,0
+beace86e61e465dba204a268ab3f3377153a4973,Linus Torvalds,torvalds@linux-foundation.org,1753999074,-2548.0,,0,0,0,True,0,,Merge tag 'mm-stable-2025-07-30-15-25' of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm,25,1.0,0,0.0,0.0,0,False,0
+af5b2619a89d4f1261ddfc310ffd5d1e630f8fdc,Linus Torvalds,torvalds@linux-foundation.org,1754001622,-1437.0,,0,0,0,True,0,,Merge tag 'wq-for-6.17' of git://git.kernel.org/pub/scm/linux/kernel/git/tj/wq,24,1.0,0,0.0,0.0,0,False,0
+6aee5aed2edd0a156bf060abce1bdbbc38171c10,Linus Torvalds,torvalds@linux-foundation.org,1754003059,-1527.0,,0,0,0,True,0,,Merge tag 'cgroup-for-6.17' of git://git.kernel.org/pub/scm/linux/kernel/git/tj/cgroup,23,1.0,0,0.0,0.0,0,False,0
+6a68cec16b647791d448102376a7eec2820e874f,Linus Torvalds,torvalds@linux-foundation.org,1754004586,-1366.0,,0,0,0,True,0,,Merge tag 'sched_ext-for-6.17' of git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext,22,1.0,0,0.0,0.0,0,False,0
+f2d282e1dfb3d8cb95b5ccdea43f2411f27201db,Linus Torvalds,torvalds@linux-foundation.org,1754005952,-1054.0,,0,0,0,True,0,,Merge tag 'bitmap-for-6.17' of https://github.com/norov/linux,21,1.0,0,0.0,0.0,0,False,0
+5ccaeedb489b41ce6cb857d0de488992746be282,Mark Rutland,mark.rutland@arm.com,1754007006,-1.0,,0,0,0,False,0,,cfi: add C CFI type macro,20,1.0,0,0.0,0.0,0,False,0
+f1befc82addda926c8301436123d041bf3249505,Sami Tolvanen,samitolvanen@google.com,1754007007,-1.0,,0,0,0,False,0,,cfi: Move BPF CFI types and helpers to generic code,19,1.0,0,0.0,0.0,0,False,0
+710618c760c0a3267221517d78f4cfb65ca7b882,Puranjay Mohan,puranjay12@gmail.com,1754007008,-4426.0,,0,0,0,False,0,,"arm64/cfi,bpf: Support kCFI + BPF on arm64",18,1.0,0,0.0,0.0,0,False,0
+93acc0f43f58743737888985133809634e298753,Alexei Starovoitov,ast@kernel.org,1754011434,-10690.0,,0,0,0,True,0,,Merge branch 'support-kcfi-bpf-on-arm64',17,1.0,0,0.0,0.0,0,False,0
+db68e4c80d995b67a92460711038b9223166bda7,Linus Torvalds,torvalds@linux-foundation.org,1754022124,-241.0,,0,0,0,True,0,,Merge tag 'v6.17-rc-part1-smb3-client-fixes' of git://git.samba.org/sfrench/cifs-2.6,16,1.0,0,0.0,0.0,0,False,0
+b80a75cf6999fb79971b41eaec7af2bb4b514714,Linus Torvalds,torvalds@linux-foundation.org,1754022365,-776.0,,0,0,0,True,0,,Merge tag 'hid-for-linus-2025073101' of git://git.kernel.org/pub/scm/linux/kernel/git/hid/hid,15,1.0,0,0.0,0.0,0,False,0
+07b43820437bd96f31f5d7f9baf4453fcb7dedbf,Linus Torvalds,torvalds@linux-foundation.org,1754023141,-515.0,,0,0,0,True,0,,Merge tag 'for-v6.17' of git://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply,14,1.0,0,0.0,0.0,0,False,0
+89748acdf226fd1a8775ff6fa2703f8412b286c8,Linus Torvalds,torvalds@linux-foundation.org,1754023656,1929125.0,,0,0,0,True,0,,Merge tag 'drm-next-2025-08-01' of https://gitlab.freedesktop.org/drm/kernel,13,1.0,0,0.0,0.0,0,False,0
+ead3d7b2b6afa5ee7958620c4329982a7d9c2b78,Paul Chaignon,paul.chaignon@gmail.com,1754041643,-52.0,,0,0,0,False,0,,bpf: Check flow_dissector ctx accesses are aligned,0,1.0,0,0.0,0.0,0,False,0
+9e6448f7b1efb27f8d508b067ecd33ed664a4246,Paul Chaignon,paul.chaignon@gmail.com,1754041695,-60.0,,0,0,0,False,0,,bpf: Check netfilter ctx accesses are aligned,0,1.0,0,0.0,0.0,0,False,0
+f914876eec9e72ae94b5cee81a9dc7935c255b2f,Paul Chaignon,paul.chaignon@gmail.com,1754041755,-25029.0,,0,0,0,False,0,,bpf: Improve ctx access verifier error message,0,1.0,0,0.0,0.0,0,False,0
+d8d2d9d12f141302aaec3ff9a3a8cbed4ac0546c,Paul Chaignon,paul.chaignon@gmail.com,1754041784,-43961.0,,0,0,0,False,0,,selftests/bpf: Test for unaligned flow_dissector ctx access,0,1.0,0,0.0,0.0,0,False,0
+c6439bfaabf25b736154ac5640c677da2c085db4,Linus Torvalds,torvalds@linux-foundation.org,1754066784,-2209.0,,0,0,0,True,0,,Merge tag 'trace-deferred-unwind-v6.17' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux,0,1.0,0,0.0,0.0,0,False,0
+5172a777248e56dbae22b55231d24c7ecc6393f9,Linus Torvalds,torvalds@linux-foundation.org,1754068993,-383.0,,0,0,0,True,0,,Merge tag 'trace-tools-v6.17' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace,0,1.0,0,0.0,0.0,0,False,0
+d6f38c12396397e48092ad9e8a4d7be4de51b942,Linus Torvalds,torvalds@linux-foundation.org,1754069376,-2391.0,,0,0,0,True,0,,Merge tag 'trace-v6.17' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace,0,1.0,0,0.0,0.0,0,False,0
+6fac1139d99e283ba0c7ed2d1acad9ec2807ba3a,Linus Torvalds,torvalds@linux-foundation.org,1754071767,-4617.0,,0,0,0,True,0,,Merge tag 'soundwire-6.17-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire,0,1.0,0,0.0,0.0,0,False,0
+7a64bdfaf3e641862e8088a19205692b8b229753,Linus Torvalds,torvalds@linux-foundation.org,1754076384,-326.0,,0,0,0,True,0,,Merge tag 'sound-6.17-rc1-2' of git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound,0,1.0,0,0.0,0.0,0,False,0
+8582976acc8504cec53a7b6fed493435eba8437f,Linus Torvalds,torvalds@linux-foundation.org,1754076710,-202.0,,0,0,0,True,0,,Merge tag 'phy-for-6.17' of git://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy,0,1.0,0,0.0,0.0,0,False,0
+196dacf4541afcbccbef9c3697231af354bbab13,Linus Torvalds,torvalds@linux-foundation.org,1754076912,-3451.0,,0,0,0,True,0,,Merge tag 'dmaengine-6.17-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine,0,1.0,0,0.0,0.0,0,False,0
+877d94c74e4c6665d2af55c0154363b43b947e60,Linus Torvalds,torvalds@linux-foundation.org,1754080363,-1584.0,,0,0,0,True,0,,Merge tag 'linux-watchdog-6.17-rc1' of git://www.linux-watchdog.org/linux-watchdog,0,1.0,0,0.0,0.0,0,False,0
+0bd0a41a5120f78685a132834865b0a631b9026a,Linus Torvalds,torvalds@linux-foundation.org,1754081947,-1121.0,,0,0,0,True,0,,Merge tag 'pci-v6.17-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci,0,1.0,0,0.0,0.0,0,False,0
+821c9e515db512904250e1d460109a1dc4c7ef6b,Linus Torvalds,torvalds@linux-foundation.org,1754083068,41284.0,,0,0,0,True,0,,Merge tag 'for_linus' of git://git.kernel.org/pub/scm/linux/kernel/git/mst/vhost,0,1.0,0,0.0,0.0,0,False,0
+111857421c93fc88924106436741bd2f5b8bc220,Linus Torvalds,torvalds@linux-foundation.org,1754085745,-2681.0,,0,0,0,True,0,,Merge tag 'rproc-v6.17' of git://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux,0,1.0,0,0.0,0.0,0,False,0
+d41e5839d80043beaa63973eab602579ebdb238f,Linus Torvalds,torvalds@linux-foundation.org,1754088426,-1727.0,,0,0,0,True,0,,Merge tag 'cxl-for-6.17' of git://git.kernel.org/pub/scm/linux/kernel/git/cxl/cxl,0,1.0,0,0.0,0.0,0,False,0
+0905809b38bda1fa0b206986c44d846e46f13c1d,Linus Torvalds,torvalds@linux-foundation.org,1754090153,-2394.0,,0,0,0,True,0,,Merge tag 'parisc-for-6.17-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/deller/parisc-linux,0,1.0,0,0.0,0.0,0,False,0
+f4f346c3465949ebba80c6cc52cd8d2eeaa545fd,Linus Torvalds,torvalds@linux-foundation.org,1754092547,-1059.0,,0,0,0,True,0,,Merge tag 'perf-tools-for-v6.17-2025-08-01' of git://git.kernel.org/pub/scm/linux/kernel/git/perf/pe,0,1.0,0,0.0,0.0,0,False,0
+a6923c06a3b2e2c534ae28c53a7531e76cc95cfa,Linus Torvalds,torvalds@linux-foundation.org,1754093606,,,0,0,0,True,0,,Merge tag 'bpf-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf,0,1.0,0,0.0,0.0,0,False,0

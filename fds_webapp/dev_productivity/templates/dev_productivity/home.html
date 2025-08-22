@@ -1,0 +1,220 @@
+{% extends 'dev_productivity/base.html' %}
+
+{% block title %}FDS Analyzer - Start New Analysis{% endblock %}
+
+{% block content %}
+<style>
+  .hero {
+    position: relative;
+    background: radial-gradient(1200px 600px at -10% -10%, #c4b5fd 0%, rgba(196,181,253,0) 60%),
+                radial-gradient(800px 500px at 110% 10%, #93c5fd 0%, rgba(147,197,253,0) 60%),
+                linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  .blob {
+    position: absolute; filter: blur(50px); opacity: .35; transform: translateZ(0);
+  }
+  .blob-1 { width: 380px; height: 380px; background: #a78bfa; top: -60px; left: -60px; border-radius: 40% 60% 55% 45% / 55% 45% 55% 45%; animation: float 14s ease-in-out infinite; }
+  .blob-2 { width: 420px; height: 420px; background: #60a5fa; bottom: -80px; right: -80px; border-radius: 45% 55% 40% 60% / 40% 60% 45% 55%; animation: float 16s ease-in-out infinite reverse; }
+  @keyframes float { 0%,100%{ transform: translate(0,0) } 50%{ transform: translate(10px, -15px) } }
+  .glass {
+    background: rgba(255,255,255,.6); backdrop-filter: saturate(160%) blur(8px);
+    border: 1px solid rgba(255,255,255,.5); border-radius: 1rem;
+  }
+  .feature-card { transition: transform .25s ease, box-shadow .25s ease; }
+  .feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+  .tick { color: #16a34a; }
+  .pill { border-radius: 9999px; padding: .35rem .75rem; background:#eef2ff; color:#4338ca; font-weight:600; font-size:.85rem }
+  .fade-in { opacity: 0; transform: translateY(10px); transition: all .5s ease; }
+  .fade-in.show { opacity: 1; transform: translateY(0); }
+</style>
+
+<section class="hero p-4 p-md-5 mb-4">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="row align-items-center position-relative" style="z-index:1">
+    <div class="col-lg-7 mb-4 mb-lg-0">
+      <div class="pill mb-2 d-inline-block">{% if user.is_authenticated %}Welcome, {{ user.first_name }}{% else %}Open Source Edition{% endif %}</div>
+      <h1 class="display-6 fw-bold mb-2" style="color:#111827">Fair Developer Score</h1>
+      <p class="lead mb-3" style="color:#374151">{% if user.is_authenticated %}Run productivity assessments with one click{% else %}Explore example analyses and create your account to start analyzing your repositories{% endif %}. TORQUE build clustering + 6D FDS with MAD-Z normalization.</p>
+      <div class="d-flex flex-wrap gap-2">
+        <span class="badge bg-primary">Builds</span>
+        <span class="badge bg-success">FDS</span>
+        <span class="badge bg-warning text-dark">Dashboard</span>
+        <span class="badge bg-info text-dark">Export</span>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="glass p-4 shadow-sm">
+        {% if user.is_authenticated %}
+          <h5 class="fw-semibold mb-3">Start new analysis</h5>
+          <div class="d-grid gap-2">
+            <a href="{% url 'create_analysis' %}" class="btn btn-primary" style="background:#6f42c1;border-color:#6f42c1">
+              <i class="bi bi-plus-circle me-2"></i>Create New Analysis
+            </a>
+            <a href="{% url 'user_analyses' %}" class="btn btn-outline-secondary">
+              <i class="bi bi-list me-2"></i>My Analyses
+            </a>
+            <a href="{% url 'user_dashboard' %}" class="btn btn-outline-primary">
+              <i class="bi bi-speedometer2 me-2"></i>Dashboard
+            </a>
+          </div>
+        {% else %}
+          <h5 class="fw-semibold mb-3">Get Started</h5>
+          <p class="text-muted mb-3">Join the FDS community to analyze your repositories and get detailed developer insights.</p>
+          <div class="d-grid gap-2">
+            <a href="{% url 'register' %}" class="btn btn-primary" style="background:#6f42c1;border-color:#6f42c1">
+              <i class="bi bi-person-plus me-2"></i>Create Account
+            </a>
+            <a href="{% url 'login' %}" class="btn btn-outline-secondary">
+              <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+            </a>
+            <a href="{% url 'analysis_list' %}" class="btn btn-outline-info">
+              <i class="bi bi-eye me-2"></i>Browse Examples
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  </section>
+
+<section class="mb-4">
+  <div class="row g-3">
+    <div class="col-md-4 fade-in">
+      <div class="card feature-card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="fw-semibold mb-1">Collaboration-aware builds</div>
+          <div class="text-muted small">TORQUE with tuned parameters for multi-author build grouping.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 fade-in">
+      <div class="card feature-card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="fw-semibold mb-1">Six-dimension FDS</div>
+          <div class="text-muted small">Effort and importance combined via robust MAD-Z normalization.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 fade-in">
+      <div class="card feature-card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="fw-semibold mb-1">Shareable results</div>
+          <div class="text-muted small">Export CSVs and view dashboards for each analysis.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+{% if public_analyses %}
+<section class="fade-in">
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white fw-semibold d-flex justify-content-between align-items-center">
+      <span><i class="bi bi-star-fill text-warning me-2"></i>Example Analyses</span>
+      <span class="badge bg-success">Public</span>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Repository</th><th>Status</th><th>Commits</th><th>Developers</th><th>Batches</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for a in public_analyses %}
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-github me-2"></i>
+                  <div>
+                    <div class="fw-medium">{{ a.get_owner_repo }}</div>
+                    <div class="small text-muted text-truncate" style="max-width:300px">{{ a.repo_url }}</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Completed</span></td>
+              <td><strong>{{ a.total_commits }}</strong></td>
+              <td><strong>{{ a.total_developers }}</strong></td>
+              <td><strong>{{ a.total_batches }}</strong></td>
+              <td class="d-flex gap-2">
+                <a href="{% url 'analysis_detail' a.id %}" class="btn btn-sm btn-outline-secondary">Open</a>
+                <a href="{% url 'dashboard' a.id %}" class="btn btn-sm btn-primary">Dashboard</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-3">
+        <a href="{% url 'analysis_list' %}" class="btn btn-outline-primary">
+          <i class="bi bi-list me-2"></i>View All Public Analyses
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+// Auto-format GitHub URL
+document.getElementById('id_repo_url').addEventListener('blur', function() {
+    let url = this.value.trim();
+    if (url && !url.startsWith('http')) {
+        if (url.includes('/')) {
+            this.value = 'https://github.com/' + url;
+        }
+    }
+});
+
+// Preset repo handlers
+document.querySelectorAll('.preset').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+        e.preventDefault();
+        var urlInput = document.getElementById('id_repo_url');
+        urlInput.value = this.getAttribute('data-url');
+        urlInput.dispatchEvent(new Event('blur'));
+    });
+});
+
+// Commit limit quick set
+document.getElementById('preset-50').addEventListener('click', function(){
+    document.getElementById('id_commit_limit').value = 50;
+});
+document.getElementById('preset-100').addEventListener('click', function(){
+    document.getElementById('id_commit_limit').value = 100;
+});
+document.getElementById('preset-300').addEventListener('click', function(){
+    document.getElementById('id_commit_limit').value = 300;
+});
+
+// Reveal animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: .15 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+{% endblock %}

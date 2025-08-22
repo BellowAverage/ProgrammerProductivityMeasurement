@@ -1,0 +1,13 @@
+================================================================================
+FDS ANALYSIS REPORT
+================================================================================
+Repository: https://github.com/facebook/react
+Analysis Date: 2025-08-02 09:43:22
+Commits Analyzed: 100
+Developers Found: 2
+Unique Batches: 1
+
+TOP DEVELOPERS BY FDS SCORE
+----------------------------------------
+ 1. sebastian@calyptus.eu
+     FDS Score: 22.107

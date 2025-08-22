@@ -1,0 +1,286 @@
+{% extends 'dev_productivity/base.html' %}
+
+{% block title %}Create Analysis - FDS Analyzer{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>📊 Create New Analysis</h2>
+        <p class="text-muted mb-0">Analyze a GitHub repository to get Fair Developer Scores</p>
+    </div>
+    <a href="{% url 'user_dashboard' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-gear me-2"></i>Analysis Configuration
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.repo_url.id_for_label }}" class="form-label">
+                            <i class="bi bi-github me-1"></i>GitHub Repository URL
+                        </label>
+                        {{ form.repo_url }}
+                        {% if form.repo_url.help_text %}
+                            <div class="form-text">{{ form.repo_url.help_text }}</div>
+                        {% endif %}
+                        {% if form.repo_url.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.repo_url.errors.0 }}
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Quick presets -->
+                        <div class="mt-2">
+                            <small class="text-muted">Quick presets:</small>
+                            <div class="btn-group btn-group-sm mt-1" role="group">
+                                <button type="button" class="btn btn-outline-secondary preset-btn" data-url="https://github.com/facebook/react">facebook/react</button>
+                                <button type="button" class="btn btn-outline-secondary preset-btn" data-url="https://github.com/vercel/next.js">vercel/next.js</button>
+                                <button type="button" class="btn btn-outline-secondary preset-btn" data-url="https://github.com/microsoft/vscode">microsoft/vscode</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label for="{{ form.commit_limit.id_for_label }}" class="form-label">
+                                <i class="bi bi-hash me-1"></i>Commit Limit
+                            </label>
+                            {{ form.commit_limit }}
+                            {% if form.commit_limit.help_text %}
+                                <div class="form-text">{{ form.commit_limit.help_text }}</div>
+                            {% endif %}
+                            {% if form.commit_limit.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.commit_limit.errors.0 }}
+                                </div>
+                            {% endif %}
+                            
+                            <!-- Quick commit limits -->
+                            <div class="mt-2">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-outline-secondary commit-preset" data-value="50">50</button>
+                                    <button type="button" class="btn btn-outline-secondary commit-preset" data-value="100">100</button>
+                                    <button type="button" class="btn btn-outline-secondary commit-preset" data-value="300">300</button>
+                                    <button type="button" class="btn btn-outline-secondary commit-preset" data-value="500">500</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <div class="form-check form-switch">
+                                {{ form.use_personal_token }}
+                                <label class="form-check-label" for="{{ form.use_personal_token.id_for_label }}">
+                                    {{ form.use_personal_token.label }}
+                                </label>
+                                {% if form.use_personal_token.help_text %}
+                                    <div class="form-text">{{ form.use_personal_token.help_text }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            {% if not user.github_access_token %}
+                            <div class="alert alert-warning mt-2">
+                                <small>
+                                    <i class="bi bi-exclamation-triangle me-1"></i>
+                                    No personal token configured. 
+                                    <a href="{% url 'user_settings' %}">Add one in settings</a> for higher API limits.
+                                </small>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4" id="token-field" {% if user.github_access_token %}style="display:none"{% endif %}>
+                        <label for="{{ form.access_token.id_for_label }}" class="form-label">
+                            <i class="bi bi-key me-1"></i>GitHub Access Token
+                        </label>
+                        {{ form.access_token }}
+                        {% if form.access_token.help_text %}
+                            <div class="form-text">{{ form.access_token.help_text }}</div>
+                        {% endif %}
+                        {% if form.access_token.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.access_token.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="form-check">
+                            {{ form.is_public }}
+                            <label class="form-check-label" for="{{ form.is_public.id_for_label }}">
+                                {{ form.is_public.label }}
+                            </label>
+                            {% if form.is_public.help_text %}
+                                <div class="form-text">{{ form.is_public.help_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-play-circle me-2"></i>Start Analysis
+                        </button>
+                        <a href="{% url 'user_dashboard' %}" class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <!-- Analysis Info -->
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="bi bi-info-circle me-2"></i>How FDS Analysis Works
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="small">
+                    <div class="mb-3">
+                        <strong>1. Data Collection</strong>
+                        <p class="text-muted mb-0">Fetches commit history from GitHub API with detailed statistics.</p>
+                    </div>
+                    <div class="mb-3">
+                        <strong>2. Build Clustering</strong>
+                        <p class="text-muted mb-0">Groups related commits into logical work units using TORQUE algorithm.</p>
+                    </div>
+                    <div class="mb-3">
+                        <strong>3. FDS Calculation</strong>
+                        <p class="text-muted mb-0">Computes Effort × Importance scores with MAD-Z normalization.</p>
+                    </div>
+                    <div class="mb-0">
+                        <strong>4. Results</strong>
+                        <p class="text-muted mb-0">Generates interactive dashboard and downloadable CSV reports.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- GitHub Token Help -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="bi bi-question-circle me-2"></i>Need a GitHub Token?
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="small">
+                    <p>A GitHub personal access token increases API rate limits and allows access to private repositories.</p>
+                    <ol class="mb-3">
+                        <li>Go to <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings</a></li>
+                        <li>Click "Generate new token (classic)"</li>
+                        <li>Select <code>repo</code> scope</li>
+                        <li>Copy the token (starts with <code>ghp_</code>)</li>
+                    </ol>
+                    <p class="mb-0">
+                        <a href="{% url 'user_settings' %}" class="btn btn-sm btn-outline-primary w-100">
+                            Save Token in Settings
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Analyses -->
+        {% if user.analyses.all %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="bi bi-clock-history me-2"></i>Your Recent Analyses
+                </h6>
+            </div>
+            <div class="card-body">
+                {% for analysis in user.analyses.all|slice:":3" %}
+                    <div class="d-flex justify-content-between align-items-center {% if not forloop.last %}mb-2 pb-2 border-bottom{% endif %}">
+                        <div class="small">
+                            <div class="fw-medium">{{ analysis.get_repo_name }}</div>
+                            <div class="text-muted">{{ analysis.created_at|timesince }} ago</div>
+                        </div>
+                        <span class="badge bg-{% if analysis.status == 'completed' %}success{% elif analysis.status == 'running' %}warning{% elif analysis.status == 'failed' %}danger{% else %}secondary{% endif %}">
+                            {{ analysis.get_status_display }}
+                        </span>
+                    </div>
+                {% endfor %}
+                <div class="text-center mt-2">
+                    <a href="{% url 'user_analyses' %}" class="btn btn-sm btn-outline-secondary">View All</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+// Preset repository URLs
+document.querySelectorAll('.preset-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.getElementById('id_repo_url').value = this.getAttribute('data-url');
+    });
+});
+
+// Commit limit presets
+document.querySelectorAll('.commit-preset').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.getElementById('id_commit_limit').value = this.getAttribute('data-value');
+    });
+});
+
+// Toggle token field based on personal token checkbox
+const usePersonalToken = document.getElementById('id_use_personal_token');
+const tokenField = document.getElementById('token-field');
+
+if (usePersonalToken) {
+    usePersonalToken.addEventListener('change', function() {
+        if (this.checked && '{{ user.github_access_token }}') {
+            tokenField.style.display = 'none';
+        } else {
+            tokenField.style.display = 'block';
+        }
+    });
+}
+
+// Auto-format GitHub URL
+const repoUrlField = document.getElementById('id_repo_url');
+repoUrlField.addEventListener('blur', function() {
+    let url = this.value.trim();
+    if (url && !url.startsWith('http')) {
+        if (url.includes('/')) {
+            this.value = 'https://github.com/' + url;
+        }
+    }
+});
+</script>
+{% endblock %}
+

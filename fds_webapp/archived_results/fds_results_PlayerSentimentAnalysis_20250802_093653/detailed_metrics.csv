@@ -1,0 +1,2 @@
+author_email,total_contribution,avg_contribution,contribution_std,total_commits,effort_mean,effort_std,batch_importance_mean,batch_importance_std,share_mean,scale_z_mean,reach_z_mean,centrality_z_mean,dominance_z_mean,novelty_z_mean,speed_z_mean,effective_churn_sum,files_changed_sum,unique_batches,first_commit_ts,last_commit_ts,first_commit_date,last_commit_date,activity_span_days
+chriswang2025@u.northwestern.edu,0.0,0.0,0.0,4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,1,1729038004,1729123680,2024-10-16,2024-10-17,1.0

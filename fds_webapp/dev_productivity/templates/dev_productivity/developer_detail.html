@@ -1,0 +1,50 @@
+{% extends 'dev_productivity/base.html' %}
+{% block title %}Developer {{ developer.author_email }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h3 class="mb-0">{{ developer.author_email }}</h3>
+    <div class="text-muted small">FDS: {{ developer.fds_score|floatformat:3 }} · Commits: {{ developer.total_commits }} · Builds: {{ developer.unique_batches }}</div>
+  </div>
+  <a href="{% url 'analysis_detail' analysis.id %}" class="btn btn-outline-secondary">Back</a>
+  </div>
+
+<div class="row g-3">
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm"><div class="card-body">
+      <div class="text-muted small">Average Effort</div>
+      <div class="fs-3 fw-bold">{{ developer.avg_effort|floatformat:3 }}</div>
+      <div class="small text-muted">Avg Importance: {{ developer.avg_importance|floatformat:3 }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-8">
+    <div class="card h-100 shadow-sm"><div class="card-body">
+      <div class="text-muted small mb-2">Top Builds by Contribution</div>
+      {% if top_build_rows %}
+      <div class="table-responsive">
+        <table class="table table-sm">
+          <thead><tr><th>#</th><th>Build</th><th>Contribution</th><th>Commits</th><th>Importance</th><th>Authors</th><th></th></tr></thead>
+          <tbody>
+          {% for r in top_build_rows %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>Build {{ r.batch_id }}</td>
+              <td>{{ r.total_contribution|default:0|floatformat:2 }}</td>
+              <td>{{ r.commits|default:r.commit_count }}</td>
+              <td>{{ r.importance|default:0|floatformat:2 }}</td>
+              <td>{{ r.unique_authors|default:'-' }}</td>
+              <td><a class="btn btn-sm btn-outline-primary" href="{% url 'batch_detail' analysis.id r.batch_id %}">Open</a></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+        <p class="text-muted mb-0">No build-level contribution data found.</p>
+      {% endif %}
+    </div></div>
+  </div>
+</div>
+{% endblock %}
+
+

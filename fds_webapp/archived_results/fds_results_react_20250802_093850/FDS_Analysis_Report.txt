@@ -1,0 +1,25 @@
+================================================================================
+FDS ANALYSIS REPORT
+================================================================================
+Repository: https://github.com/facebook/react
+Analysis Date: 2025-08-02 09:38:51
+Commits Analyzed: 100
+Developers Found: 0
+Unique Batches: 1
+
+WARNING: NO DEVELOPERS FOUND!
+This might indicate an issue with the analysis parameters
+or the data processing pipeline.
+
+================================================================================
+FILES GENERATED:
+- raw_commits.csv: Original GitHub commit data
+- commits_clustered.csv: TORQUE clustered batches
+- processed_data.csv: Preprocessed data with features
+- developer_effort.csv: Developer effort calculations
+- batch_importance.csv: Batch importance calculations
+- individual_contributions.csv: Per-commit contributions
+- fds_scores.csv: Final FDS scores per developer
+- detailed_metrics.csv: Detailed developer metrics
+- FDS_Analysis_Report.txt: This summary report
+- fds_analysis.log: Detailed execution log

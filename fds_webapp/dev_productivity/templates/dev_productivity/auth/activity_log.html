@@ -1,0 +1,242 @@
+{% extends 'dev_productivity/base.html' %}
+{% load static %}
+
+{% block title %}Activity Log - FDS Analyzer{% endblock %}
+
+{% block extra_css %}
+<style>
+    .activity-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+    }
+    .activity-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border: none;
+        margin-bottom: 1rem;
+    }
+    .activity-item {
+        border-left: 4px solid #667eea;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #f0f0f0;
+        transition: all 0.3s ease;
+    }
+    .activity-item:last-child {
+        border-bottom: none;
+    }
+    .activity-item:hover {
+        background: #f8f9fa;
+        border-left-color: #764ba2;
+    }
+    .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-right: 1rem;
+    }
+    .activity-login { background: #28a745; color: white; }
+    .activity-logout { background: #dc3545; color: white; }
+    .activity-analysis_create { background: #007bff; color: white; }
+    .activity-analysis_view { background: #17a2b8; color: white; }
+    .activity-analysis_delete { background: #fd7e14; color: white; }
+    .activity-analysis_share { background: #6f42c1; color: white; }
+    .activity-settings_update { background: #20c997; color: white; }
+    .activity-token_update { background: #ffc107; color: black; }
+    .activity-time {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+    .activity-description {
+        font-size: 0.95rem;
+        color: #495057;
+        margin: 0.5rem 0;
+    }
+    .activity-meta {
+        font-size: 0.85rem;
+        color: #868e96;
+    }
+    .filter-section {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="activity-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="mb-2">
+                    <i class="bi bi-activity me-3"></i>Activity Log
+                </h1>
+                <p class="mb-0">Track your account activity and analysis history</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="d-flex justify-content-end">
+                    <a href="{% url 'user_profile' %}" class="btn btn-light me-2">
+                        <i class="bi bi-person me-2"></i>Profile
+                    </a>
+                    <a href="{% url 'user_settings' %}" class="btn btn-light">
+                        <i class="bi bi-gear me-2"></i>Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="filter-section">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h5 class="mb-0">
+                    <i class="bi bi-funnel me-2"></i>Activity Overview
+                </h5>
+                <p class="text-muted mb-0">{{ activities.count }} activities found</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-primary active" onclick="filterActivities('all')">All</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="filterActivities('login')">Login</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="filterActivities('analysis')">Analysis</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="filterActivities('settings')">Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="activity-card">
+        <div class="card-body p-0">
+            {% if activities %}
+                {% for activity in activities %}
+                <div class="activity-item" data-action="{{ activity.action }}">
+                    <div class="d-flex align-items-start">
+                        <div class="activity-icon activity-{{ activity.action }}">
+                            {% if activity.action == 'login' %}
+                                <i class="bi bi-box-arrow-in-right"></i>
+                            {% elif activity.action == 'logout' %}
+                                <i class="bi bi-box-arrow-right"></i>
+                            {% elif activity.action == 'analysis_create' %}
+                                <i class="bi bi-plus-circle"></i>
+                            {% elif activity.action == 'analysis_view' %}
+                                <i class="bi bi-eye"></i>
+                            {% elif activity.action == 'analysis_delete' %}
+                                <i class="bi bi-trash"></i>
+                            {% elif activity.action == 'analysis_share' %}
+                                <i class="bi bi-share"></i>
+                            {% elif activity.action == 'settings_update' %}
+                                <i class="bi bi-gear"></i>
+                            {% elif activity.action == 'token_update' %}
+                                <i class="bi bi-key"></i>
+                            {% else %}
+                                <i class="bi bi-activity"></i>
+                            {% endif %}
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="mb-1">{{ activity.get_action_display }}</h6>
+                                    {% if activity.description %}
+                                        <div class="activity-description">{{ activity.description }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="activity-time">{{ activity.created_at|timesince }} ago</div>
+                            </div>
+                            <div class="activity-meta">
+                                {% if activity.ip_address %}
+                                    <i class="bi bi-geo-alt me-1"></i>{{ activity.ip_address }}
+                                {% endif %}
+                                {% if activity.analysis %}
+                                    <i class="bi bi-link-45deg me-1 ms-3"></i>
+                                    <a href="{% url 'analysis_detail' activity.analysis.id %}" class="text-decoration-none">
+                                        {{ activity.analysis.get_repo_name }}
+                                    </a>
+                                {% endif %}
+                                <i class="bi bi-calendar3 me-1 ms-3"></i>{{ activity.created_at|date:"M j, Y g:i A" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-activity" style="font-size: 4rem; color: #dee2e6;"></i>
+                    <h4 class="mt-3 text-muted">No Activity Yet</h4>
+                    <p class="text-muted">Your account activity will appear here as you use the platform.</p>
+                    <a href="{% url 'create_analysis' %}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-2"></i>Create Your First Analysis
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    {% if activities.has_other_pages %}
+    <div class="d-flex justify-content-center mt-4">
+        <nav aria-label="Activity pagination">
+            <ul class="pagination">
+                {% if activities.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">&laquo; First</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ activities.previous_page_number }}">Previous</a>
+                    </li>
+                {% endif %}
+                
+                <li class="page-item active">
+                    <span class="page-link">
+                        Page {{ activities.number }} of {{ activities.paginator.num_pages }}
+                    </span>
+                </li>
+                
+                {% if activities.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ activities.next_page_number }}">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ activities.paginator.num_pages }}">Last &raquo;</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function filterActivities(type) {
+    const items = document.querySelectorAll('.activity-item');
+    const buttons = document.querySelectorAll('.btn-group .btn');
+    
+    // Update button states
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Filter items
+    items.forEach(item => {
+        if (type === 'all') {
+            item.style.display = 'block';
+        } else if (type === 'login' && (item.dataset.action === 'login' || item.dataset.action === 'logout')) {
+            item.style.display = 'block';
+        } else if (type === 'analysis' && item.dataset.action.includes('analysis')) {
+            item.style.display = 'block';
+        } else if (type === 'settings' && (item.dataset.action === 'settings_update' || item.dataset.action === 'token_update')) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+</script>
+{% endblock %}

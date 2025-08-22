@@ -1,0 +1,377 @@
+{% extends 'dev_productivity/base.html' %}
+
+{% block title %}My Analyses - {{ user.get_full_name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>📊 My Analyses</h2>
+        <p class="text-muted mb-0">Manage your Fair Developer Score analyses</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{% url 'create_analysis' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-2"></i>New Analysis
+        </a>
+        <a href="{% url 'user_dashboard' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-speedometer2 me-2"></i>Dashboard
+        </a>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label for="status" class="form-label">Status</label>
+                <select name="status" id="status" class="form-select">
+                    <option value="">All Statuses</option>
+                    <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
+                    <option value="running" {% if status_filter == 'running' %}selected{% endif %}>Running</option>
+                    <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Completed</option>
+                    <option value="failed" {% if status_filter == 'failed' %}selected{% endif %}>Failed</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="q" class="form-label">Search Repository</label>
+                <input type="text" name="q" id="q" class="form-control" placeholder="Search by repository URL..." value="{{ search_query|default:'' }}">
+            </div>
+            <div class="col-md-3">
+                <div class="d-grid gap-2 d-md-flex">
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="bi bi-search me-1"></i>Filter
+                    </button>
+                    <a href="{% url 'user_analyses' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-circle me-1"></i>Clear
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Analyses List -->
+{% if analyses %}
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                {% if status_filter %}
+                    {{ status_filter|title }} Analyses
+                {% else %}
+                    All Analyses
+                {% endif %}
+                <span class="badge bg-secondary">{{ analyses.count }}</span>
+            </h5>
+            <div class="btn-group btn-group-sm" role="group">
+                <input type="radio" class="btn-check" name="view" id="grid-view" checked>
+                <label class="btn btn-outline-secondary" for="grid-view">
+                    <i class="bi bi-grid-3x3-gap"></i>
+                </label>
+                <input type="radio" class="btn-check" name="view" id="list-view">
+                <label class="btn btn-outline-secondary" for="list-view">
+                    <i class="bi bi-list"></i>
+                </label>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Grid View -->
+            <div id="grid-container" class="row g-3">
+                {% for analysis in analyses %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 analysis-card {% if analysis.status == 'running' %}border-warning{% elif analysis.status == 'completed' %}border-success{% elif analysis.status == 'failed' %}border-danger{% endif %}">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-github me-2"></i>
+                                <span class="fw-medium">{{ analysis.get_repo_name }}</span>
+                            </div>
+                            <span class="badge bg-{% if analysis.status == 'completed' %}success{% elif analysis.status == 'running' %}warning{% elif analysis.status == 'failed' %}danger{% else %}secondary{% endif %}">
+                                {{ analysis.get_status_display }}
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <div class="small text-muted mb-2">
+                                <i class="bi bi-link-45deg me-1"></i>
+                                <a href="{{ analysis.repo_url }}" target="_blank" class="text-decoration-none">
+                                    {{ analysis.get_owner_repo }}
+                                </a>
+                            </div>
+                            
+                            <div class="row text-center mb-3">
+                                <div class="col-4">
+                                    <div class="fw-bold text-primary">{{ analysis.total_commits|default:"—" }}</div>
+                                    <div class="small text-muted">Commits</div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="fw-bold text-success">{{ analysis.total_developers|default:"—" }}</div>
+                                    <div class="small text-muted">Developers</div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="fw-bold text-info">{{ analysis.total_batches|default:"—" }}</div>
+                                    <div class="small text-muted">Batches</div>
+                                </div>
+                            </div>
+                            
+                            <div class="small text-muted mb-3">
+                                <i class="bi bi-calendar me-1"></i>{{ analysis.created_at|date:"M d, Y" }}
+                                {% if analysis.execution_time %}
+                                    <span class="ms-2">
+                                        <i class="bi bi-clock me-1"></i>{{ analysis.execution_time|floatformat:1 }}s
+                                    </span>
+                                {% endif %}
+                                {% if not analysis.is_public %}
+                                    <span class="ms-2">
+                                        <i class="bi bi-lock text-warning" title="Private"></i>
+                                    </span>
+                                {% endif %}
+                            </div>
+                            
+                            {% if analysis.error_message %}
+                            <div class="alert alert-danger alert-sm">
+                                <small>{{ analysis.error_message|truncatechars:100 }}</small>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex gap-1">
+                                <a href="{% url 'analysis_detail' analysis.id %}" class="btn btn-sm btn-outline-primary flex-fill">
+                                    <i class="bi bi-eye me-1"></i>View
+                                </a>
+                                {% if analysis.status == 'completed' %}
+                                    <a href="{% url 'dashboard' analysis.id %}" class="btn btn-sm btn-success flex-fill">
+                                        <i class="bi bi-speedometer2 me-1"></i>Dashboard
+                                    </a>
+                                {% endif %}
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        {% if analysis.status == 'completed' %}
+                                            <li><a class="dropdown-item" href="{% url 'share_analysis' analysis.id %}">
+                                                <i class="bi bi-share me-2"></i>Share
+                                            </a></li>
+                                            <li><a class="dropdown-item" href="{% url 'download_analysis_csvs' analysis.id %}">
+                                                <i class="bi bi-download me-2"></i>Download CSVs
+                                            </a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                        {% endif %}
+                                        <li><a class="dropdown-item" href="#" onclick="togglePrivacy({{ analysis.id }})">
+                                            <i class="bi bi-{% if analysis.is_public %}lock{% else %}unlock{% endif %} me-2"></i>
+                                            Make {% if analysis.is_public %}Private{% else %}Public{% endif %}
+                                        </a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item text-danger" href="#" onclick="deleteAnalysis({{ analysis.id }}, '{{ analysis.get_repo_name }}')">
+                                            <i class="bi bi-trash me-2"></i>Delete
+                                        </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- List View (Hidden by default) -->
+            <div id="list-container" class="d-none">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Repository</th>
+                                <th>Status</th>
+                                <th>Commits</th>
+                                <th>Developers</th>
+                                <th>Batches</th>
+                                <th>Created</th>
+                                <th>Duration</th>
+                                <th>Privacy</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for analysis in analyses %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-github me-2"></i>
+                                        <div>
+                                            <div class="fw-medium">{{ analysis.get_repo_name }}</div>
+                                            <div class="small text-muted">
+                                                <a href="{{ analysis.repo_url }}" target="_blank" class="text-decoration-none">
+                                                    {{ analysis.get_owner_repo }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-{% if analysis.status == 'completed' %}success{% elif analysis.status == 'running' %}warning{% elif analysis.status == 'failed' %}danger{% else %}secondary{% endif %}">
+                                        {{ analysis.get_status_display }}
+                                    </span>
+                                </td>
+                                <td>{{ analysis.total_commits|default:"—" }}</td>
+                                <td>{{ analysis.total_developers|default:"—" }}</td>
+                                <td>{{ analysis.total_batches|default:"—" }}</td>
+                                <td>
+                                    <span title="{{ analysis.created_at|date:'M d, Y H:i:s' }}">
+                                        {{ analysis.created_at|timesince }} ago
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if analysis.execution_time %}
+                                        {{ analysis.execution_time|floatformat:1 }}s
+                                    {% else %}
+                                        —
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if analysis.is_public %}
+                                        <i class="bi bi-unlock text-success" title="Public"></i>
+                                    {% else %}
+                                        <i class="bi bi-lock text-warning" title="Private"></i>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="{% url 'analysis_detail' analysis.id %}" class="btn btn-outline-primary">View</a>
+                                        {% if analysis.status == 'completed' %}
+                                            <a href="{% url 'dashboard' analysis.id %}" class="btn btn-success">Dashboard</a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <!-- Empty State -->
+    <div class="text-center py-5">
+        <i class="bi bi-graph-up fs-1 text-muted mb-3"></i>
+        <h4>No analyses found</h4>
+        {% if status_filter or search_query %}
+            <p class="text-muted">Try adjusting your filters or search terms.</p>
+            <a href="{% url 'user_analyses' %}" class="btn btn-outline-secondary">Clear Filters</a>
+        {% else %}
+            <p class="text-muted">Create your first analysis to get started with Fair Developer Scoring!</p>
+            <a href="{% url 'create_analysis' %}" class="btn btn-primary btn-lg">
+                <i class="bi bi-plus-circle me-2"></i>Create First Analysis
+            </a>
+        {% endif %}
+    </div>
+{% endif %}
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-exclamation-triangle text-danger me-2"></i>Delete Analysis
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the analysis for <strong id="delete-repo-name"></strong>?</p>
+                <div class="alert alert-danger">
+                    <strong>⚠️ Warning:</strong> This action cannot be undone. All analysis data, results, and CSV files will be permanently deleted.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="delete-form" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-2"></i>Delete Analysis
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// View toggle functionality
+document.getElementById('grid-view').addEventListener('change', function() {
+    if (this.checked) {
+        document.getElementById('grid-container').classList.remove('d-none');
+        document.getElementById('list-container').classList.add('d-none');
+        localStorage.setItem('fds_analyses_view', 'grid');
+    }
+});
+
+document.getElementById('list-view').addEventListener('change', function() {
+    if (this.checked) {
+        document.getElementById('grid-container').classList.add('d-none');
+        document.getElementById('list-container').classList.remove('d-none');
+        localStorage.setItem('fds_analyses_view', 'list');
+    }
+});
+
+// Load saved view preference
+document.addEventListener('DOMContentLoaded', function() {
+    const savedView = localStorage.getItem('fds_analyses_view');
+    if (savedView === 'list') {
+        document.getElementById('list-view').checked = true;
+        document.getElementById('grid-container').classList.add('d-none');
+        document.getElementById('list-container').classList.remove('d-none');
+    }
+});
+
+// Delete analysis functionality
+function deleteAnalysis(analysisId, repoName) {
+    document.getElementById('delete-repo-name').textContent = repoName;
+    document.getElementById('delete-form').action = `/analysis/${analysisId}/delete/`;
+    new bootstrap.Modal(document.getElementById('deleteModal')).show();
+}
+
+// Toggle privacy functionality
+function togglePrivacy(analysisId) {
+    fetch(`/analysis/${analysisId}/toggle-privacy/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }
+    }).then(response => {
+        if (response.ok) {
+            location.reload();
+        } else {
+            alert('Failed to update privacy setting');
+        }
+    });
+}
+
+// Auto-refresh for running analyses
+document.addEventListener('DOMContentLoaded', function() {
+    const runningAnalyses = document.querySelectorAll('.badge.bg-warning');
+    if (runningAnalyses.length > 0) {
+        // Refresh page every 30 seconds if there are running analyses
+        setTimeout(() => {
+            location.reload();
+        }, 30000);
+    }
+});
+
+// Enhanced search functionality
+const searchInput = document.getElementById('q');
+if (searchInput) {
+    let searchTimeout;
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            if (this.value.length >= 3 || this.value.length === 0) {
+                this.form.submit();
+            }
+        }, 500);
+    });
+}
+</script>
+{% endblock %}
+

@@ -1,0 +1,15 @@
+================================================================================
+FDS ANALYSIS REPORT
+================================================================================
+Repository: https://github.com/facebook/react
+Analysis Date: 2025-08-02 09:46:32
+Commits Analyzed: 100
+Developers Found: 6
+Unique Batches: 21
+
+TOP DEVELOPERS BY FDS SCORE
+----------------------------------------
+ 1. 6425824+josephsavona@users.noreply.github.com
+     FDS Score: 12.221
+     Total Churn: 12688.0
+     Commits: 30

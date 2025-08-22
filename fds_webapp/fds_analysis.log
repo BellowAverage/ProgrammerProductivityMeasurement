@@ -1,0 +1,598 @@
+2025-08-02 09:28:05,922 - __main__ - INFO - Starting FDS analysis for https://github.com/torvalds/linux
+2025-08-02 09:28:06,158 - __main__ - INFO -    Repository: torvalds/linux
+2025-08-02 09:28:06,158 - __main__ - INFO -    Commit limit: 50
+2025-08-02 09:28:06,158 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from torvalds/linux
+2025-08-02 09:28:06,159 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:28:06,511 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 50 commits
+2025-08-02 09:28:06,648 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_linux_20250802_092805\commits_clustered.csv
+2025-08-02 09:28:06,652 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 1.000
+2025-08-02 09:28:06,653 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:28:06,655 - fds_algorithm.preprocessing.data_processor - INFO - Detected 0 potential new file commits
+2025-08-02 09:28:06,655 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:32:02,237 - __main__ - INFO - Starting FDS analysis for https://github.com/torvalds/linux
+2025-08-02 09:32:02,237 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:32:02,448 - __main__ - INFO -    Repository: torvalds/linux
+2025-08-02 09:32:02,448 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:32:02,448 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from torvalds/linux
+2025-08-02 09:32:02,448 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:32:02,842 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 100 commits
+2025-08-02 09:32:02,843 - __main__ - INFO - Retrieved 100 commits
+2025-08-02 09:32:02,846 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:32:02,860 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:32:02,860 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 1e-05
+  beta: 0.1
+  Gap threshold: 7200.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 100
+  Total batches: 57
+  Average commits per batch: 1.75
+
+2025-08-02 09:32:02,860 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:32:02,970 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:32:02,970 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_linux_20250802_093202\commits_clustered.csv
+2025-08-02 09:32:02,974 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 1.000
+2025-08-02 09:32:02,976 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:32:02,978 - fds_algorithm.preprocessing.data_processor - INFO - Detected 0 potential new file commits
+2025-08-02 09:32:02,978 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:32:02,980 - __main__ - INFO -    - Processed 100 commits
+2025-08-02 09:32:02,980 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:32:02,981 - __main__ - ERROR - FDS analysis failed: 'share'
+2025-08-02 09:33:33,432 - __main__ - INFO - Starting FDS analysis for https://github.com/BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:33:33,433 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:33:33,643 - __main__ - INFO -    Repository: BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:33:33,643 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:33:33,643 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:33:33,643 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:33:33,937 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 2...
+2025-08-02 09:33:34,121 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 4 commits
+2025-08-02 09:33:34,122 - __main__ - INFO - Retrieved 4 commits
+2025-08-02 09:33:34,128 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:33:34,140 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:33:34,140 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 1e-05
+  beta: 0.1
+  Gap threshold: 7200.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 4
+  Total batches: 1
+  Average commits per batch: 4.00
+
+2025-08-02 09:33:34,140 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:33:34,245 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:33:34,246 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_PlayerSentimentAnalysis_20250802_093333\commits_clustered.csv
+2025-08-02 09:33:34,248 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 1.000
+2025-08-02 09:33:34,249 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:33:34,250 - fds_algorithm.preprocessing.data_processor - INFO - Detected 0 potential new file commits
+2025-08-02 09:33:34,250 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:33:34,252 - __main__ - INFO -    - Processed 4 commits
+2025-08-02 09:33:34,252 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:33:34,253 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-08-02 09:33:34,259 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculated effort metrics for 4 commits
+2025-08-02 09:33:34,260 - __main__ - INFO -    - Calculated effort for 4 commits
+2025-08-02 09:33:34,260 - __main__ - INFO -    - Calculating batch importance...
+2025-08-02 09:33:34,261 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-08-02 09:33:34,261 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculated importance for 0 batches
+2025-08-02 09:33:34,262 - __main__ - ERROR - FDS analysis failed: 'batch_id'
+2025-08-02 09:34:45,754 - __main__ - INFO - Starting FDS analysis for https://github.com/BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:34:45,755 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:34:45,966 - __main__ - INFO -    Repository: BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:34:45,966 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:34:45,966 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:34:45,966 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:34:46,182 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 2...
+2025-08-02 09:34:46,356 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 4 commits
+2025-08-02 09:34:46,356 - __main__ - INFO - Retrieved 4 commits
+2025-08-02 09:34:46,359 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:34:46,370 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:34:46,370 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 1e-05
+  beta: 0.1
+  Gap threshold: 7200.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 4
+  Total batches: 1
+  Average commits per batch: 4.00
+
+2025-08-02 09:34:46,370 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:34:46,475 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:34:46,476 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_PlayerSentimentAnalysis_20250802_093445\commits_clustered.csv
+2025-08-02 09:34:46,479 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 1.000
+2025-08-02 09:34:46,479 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:34:46,480 - fds_algorithm.preprocessing.data_processor - INFO - Detected 0 potential new file commits
+2025-08-02 09:34:46,480 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:34:46,482 - __main__ - INFO -    - Processed 4 commits
+2025-08-02 09:34:46,482 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:34:46,482 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-08-02 09:34:46,489 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculated effort metrics for 4 commits
+2025-08-02 09:34:46,490 - __main__ - INFO -    - Calculated effort for 4 commits
+2025-08-02 09:34:46,491 - __main__ - INFO -    - Calculating batch importance...
+2025-08-02 09:34:46,491 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-08-02 09:34:46,492 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculated importance for 0 batches
+2025-08-02 09:34:46,493 - __main__ - INFO -    - Calculated importance for 0 batches
+2025-08-02 09:34:46,493 - __main__ - INFO -    - Calculating final FDS scores...
+2025-08-02 09:34:46,496 - fds_algorithm.fds_calculator - INFO - Calculated 4 individual contributions
+2025-08-02 09:34:46,496 - __main__ - ERROR - FDS analysis failed: 'commit_ts_utc'
+2025-08-02 09:35:19,021 - __main__ - INFO - Starting FDS analysis for https://github.com/BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:35:19,021 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:35:19,225 - __main__ - INFO -    Repository: BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:35:19,225 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:35:19,225 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:35:19,225 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:35:19,673 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 2...
+2025-08-02 09:35:19,855 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 4 commits
+2025-08-02 09:35:19,856 - __main__ - INFO - Retrieved 4 commits
+2025-08-02 09:35:19,862 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:35:19,874 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:35:19,874 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 1e-05
+  beta: 0.1
+  Gap threshold: 7200.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 4
+  Total batches: 1
+  Average commits per batch: 4.00
+
+2025-08-02 09:35:19,875 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:35:19,981 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:35:19,981 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_PlayerSentimentAnalysis_20250802_093519\commits_clustered.csv
+2025-08-02 09:35:19,984 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 1.000
+2025-08-02 09:35:19,984 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:35:19,985 - fds_algorithm.preprocessing.data_processor - INFO - Detected 0 potential new file commits
+2025-08-02 09:35:19,985 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:35:19,988 - __main__ - INFO -    - Processed 4 commits
+2025-08-02 09:35:19,988 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:35:19,988 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-08-02 09:35:19,995 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculated effort metrics for 4 commits
+2025-08-02 09:35:19,996 - __main__ - INFO -    - Calculated effort for 4 commits
+2025-08-02 09:35:19,996 - __main__ - INFO -    - Calculating batch importance...
+2025-08-02 09:35:19,997 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-08-02 09:35:19,998 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculated importance for 0 batches
+2025-08-02 09:35:19,999 - __main__ - INFO -    - Calculated importance for 0 batches
+2025-08-02 09:35:19,999 - __main__ - INFO -    - Calculating final FDS scores...
+2025-08-02 09:35:20,001 - __main__ - INFO -    - Merged dataframe columns: ['hash', 'author_name_effort', 'author_email_effort', 'commit_ts_utc_effort', 'dt_prev_commit_sec_effort', 'dt_prev_author_sec_effort', 'files_changed_effort', 'insertions_effort', 'deletions_effort', 'is_merge_effort', 'dirs_touched_effort', 'file_types_effort', 'msg_subject_effort', 'batch_id', 'noise_factor_effort', 'raw_churn_effort', 'effective_churn_effort', 'directory_centrality_effort', 'key_path_lines_effort', 'new_file_indicator_effort', 'new_file_lines_effort', 'share', 'scale_raw', 'reach_raw', 'centrality_raw', 'dominance_raw', 'novelty_raw', 'speed_raw', 'scale_z', 'reach_z', 'centrality_z', 'dominance_z', 'novelty_z', 'speed_z', 'effort', 'author_name_importance', 'author_email_importance', 'commit_ts_utc_importance', 'dt_prev_commit_sec_importance', 'dt_prev_author_sec_importance', 'files_changed_importance', 'insertions_importance', 'deletions_importance', 'is_merge_importance', 'dirs_touched_importance', 'file_types_importance', 'msg_subject_importance', 'noise_factor_importance', 'raw_churn_importance', 'effective_churn_importance', 'directory_centrality_importance', 'key_path_lines_importance', 'new_file_indicator_importance', 'new_file_lines_importance', 'batch_importance']
+2025-08-02 09:35:20,002 - __main__ - INFO -    - Merged dataframe shape: (4, 55)
+2025-08-02 09:35:20,003 - fds_algorithm.fds_calculator - INFO - Calculated 4 individual contributions
+2025-08-02 09:35:20,003 - __main__ - ERROR - FDS analysis failed: 'commit_ts_utc'
+2025-08-02 09:35:50,767 - __main__ - INFO - Starting FDS analysis for https://github.com/EpicGames/UnrealEngine
+2025-08-02 09:35:50,767 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:35:50,977 - __main__ - INFO -    Repository: EpicGames/UnrealEngine
+2025-08-02 09:35:50,977 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:35:50,977 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from EpicGames/UnrealEngine
+2025-08-02 09:35:50,977 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:35:51,155 - __main__ - ERROR - Data acquisition failed: 404 Client Error: Not Found for url: https://api.github.com/repos/EpicGames/UnrealEngine/commits?page=1&per_page=100
+2025-08-02 09:36:27,789 - __main__ - INFO - Starting FDS analysis for https://github.com/BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:36:27,790 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:36:28,000 - __main__ - INFO -    Repository: BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:36:28,000 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:36:28,001 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:36:28,001 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:36:28,263 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 2...
+2025-08-02 09:36:28,460 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 4 commits
+2025-08-02 09:36:28,460 - __main__ - INFO - Retrieved 4 commits
+2025-08-02 09:36:28,463 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:36:28,474 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:36:28,474 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 1e-05
+  beta: 0.1
+  Gap threshold: 7200.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 4
+  Total batches: 1
+  Average commits per batch: 4.00
+
+2025-08-02 09:36:28,475 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:36:28,582 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:36:28,582 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_PlayerSentimentAnalysis_20250802_093627\commits_clustered.csv
+2025-08-02 09:36:28,584 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 1.000
+2025-08-02 09:36:28,585 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:36:28,586 - fds_algorithm.preprocessing.data_processor - INFO - Detected 0 potential new file commits
+2025-08-02 09:36:28,586 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:36:28,588 - __main__ - INFO -    - Processed 4 commits
+2025-08-02 09:36:28,588 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:36:28,588 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-08-02 09:36:28,594 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculated effort metrics for 4 commits
+2025-08-02 09:36:28,595 - __main__ - INFO -    - Calculated effort for 4 commits
+2025-08-02 09:36:28,595 - __main__ - INFO -    - Calculating batch importance...
+2025-08-02 09:36:28,596 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-08-02 09:36:28,596 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculated importance for 0 batches
+2025-08-02 09:36:28,597 - __main__ - INFO -    - Calculated importance for 0 batches
+2025-08-02 09:36:28,597 - __main__ - INFO -    - Calculating final FDS scores...
+2025-08-02 09:36:28,600 - __main__ - INFO -    - Merged dataframe columns: ['hash', 'author_name_effort', 'author_email_effort', 'commit_ts_utc_effort', 'dt_prev_commit_sec_effort', 'dt_prev_author_sec_effort', 'files_changed_effort', 'insertions_effort', 'deletions_effort', 'is_merge_effort', 'dirs_touched_effort', 'file_types_effort', 'msg_subject_effort', 'batch_id', 'noise_factor_effort', 'raw_churn_effort', 'effective_churn_effort', 'directory_centrality_effort', 'key_path_lines_effort', 'new_file_indicator_effort', 'new_file_lines_effort', 'share', 'scale_raw', 'reach_raw', 'centrality_raw', 'dominance_raw', 'novelty_raw', 'speed_raw', 'scale_z', 'reach_z', 'centrality_z', 'dominance_z', 'novelty_z', 'speed_z', 'effort', 'author_name_importance', 'author_email_importance', 'commit_ts_utc_importance', 'dt_prev_commit_sec_importance', 'dt_prev_author_sec_importance', 'files_changed_importance', 'insertions_importance', 'deletions_importance', 'is_merge_importance', 'dirs_touched_importance', 'file_types_importance', 'msg_subject_importance', 'noise_factor_importance', 'raw_churn_importance', 'effective_churn_importance', 'directory_centrality_importance', 'key_path_lines_importance', 'new_file_indicator_importance', 'new_file_lines_importance', 'batch_importance', 'author_name', 'author_email', 'commit_ts_utc', 'importance']
+2025-08-02 09:36:28,600 - __main__ - INFO -    - Merged dataframe shape: (4, 59)
+2025-08-02 09:36:28,601 - fds_algorithm.fds_calculator - INFO - Calculated 4 individual contributions
+2025-08-02 09:36:28,602 - __main__ - ERROR - FDS analysis failed: "Column(s) ['effective_churn', 'files_changed'] do not exist"
+2025-08-02 09:36:53,125 - __main__ - INFO - Starting FDS analysis for https://github.com/BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:36:53,125 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:36:53,335 - __main__ - INFO -    Repository: BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:36:53,335 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:36:53,335 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from BellowAverage/PlayerSentimentAnalysis
+2025-08-02 09:36:53,335 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:36:53,547 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 2...
+2025-08-02 09:36:53,725 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 4 commits
+2025-08-02 09:36:53,725 - __main__ - INFO - Retrieved 4 commits
+2025-08-02 09:36:53,728 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:36:53,737 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:36:53,737 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 1e-05
+  beta: 0.1
+  Gap threshold: 7200.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 4
+  Total batches: 1
+  Average commits per batch: 4.00
+
+2025-08-02 09:36:53,737 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:36:53,853 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:36:53,854 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_PlayerSentimentAnalysis_20250802_093653\commits_clustered.csv
+2025-08-02 09:36:53,856 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 1.000
+2025-08-02 09:36:53,856 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:36:53,858 - fds_algorithm.preprocessing.data_processor - INFO - Detected 0 potential new file commits
+2025-08-02 09:36:53,858 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:36:53,860 - __main__ - INFO -    - Processed 4 commits
+2025-08-02 09:36:53,860 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:36:53,860 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-08-02 09:36:53,866 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculated effort metrics for 4 commits
+2025-08-02 09:36:53,867 - __main__ - INFO -    - Calculated effort for 4 commits
+2025-08-02 09:36:53,867 - __main__ - INFO -    - Calculating batch importance...
+2025-08-02 09:36:53,868 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-08-02 09:36:53,868 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculated importance for 0 batches
+2025-08-02 09:36:53,869 - __main__ - INFO -    - Calculated importance for 0 batches
+2025-08-02 09:36:53,869 - __main__ - INFO -    - Calculating final FDS scores...
+2025-08-02 09:36:53,872 - __main__ - INFO -    - Merged dataframe columns: ['hash', 'author_name_effort', 'author_email_effort', 'commit_ts_utc_effort', 'dt_prev_commit_sec_effort', 'dt_prev_author_sec_effort', 'files_changed_effort', 'insertions_effort', 'deletions_effort', 'is_merge_effort', 'dirs_touched_effort', 'file_types_effort', 'msg_subject_effort', 'batch_id', 'noise_factor_effort', 'raw_churn_effort', 'effective_churn_effort', 'directory_centrality_effort', 'key_path_lines_effort', 'new_file_indicator_effort', 'new_file_lines_effort', 'share', 'scale_raw', 'reach_raw', 'centrality_raw', 'dominance_raw', 'novelty_raw', 'speed_raw', 'scale_z', 'reach_z', 'centrality_z', 'dominance_z', 'novelty_z', 'speed_z', 'effort', 'author_name_importance', 'author_email_importance', 'commit_ts_utc_importance', 'dt_prev_commit_sec_importance', 'dt_prev_author_sec_importance', 'files_changed_importance', 'insertions_importance', 'deletions_importance', 'is_merge_importance', 'dirs_touched_importance', 'file_types_importance', 'msg_subject_importance', 'noise_factor_importance', 'raw_churn_importance', 'effective_churn_importance', 'directory_centrality_importance', 'key_path_lines_importance', 'new_file_indicator_importance', 'new_file_lines_importance', 'batch_importance', 'author_name', 'author_email', 'commit_ts_utc', 'effective_churn', 'files_changed', 'insertions', 'deletions', 'dirs_touched', 'importance']
+2025-08-02 09:36:53,872 - __main__ - INFO -    - Merged dataframe shape: (4, 64)
+2025-08-02 09:36:53,873 - fds_algorithm.fds_calculator - INFO - Calculated 4 individual contributions
+2025-08-02 09:36:53,877 - fds_algorithm.fds_calculator - INFO - Calculated FDS for 0 authors in 0-day window (2024-10-16 to 2024-10-17)
+2025-08-02 09:36:53,885 - __main__ - INFO - FDS analysis completed for 0 developers
+2025-08-02 09:36:53,885 - __main__ - INFO - Step 4: Generating summary report...
+2025-08-02 09:36:53,886 - __main__ - INFO - Summary report generated: fds_results_PlayerSentimentAnalysis_20250802_093653\FDS_Analysis_Report.txt
+2025-08-02 09:36:53,887 - __main__ - INFO - Analysis completed successfully!
+2025-08-02 09:38:50,464 - __main__ - INFO - Starting FDS analysis for https://github.com/facebook/react
+2025-08-02 09:38:50,464 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:38:50,674 - __main__ - INFO -    Repository: facebook/react
+2025-08-02 09:38:50,674 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:38:50,674 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from facebook/react
+2025-08-02 09:38:50,674 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:38:51,184 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 100 commits
+2025-08-02 09:38:51,185 - __main__ - INFO - Retrieved 100 commits
+2025-08-02 09:38:51,188 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:38:51,201 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:38:51,202 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 1e-05
+  beta: 0.1
+  Gap threshold: 7200.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 100
+  Total batches: 1
+  Average commits per batch: 100.00
+
+2025-08-02 09:38:51,202 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:38:51,313 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:38:51,314 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_react_20250802_093850\commits_clustered.csv
+2025-08-02 09:38:51,318 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 1.000
+2025-08-02 09:38:51,320 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:38:51,322 - fds_algorithm.preprocessing.data_processor - INFO - Detected 0 potential new file commits
+2025-08-02 09:38:51,322 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:38:51,325 - __main__ - INFO -    - Processed 100 commits
+2025-08-02 09:38:51,325 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:38:51,325 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-08-02 09:38:51,356 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculated effort metrics for 100 commits
+2025-08-02 09:38:51,358 - __main__ - INFO -    - Calculated effort for 100 commits
+2025-08-02 09:38:51,358 - __main__ - INFO -    - Calculating batch importance...
+2025-08-02 09:38:51,359 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-08-02 09:38:51,360 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculated importance for 0 batches
+2025-08-02 09:38:51,360 - __main__ - INFO -    - Calculated importance for 0 batches
+2025-08-02 09:38:51,360 - __main__ - INFO -    - Calculating final FDS scores...
+2025-08-02 09:38:51,365 - __main__ - INFO -    - Merged dataframe columns: ['hash', 'author_name_effort', 'author_email_effort', 'commit_ts_utc_effort', 'dt_prev_commit_sec_effort', 'dt_prev_author_sec_effort', 'files_changed_effort', 'insertions_effort', 'deletions_effort', 'is_merge_effort', 'dirs_touched_effort', 'file_types_effort', 'msg_subject_effort', 'batch_id', 'noise_factor_effort', 'raw_churn_effort', 'effective_churn_effort', 'directory_centrality_effort', 'key_path_lines_effort', 'new_file_indicator_effort', 'new_file_lines_effort', 'share', 'scale_raw', 'reach_raw', 'centrality_raw', 'dominance_raw', 'novelty_raw', 'speed_raw', 'scale_z', 'reach_z', 'centrality_z', 'dominance_z', 'novelty_z', 'speed_z', 'effort', 'author_name_importance', 'author_email_importance', 'commit_ts_utc_importance', 'dt_prev_commit_sec_importance', 'dt_prev_author_sec_importance', 'files_changed_importance', 'insertions_importance', 'deletions_importance', 'is_merge_importance', 'dirs_touched_importance', 'file_types_importance', 'msg_subject_importance', 'noise_factor_importance', 'raw_churn_importance', 'effective_churn_importance', 'directory_centrality_importance', 'key_path_lines_importance', 'new_file_indicator_importance', 'new_file_lines_importance', 'batch_importance', 'author_name', 'author_email', 'commit_ts_utc', 'effective_churn', 'files_changed', 'insertions', 'deletions', 'dirs_touched', 'importance']
+2025-08-02 09:38:51,365 - __main__ - INFO -    - Merged dataframe shape: (100, 64)
+2025-08-02 09:38:51,366 - fds_algorithm.fds_calculator - INFO - Calculated 100 individual contributions
+2025-08-02 09:38:51,370 - fds_algorithm.fds_calculator - INFO - Calculated FDS for 0 authors in 23-day window (2025-07-09 to 2025-08-01)
+2025-08-02 09:38:51,379 - __main__ - INFO - FDS analysis completed for 0 developers
+2025-08-02 09:38:51,379 - __main__ - INFO - Step 4: Generating summary report...
+2025-08-02 09:38:51,379 - __main__ - INFO - Summary report generated: fds_results_react_20250802_093850\FDS_Analysis_Report.txt
+2025-08-02 09:38:51,380 - __main__ - INFO - Analysis completed successfully!
+2025-08-02 09:39:37,131 - __main__ - INFO - Starting FDS analysis for https://github.com/facebook/react
+2025-08-02 09:39:37,131 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:39:37,342 - __main__ - INFO -    Repository: facebook/react
+2025-08-02 09:39:37,342 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:39:37,342 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from facebook/react
+2025-08-02 09:39:37,342 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:40:23,291 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 100 commits
+2025-08-02 09:40:23,295 - __main__ - INFO - Retrieved 100 commits
+2025-08-02 09:40:23,300 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:40:23,312 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:40:23,312 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 1e-05
+  beta: 0.1
+  Gap threshold: 7200.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 100
+  Total batches: 1
+  Average commits per batch: 100.00
+
+2025-08-02 09:40:23,312 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:40:23,434 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:40:23,434 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_react_20250802_093937\commits_clustered.csv
+2025-08-02 09:40:23,438 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 0.993
+2025-08-02 09:40:23,440 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:40:23,442 - fds_algorithm.preprocessing.data_processor - INFO - Detected 11 potential new file commits
+2025-08-02 09:40:23,442 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:40:23,444 - __main__ - INFO -    - Processed 100 commits
+2025-08-02 09:40:23,444 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:40:23,445 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-08-02 09:40:23,477 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculated effort metrics for 100 commits
+2025-08-02 09:40:23,479 - __main__ - INFO -    - Calculated effort for 100 commits
+2025-08-02 09:40:23,479 - __main__ - INFO -    - Calculating batch importance...
+2025-08-02 09:40:23,479 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-08-02 09:40:23,491 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculated importance for 1 batches
+2025-08-02 09:40:23,492 - __main__ - INFO -    - Calculated importance for 1 batches
+2025-08-02 09:40:23,492 - __main__ - INFO -    - Calculating final FDS scores...
+2025-08-02 09:40:23,497 - __main__ - INFO -    - Merged dataframe columns: ['hash', 'author_name_effort', 'author_email_effort', 'commit_ts_utc_effort', 'dt_prev_commit_sec_effort', 'dt_prev_author_sec_effort', 'files_changed_effort', 'insertions_effort', 'deletions_effort', 'is_merge_effort', 'dirs_touched_effort', 'file_types_effort', 'msg_subject_effort', 'batch_id', 'noise_factor_effort', 'raw_churn_effort', 'effective_churn_effort', 'directory_centrality_effort', 'key_path_lines_effort', 'new_file_indicator_effort', 'new_file_lines_effort', 'share', 'scale_raw', 'reach_raw', 'centrality_raw', 'dominance_raw', 'novelty_raw', 'speed_raw', 'scale_z', 'reach_z', 'centrality_z', 'dominance_z', 'novelty_z', 'speed_z', 'effort', 'author_name_importance', 'author_email_importance', 'commit_ts_utc_importance', 'dt_prev_commit_sec_importance', 'dt_prev_author_sec_importance', 'files_changed_importance', 'insertions_importance', 'deletions_importance', 'is_merge_importance', 'dirs_touched_importance', 'file_types_importance', 'msg_subject_importance', 'noise_factor_importance', 'raw_churn_importance', 'effective_churn_importance', 'directory_centrality_importance', 'key_path_lines_importance', 'new_file_indicator_importance', 'new_file_lines_importance', 'batch_importance', 'author_name', 'author_email', 'commit_ts_utc', 'effective_churn', 'files_changed', 'insertions', 'deletions', 'dirs_touched', 'importance']
+2025-08-02 09:40:23,497 - __main__ - INFO -    - Merged dataframe shape: (100, 64)
+2025-08-02 09:40:23,498 - fds_algorithm.fds_calculator - INFO - Calculated 100 individual contributions
+2025-08-02 09:40:23,502 - fds_algorithm.fds_calculator - INFO - Calculated FDS for 0 authors in 23-day window (2025-07-09 to 2025-08-01)
+2025-08-02 09:40:23,511 - __main__ - INFO - FDS analysis completed for 0 developers
+2025-08-02 09:40:23,511 - __main__ - INFO - Step 4: Generating summary report...
+2025-08-02 09:40:23,512 - __main__ - INFO - Summary report generated: fds_results_react_20250802_093937\FDS_Analysis_Report.txt
+2025-08-02 09:40:23,512 - __main__ - INFO - Analysis completed successfully!
+2025-08-02 09:41:16,625 - __main__ - INFO - Starting FDS analysis for https://github.com/facebook/react
+2025-08-02 09:41:16,626 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:41:16,836 - __main__ - INFO -    Repository: facebook/react
+2025-08-02 09:41:16,836 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:41:16,836 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from facebook/react
+2025-08-02 09:41:16,836 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:42:03,197 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 100 commits
+2025-08-02 09:42:03,204 - __main__ - INFO - Retrieved 100 commits
+2025-08-02 09:42:03,210 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:42:03,226 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:42:03,226 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 0.0001
+  beta: 0.3
+  Gap threshold: 3600.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 100
+  Total batches: 1
+  Average commits per batch: 100.00
+
+2025-08-02 09:42:03,226 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:42:03,331 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:42:03,331 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_react_20250802_094116\commits_clustered.csv
+2025-08-02 09:42:03,335 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 0.993
+2025-08-02 09:42:03,336 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:42:03,339 - fds_algorithm.preprocessing.data_processor - INFO - Detected 11 potential new file commits
+2025-08-02 09:42:03,339 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:42:03,341 - __main__ - INFO -    - Processed 100 commits
+2025-08-02 09:42:03,342 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:42:03,342 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-08-02 09:42:03,373 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculated effort metrics for 100 commits
+2025-08-02 09:42:03,375 - __main__ - INFO -    - Calculated effort for 100 commits
+2025-08-02 09:42:03,375 - __main__ - INFO -    - Calculating batch importance...
+2025-08-02 09:42:03,376 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-08-02 09:42:03,386 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculated importance for 1 batches
+2025-08-02 09:42:03,387 - __main__ - INFO -    - Calculated importance for 1 batches
+2025-08-02 09:42:03,387 - __main__ - INFO -    - Calculating final FDS scores...
+2025-08-02 09:42:03,392 - __main__ - INFO -    - Merged dataframe columns: ['hash', 'author_name_effort', 'author_email_effort', 'commit_ts_utc_effort', 'dt_prev_commit_sec_effort', 'dt_prev_author_sec_effort', 'files_changed_effort', 'insertions_effort', 'deletions_effort', 'is_merge_effort', 'dirs_touched_effort', 'file_types_effort', 'msg_subject_effort', 'batch_id', 'noise_factor_effort', 'raw_churn_effort', 'effective_churn_effort', 'directory_centrality_effort', 'key_path_lines_effort', 'new_file_indicator_effort', 'new_file_lines_effort', 'share', 'scale_raw', 'reach_raw', 'centrality_raw', 'dominance_raw', 'novelty_raw', 'speed_raw', 'scale_z', 'reach_z', 'centrality_z', 'dominance_z', 'novelty_z', 'speed_z', 'effort', 'author_name_importance', 'author_email_importance', 'commit_ts_utc_importance', 'dt_prev_commit_sec_importance', 'dt_prev_author_sec_importance', 'files_changed_importance', 'insertions_importance', 'deletions_importance', 'is_merge_importance', 'dirs_touched_importance', 'file_types_importance', 'msg_subject_importance', 'noise_factor_importance', 'raw_churn_importance', 'effective_churn_importance', 'directory_centrality_importance', 'key_path_lines_importance', 'new_file_indicator_importance', 'new_file_lines_importance', 'batch_importance', 'author_name', 'author_email', 'commit_ts_utc', 'effective_churn', 'files_changed', 'insertions', 'deletions', 'dirs_touched', 'importance']
+2025-08-02 09:42:03,392 - __main__ - INFO -    - Merged dataframe shape: (100, 64)
+2025-08-02 09:42:03,393 - fds_algorithm.fds_calculator - INFO - Calculated 100 individual contributions
+2025-08-02 09:42:03,397 - fds_algorithm.fds_calculator - INFO - Calculated FDS for 0 authors in 23-day window (2025-07-09 to 2025-08-01)
+2025-08-02 09:42:03,406 - __main__ - INFO - FDS analysis completed for 0 developers
+2025-08-02 09:42:03,406 - __main__ - INFO - Step 4: Generating summary report...
+2025-08-02 09:42:03,407 - __main__ - INFO - Summary report generated: fds_results_react_20250802_094116\FDS_Analysis_Report.txt
+2025-08-02 09:42:03,408 - __main__ - INFO - Analysis completed successfully!
+2025-08-02 09:42:42,416 - __main__ - INFO - Starting FDS analysis for https://github.com/facebook/react
+2025-08-02 09:42:42,416 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:42:42,622 - __main__ - INFO -    Repository: facebook/react
+2025-08-02 09:42:42,622 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:42:42,622 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from facebook/react
+2025-08-02 09:42:42,623 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:43:22,415 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 100 commits
+2025-08-02 09:43:22,417 - __main__ - INFO - Retrieved 100 commits
+2025-08-02 09:43:22,421 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:43:22,433 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:43:22,433 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 0.0001
+  beta: 0.3
+  Gap threshold: 3600.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 100
+  Total batches: 1
+  Average commits per batch: 100.00
+
+2025-08-02 09:43:22,433 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:43:22,551 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:43:22,552 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_react_20250802_094242\commits_clustered.csv
+2025-08-02 09:43:22,555 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 0.993
+2025-08-02 09:43:22,557 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:43:22,560 - fds_algorithm.preprocessing.data_processor - INFO - Detected 11 potential new file commits
+2025-08-02 09:43:22,560 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:43:22,562 - __main__ - INFO -    - Processed 100 commits
+2025-08-02 09:43:22,562 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:43:22,562 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-08-02 09:43:22,593 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculated effort metrics for 100 commits
+2025-08-02 09:43:22,596 - __main__ - INFO -    - Calculated effort for 100 commits
+2025-08-02 09:43:22,596 - __main__ - INFO -    - Calculating batch importance...
+2025-08-02 09:43:22,597 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-08-02 09:43:22,605 - fds_algorithm.importance_calculator.batch_importance - INFO - Single batch detected - using default importance normalization
+2025-08-02 09:43:22,607 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculated importance for 1 batches
+2025-08-02 09:43:22,607 - __main__ - INFO -    - Calculated importance for 1 batches
+2025-08-02 09:43:22,608 - __main__ - INFO -    - Calculating final FDS scores...
+2025-08-02 09:43:22,612 - __main__ - INFO -    - Merged dataframe columns: ['hash', 'author_name_effort', 'author_email_effort', 'commit_ts_utc_effort', 'dt_prev_commit_sec_effort', 'dt_prev_author_sec_effort', 'files_changed_effort', 'insertions_effort', 'deletions_effort', 'is_merge_effort', 'dirs_touched_effort', 'file_types_effort', 'msg_subject_effort', 'batch_id', 'noise_factor_effort', 'raw_churn_effort', 'effective_churn_effort', 'directory_centrality_effort', 'key_path_lines_effort', 'new_file_indicator_effort', 'new_file_lines_effort', 'share', 'scale_raw', 'reach_raw', 'centrality_raw', 'dominance_raw', 'novelty_raw', 'speed_raw', 'scale_z', 'reach_z', 'centrality_z', 'dominance_z', 'novelty_z', 'speed_z', 'effort', 'author_name_importance', 'author_email_importance', 'commit_ts_utc_importance', 'dt_prev_commit_sec_importance', 'dt_prev_author_sec_importance', 'files_changed_importance', 'insertions_importance', 'deletions_importance', 'is_merge_importance', 'dirs_touched_importance', 'file_types_importance', 'msg_subject_importance', 'noise_factor_importance', 'raw_churn_importance', 'effective_churn_importance', 'directory_centrality_importance', 'key_path_lines_importance', 'new_file_indicator_importance', 'new_file_lines_importance', 'batch_importance', 'author_name', 'author_email', 'commit_ts_utc', 'effective_churn', 'files_changed', 'insertions', 'deletions', 'dirs_touched', 'importance']
+2025-08-02 09:43:22,613 - __main__ - INFO -    - Merged dataframe shape: (100, 64)
+2025-08-02 09:43:22,613 - fds_algorithm.fds_calculator - INFO - Calculated 100 individual contributions
+2025-08-02 09:43:22,618 - fds_algorithm.fds_calculator - INFO - Calculated FDS for 2 authors in 23-day window (2025-07-09 to 2025-08-01)
+2025-08-02 09:43:22,628 - __main__ - INFO - FDS analysis completed for 2 developers
+2025-08-02 09:43:22,628 - __main__ - INFO - Step 4: Generating summary report...
+2025-08-02 09:43:22,629 - __main__ - ERROR - Report generation failed: 'total_contributions'
+2025-08-02 09:43:22,630 - __main__ - ERROR - Unexpected error: 'total_contributions'
+2025-08-02 09:44:16,727 - __main__ - INFO - Starting FDS analysis for https://github.com/facebook/react
+2025-08-02 09:44:16,727 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:44:16,936 - __main__ - INFO -    Repository: facebook/react
+2025-08-02 09:44:16,936 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:44:16,936 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from facebook/react
+2025-08-02 09:44:16,936 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:45:01,952 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 100 commits
+2025-08-02 09:45:01,957 - __main__ - INFO - Retrieved 100 commits
+2025-08-02 09:45:01,963 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:45:01,981 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:45:01,981 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 0.001
+  beta: 0.1
+  Gap threshold: 30.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 100
+  Total batches: 21
+  Average commits per batch: 4.76
+
+2025-08-02 09:45:01,981 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:45:02,084 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:45:02,084 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_react_20250802_094416\commits_clustered.csv
+2025-08-02 09:45:02,088 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 0.993
+2025-08-02 09:45:02,090 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:45:02,092 - fds_algorithm.preprocessing.data_processor - INFO - Detected 11 potential new file commits
+2025-08-02 09:45:02,093 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:45:02,095 - __main__ - INFO -    - Processed 100 commits
+2025-08-02 09:45:02,095 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:45:02,095 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-08-02 09:45:02,202 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculated effort metrics for 100 commits
+2025-08-02 09:45:02,205 - __main__ - INFO -    - Calculated effort for 100 commits
+2025-08-02 09:45:02,205 - __main__ - INFO -    - Calculating batch importance...
+2025-08-02 09:45:02,206 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-08-02 09:45:02,228 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculated importance for 21 batches
+2025-08-02 09:45:02,229 - __main__ - INFO -    - Calculated importance for 21 batches
+2025-08-02 09:45:02,230 - __main__ - INFO -    - Calculating final FDS scores...
+2025-08-02 09:45:02,234 - __main__ - INFO -    - Merged dataframe columns: ['hash', 'author_name_effort', 'author_email_effort', 'commit_ts_utc_effort', 'dt_prev_commit_sec_effort', 'dt_prev_author_sec_effort', 'files_changed_effort', 'insertions_effort', 'deletions_effort', 'is_merge_effort', 'dirs_touched_effort', 'file_types_effort', 'msg_subject_effort', 'batch_id', 'noise_factor_effort', 'raw_churn_effort', 'effective_churn_effort', 'directory_centrality_effort', 'key_path_lines_effort', 'new_file_indicator_effort', 'new_file_lines_effort', 'share', 'scale_raw', 'reach_raw', 'centrality_raw', 'dominance_raw', 'novelty_raw', 'speed_raw', 'scale_z', 'reach_z', 'centrality_z', 'dominance_z', 'novelty_z', 'speed_z', 'effort', 'author_name_importance', 'author_email_importance', 'commit_ts_utc_importance', 'dt_prev_commit_sec_importance', 'dt_prev_author_sec_importance', 'files_changed_importance', 'insertions_importance', 'deletions_importance', 'is_merge_importance', 'dirs_touched_importance', 'file_types_importance', 'msg_subject_importance', 'noise_factor_importance', 'raw_churn_importance', 'effective_churn_importance', 'directory_centrality_importance', 'key_path_lines_importance', 'new_file_indicator_importance', 'new_file_lines_importance', 'batch_importance', 'author_name', 'author_email', 'commit_ts_utc', 'effective_churn', 'files_changed', 'insertions', 'deletions', 'dirs_touched', 'importance']
+2025-08-02 09:45:02,235 - __main__ - INFO -    - Merged dataframe shape: (100, 64)
+2025-08-02 09:45:02,236 - fds_algorithm.fds_calculator - INFO - Calculated 100 individual contributions
+2025-08-02 09:45:02,240 - fds_algorithm.fds_calculator - INFO - Calculated FDS for 6 authors in 23-day window (2025-07-09 to 2025-08-01)
+2025-08-02 09:45:02,250 - __main__ - INFO - FDS analysis completed for 6 developers
+2025-08-02 09:45:02,250 - __main__ - INFO - Step 4: Generating summary report...
+2025-08-02 09:45:02,251 - __main__ - ERROR - Report generation failed: 'total_contributions'
+2025-08-02 09:45:02,252 - __main__ - ERROR - Unexpected error: 'total_contributions'
+2025-08-02 09:45:50,958 - __main__ - INFO - Starting FDS analysis for https://github.com/facebook/react
+2025-08-02 09:45:50,958 - __main__ - INFO - Step 1: Acquiring commit data from GitHub...
+2025-08-02 09:45:51,175 - __main__ - INFO -    Repository: facebook/react
+2025-08-02 09:45:51,175 - __main__ - INFO -    Commit limit: 100
+2025-08-02 09:45:51,175 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching commits from facebook/react
+2025-08-02 09:45:51,175 - data_acquisition.from_github.acquire_pretrained_data - INFO - Fetching page 1...
+2025-08-02 09:46:32,551 - data_acquisition.from_github.acquire_pretrained_data - INFO - Retrieved 100 commits
+2025-08-02 09:46:32,554 - __main__ - INFO - Retrieved 100 commits
+2025-08-02 09:46:32,557 - __main__ - INFO - Step 2: Running TORQUE clustering...
+2025-08-02 09:46:32,570 - __main__ - INFO - TORQUE clustering completed
+2025-08-02 09:46:32,571 - __main__ - INFO - Clustering Summary:
+TORQUE Clustering Summary
+========================
+
+Parameters:
+  alpha: 0.001
+  beta: 0.1
+  Gap threshold: 30.0
+  Break on merge: True
+  Break on author: False
+
+Results:
+  Total commits: 100
+  Total batches: 21
+  Average commits per batch: 4.76
+
+2025-08-02 09:46:32,571 - __main__ - INFO - Step 3: Running FDS analysis...
+2025-08-02 09:46:32,673 - __main__ - INFO -    - Preprocessing data...
+2025-08-02 09:46:32,673 - fds_algorithm.preprocessing.data_processor - INFO - Loading data from fds_results_react_20250802_094550\commits_clustered.csv
+2025-08-02 09:46:32,677 - fds_algorithm.preprocessing.data_processor - INFO - Applied noise filtering. Avg noise factor: 0.993
+2025-08-02 09:46:32,679 - fds_algorithm.preprocessing.data_processor - INFO - Built directory graph: 0 nodes, 0 edges
+2025-08-02 09:46:32,682 - fds_algorithm.preprocessing.data_processor - INFO - Detected 11 potential new file commits
+2025-08-02 09:46:32,682 - fds_algorithm.preprocessing.data_processor - INFO - Added all metadata flags to DataFrame
+2025-08-02 09:46:32,684 - __main__ - INFO -    - Processed 100 commits
+2025-08-02 09:46:32,684 - __main__ - INFO -    - Calculating developer effort...
+2025-08-02 09:46:32,684 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculating developer effort metrics for all batches...
+2025-08-02 09:46:32,790 - fds_algorithm.effort_calculator.developer_effort - INFO - Calculated effort metrics for 100 commits
+2025-08-02 09:46:32,792 - __main__ - INFO -    - Calculated effort for 100 commits
+2025-08-02 09:46:32,792 - __main__ - INFO -    - Calculating batch importance...
+2025-08-02 09:46:32,793 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculating batch importance metrics...
+2025-08-02 09:46:32,814 - fds_algorithm.importance_calculator.batch_importance - INFO - Calculated importance for 21 batches
+2025-08-02 09:46:32,815 - __main__ - INFO -    - Calculated importance for 21 batches
+2025-08-02 09:46:32,816 - __main__ - INFO -    - Calculating final FDS scores...
+2025-08-02 09:46:32,820 - __main__ - INFO -    - Merged dataframe columns: ['hash', 'author_name_effort', 'author_email_effort', 'commit_ts_utc_effort', 'dt_prev_commit_sec_effort', 'dt_prev_author_sec_effort', 'files_changed_effort', 'insertions_effort', 'deletions_effort', 'is_merge_effort', 'dirs_touched_effort', 'file_types_effort', 'msg_subject_effort', 'batch_id', 'noise_factor_effort', 'raw_churn_effort', 'effective_churn_effort', 'directory_centrality_effort', 'key_path_lines_effort', 'new_file_indicator_effort', 'new_file_lines_effort', 'share', 'scale_raw', 'reach_raw', 'centrality_raw', 'dominance_raw', 'novelty_raw', 'speed_raw', 'scale_z', 'reach_z', 'centrality_z', 'dominance_z', 'novelty_z', 'speed_z', 'effort', 'author_name_importance', 'author_email_importance', 'commit_ts_utc_importance', 'dt_prev_commit_sec_importance', 'dt_prev_author_sec_importance', 'files_changed_importance', 'insertions_importance', 'deletions_importance', 'is_merge_importance', 'dirs_touched_importance', 'file_types_importance', 'msg_subject_importance', 'noise_factor_importance', 'raw_churn_importance', 'effective_churn_importance', 'directory_centrality_importance', 'key_path_lines_importance', 'new_file_indicator_importance', 'new_file_lines_importance', 'batch_importance', 'author_name', 'author_email', 'commit_ts_utc', 'effective_churn', 'files_changed', 'insertions', 'deletions', 'dirs_touched', 'importance']
+2025-08-02 09:46:32,821 - __main__ - INFO -    - Merged dataframe shape: (100, 64)
+2025-08-02 09:46:32,821 - fds_algorithm.fds_calculator - INFO - Calculated 100 individual contributions
+2025-08-02 09:46:32,826 - fds_algorithm.fds_calculator - INFO - Calculated FDS for 6 authors in 23-day window (2025-07-09 to 2025-08-01)
+2025-08-02 09:46:32,835 - __main__ - INFO - FDS analysis completed for 6 developers
+2025-08-02 09:46:32,835 - __main__ - INFO - Step 4: Generating summary report...
+2025-08-02 09:46:32,836 - __main__ - ERROR - Report generation failed: 'active_days'
+2025-08-02 09:46:32,837 - __main__ - INFO - Analysis completed successfully!

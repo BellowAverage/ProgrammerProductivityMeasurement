@@ -1,0 +1,480 @@
+{% extends 'dev_productivity/base.html' %}
+
+{% block title %}Settings - {{ user.get_full_name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>⚙️ Account Settings</h2>
+        <p class="text-muted mb-0">Manage your profile, preferences, and GitHub integration</p>
+    </div>
+    <a href="{% url 'user_dashboard' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-3">
+        <!-- Settings Navigation -->
+        <div class="card">
+            <div class="card-body">
+                <div class="nav flex-column nav-pills" id="settings-tab" role="tablist">
+                    <button class="nav-link active" id="profile-tab" data-bs-toggle="pill" data-bs-target="#profile" type="button" role="tab">
+                        <i class="bi bi-person me-2"></i>Profile
+                    </button>
+                    <button class="nav-link" id="github-tab" data-bs-toggle="pill" data-bs-target="#github" type="button" role="tab">
+                        <i class="bi bi-github me-2"></i>GitHub Integration
+                    </button>
+                    {% if preferences_form %}
+                    <button class="nav-link" id="preferences-tab" data-bs-toggle="pill" data-bs-target="#preferences" type="button" role="tab">
+                        <i class="bi bi-sliders me-2"></i>Preferences
+                    </button>
+                    {% endif %}
+                    <button class="nav-link" id="security-tab" data-bs-toggle="pill" data-bs-target="#security" type="button" role="tab">
+                        <i class="bi bi-shield-lock me-2"></i>Security
+                    </button>
+                    <button class="nav-link text-danger" id="danger-tab" data-bs-toggle="pill" data-bs-target="#danger" type="button" role="tab">
+                        <i class="bi bi-exclamation-triangle me-2"></i>Danger Zone
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-9">
+        <div class="tab-content" id="settings-tabContent">
+            <!-- Profile Settings -->
+            <div class="tab-pane fade show active" id="profile" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-person-circle me-2"></i>Profile Information
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{% url 'user_settings' %}">
+                            {% csrf_token %}
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ profile_form.first_name.id_for_label }}" class="form-label">First Name</label>
+                                    {{ profile_form.first_name }}
+                                    {% if profile_form.first_name.errors %}
+                                        <div class="text-danger small mt-1">{{ profile_form.first_name.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ profile_form.last_name.id_for_label }}" class="form-label">Last Name</label>
+                                    {{ profile_form.last_name }}
+                                    {% if profile_form.last_name.errors %}
+                                        <div class="text-danger small mt-1">{{ profile_form.last_name.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ profile_form.username.id_for_label }}" class="form-label">Username</label>
+                                    {{ profile_form.username }}
+                                    {% if profile_form.username.errors %}
+                                        <div class="text-danger small mt-1">{{ profile_form.username.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ profile_form.email.id_for_label }}" class="form-label">Email</label>
+                                    {{ profile_form.email }}
+                                    {% if profile_form.email.errors %}
+                                        <div class="text-danger small mt-1">{{ profile_form.email.errors.0 }}</div>
+                                    {% endif %}
+                                    {% if not user.email_verified %}
+                                        <div class="form-text text-warning">
+                                            <i class="bi bi-exclamation-triangle me-1"></i>Email not verified
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ profile_form.organization.id_for_label }}" class="form-label">Organization</label>
+                                    {{ profile_form.organization }}
+                                    {% if profile_form.organization.errors %}
+                                        <div class="text-danger small mt-1">{{ profile_form.organization.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ profile_form.job_title.id_for_label }}" class="form-label">Job Title</label>
+                                    {{ profile_form.job_title }}
+                                    {% if profile_form.job_title.errors %}
+                                        <div class="text-danger small mt-1">{{ profile_form.job_title.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ profile_form.github_username.id_for_label }}" class="form-label">GitHub Username</label>
+                                    {{ profile_form.github_username }}
+                                    {% if profile_form.github_username.errors %}
+                                        <div class="text-danger small mt-1">{{ profile_form.github_username.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ profile_form.default_commit_limit.id_for_label }}" class="form-label">Default Commit Limit</label>
+                                    {{ profile_form.default_commit_limit }}
+                                    {% if profile_form.default_commit_limit.errors %}
+                                        <div class="text-danger small mt-1">{{ profile_form.default_commit_limit.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle me-2"></i>Save Profile
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GitHub Integration -->
+            <div class="tab-pane fade" id="github" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-github me-2"></i>GitHub Integration
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <form method="post" action="{% url 'user_settings' %}">
+                                    {% csrf_token %}
+                                    
+                                    <div class="mb-3">
+                                        <label for="{{ token_form.github_access_token.id_for_label }}" class="form-label">
+                                            Personal Access Token
+                                        </label>
+                                        {{ token_form.github_access_token }}
+                                        {% if token_form.github_access_token.help_text %}
+                                            <div class="form-text">{{ token_form.github_access_token.help_text }}</div>
+                                        {% endif %}
+                                        {% if token_form.github_access_token.errors %}
+                                            <div class="text-danger small mt-1">{{ token_form.github_access_token.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="bi bi-check-circle me-2"></i>Save Token
+                                        </button>
+                                        {% if user.github_access_token %}
+                                            <form method="post" action="{% url 'clear_github_token' %}" style="display: inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-outline-danger">
+                                                    <i class="bi bi-trash me-2"></i>Clear Token
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="alert alert-info">
+                                    <h6><i class="bi bi-info-circle me-2"></i>Why do I need this?</h6>
+                                    <ul class="small mb-0">
+                                        <li>Higher API rate limits (5000/hour vs 60/hour)</li>
+                                        <li>Access to private repositories</li>
+                                        <li>More detailed commit information</li>
+                                    </ul>
+                                </div>
+                                
+                                {% if user.github_access_token %}
+                                <div class="alert alert-success">
+                                    <i class="bi bi-check-circle me-2"></i>Token configured
+                                </div>
+                                {% else %}
+                                <div class="alert alert-warning">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>No token configured
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <h6>How to get a GitHub token:</h6>
+                        <ol class="small">
+                            <li>Go to <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings → Tokens</a></li>
+                            <li>Click "Generate new token (classic)"</li>
+                            <li>Give it a descriptive name (e.g., "FDS Analyzer")</li>
+                            <li>Select the <code>repo</code> scope for full repository access</li>
+                            <li>Click "Generate token" and copy the result</li>
+                            <li>Paste it in the field above</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Preferences -->
+            {% if preferences_form %}
+            <div class="tab-pane fade" id="preferences" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-sliders me-2"></i>Preferences
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{% url 'user_settings' %}">
+                            {% csrf_token %}
+                            
+                            <h6>Analysis Defaults</h6>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        {{ preferences_form.default_repo_privacy }}
+                                        <label class="form-check-label" for="{{ preferences_form.default_repo_privacy.id_for_label }}">
+                                            {{ preferences_form.default_repo_privacy.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        {{ preferences_form.auto_share_with_team }}
+                                        <label class="form-check-label" for="{{ preferences_form.auto_share_with_team.id_for_label }}">
+                                            {{ preferences_form.auto_share_with_team.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h6>Interface</h6>
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <label for="{{ preferences_form.theme.id_for_label }}" class="form-label">Theme</label>
+                                    {{ preferences_form.theme }}
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="{{ preferences_form.items_per_page.id_for_label }}" class="form-label">Items per page</label>
+                                    {{ preferences_form.items_per_page }}
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="{{ preferences_form.dashboard_layout.id_for_label }}" class="form-label">Dashboard layout</label>
+                                    {{ preferences_form.dashboard_layout }}
+                                </div>
+                            </div>
+                            
+                            <h6>Notifications</h6>
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        {{ preferences_form.email_on_completion }}
+                                        <label class="form-check-label" for="{{ preferences_form.email_on_completion.id_for_label }}">
+                                            {{ preferences_form.email_on_completion.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        {{ preferences_form.email_on_failure }}
+                                        <label class="form-check-label" for="{{ preferences_form.email_on_failure.id_for_label }}">
+                                            {{ preferences_form.email_on_failure.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        {{ preferences_form.email_weekly_summary }}
+                                        <label class="form-check-label" for="{{ preferences_form.email_weekly_summary.id_for_label }}">
+                                            {{ preferences_form.email_weekly_summary.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h6>Data Management</h6>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        {{ preferences_form.auto_delete_failed }}
+                                        <label class="form-check-label" for="{{ preferences_form.auto_delete_failed.id_for_label }}">
+                                            {{ preferences_form.auto_delete_failed.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ preferences_form.keep_analysis_data_days.id_for_label }}" class="form-label">Keep analysis data (days)</label>
+                                    {{ preferences_form.keep_analysis_data_days }}
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle me-2"></i>Save Preferences
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Security -->
+            <div class="tab-pane fade" id="security" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-shield-lock me-2"></i>Security Settings
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Account Information</h6>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td>Email Verified</td>
+                                        <td>
+                                            {% if user.email_verified %}
+                                                <span class="badge bg-success">Yes</span>
+                                            {% else %}
+                                                <span class="badge bg-warning">No</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Account Created</td>
+                                        <td>{{ user.created_at|date:"M d, Y" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Login</td>
+                                        <td>{{ user.last_login|date:"M d, Y H:i" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Login IP</td>
+                                        <td>{{ user.last_login_ip|default:"Unknown" }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Actions</h6>
+                                <div class="d-grid gap-2">
+                                    <a href="{% url 'password_reset' %}" class="btn btn-outline-primary">
+                                        <i class="bi bi-key me-2"></i>Change Password
+                                    </a>
+                                    {% if not user.email_verified %}
+                                    <a href="{% url 'resend_verification' %}" class="btn btn-outline-warning">
+                                        <i class="bi bi-envelope me-2"></i>Resend Email Verification
+                                    </a>
+                                    {% endif %}
+                                    <a href="{% url 'activity_log' %}" class="btn btn-outline-info">
+                                        <i class="bi bi-activity me-2"></i>View Activity Log
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Danger Zone -->
+            <div class="tab-pane fade" id="danger" role="tabpanel">
+                <div class="card border-danger">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-exclamation-triangle me-2"></i>Danger Zone
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-danger">
+                            <h6><i class="bi bi-exclamation-triangle me-2"></i>Delete Account</h6>
+                            <p class="mb-3">
+                                Once you delete your account, there is no going back. This will permanently delete:
+                            </p>
+                            <ul class="mb-3">
+                                <li>Your profile and settings</li>
+                                <li>All your analyses and their data</li>
+                                <li>Analysis results and CSV files</li>
+                                <li>Activity logs and session history</li>
+                            </ul>
+                            <p class="mb-0">
+                                <strong>This action cannot be undone.</strong>
+                            </p>
+                        </div>
+                        
+                        <a href="{% url 'delete_account' %}" class="btn btn-danger">
+                            <i class="bi bi-trash me-2"></i>Delete My Account
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Auto-save form data to localStorage
+function saveFormData() {
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        const formData = new FormData(form);
+        const data = {};
+        for (let [key, value] of formData.entries()) {
+            if (key !== 'csrfmiddlewaretoken') {
+                data[key] = value;
+            }
+        }
+        localStorage.setItem('fds_settings_' + form.id, JSON.stringify(data));
+    });
+}
+
+// Load form data from localStorage
+function loadFormData() {
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        const savedData = localStorage.getItem('fds_settings_' + form.id);
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            Object.keys(data).forEach(key => {
+                const field = form.querySelector(`[name="${key}"]`);
+                if (field) {
+                    if (field.type === 'checkbox') {
+                        field.checked = data[key] === 'on';
+                    } else {
+                        field.value = data[key];
+                    }
+                }
+            });
+        }
+    });
+}
+
+// Save form data when fields change
+document.addEventListener('change', function(e) {
+    if (e.target.form) {
+        saveFormData();
+    }
+});
+
+// Clear saved data on successful form submission
+document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function() {
+            localStorage.removeItem('fds_settings_' + this.id);
+        });
+    });
+    
+    // Load any saved form data
+    loadFormData();
+});
+
+// Show/hide GitHub token field based on whether user has one
+const tokenField = document.getElementById('id_github_access_token');
+if (tokenField && '{{ user.github_access_token }}') {
+    tokenField.placeholder = 'Current token is configured (hidden)';
+    tokenField.value = '';
+}
+</script>
+{% endblock %}
+

@@ -1,0 +1,227 @@
+{% extends 'dev_productivity/base.html' %}
+
+{% block title %}Dashboard - {{ user.get_full_name }}{% endblock %}
+
+{% block content %}
+<!-- Welcome Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>👋 Welcome back, {{ user.first_name }}!</h2>
+        <p class="text-muted mb-0">Here's what's happening with your FDS analyses</p>
+    </div>
+    <a href="{% url 'create_analysis' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-2"></i>New Analysis
+    </a>
+</div>
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card metric-card">
+            <div class="card-body text-center">
+                <i class="bi bi-graph-up text-primary fs-2 mb-2"></i>
+                <h4 class="text-primary">{{ total_analyses }}</h4>
+                <p class="text-muted mb-0">Total Analyses</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card metric-card">
+            <div class="card-body text-center">
+                <i class="bi bi-check-circle text-success fs-2 mb-2"></i>
+                <h4 class="text-success">{{ completed_analyses }}</h4>
+                <p class="text-muted mb-0">Completed</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card metric-card">
+            <div class="card-body text-center">
+                <i class="bi bi-clock text-warning fs-2 mb-2"></i>
+                <h4 class="text-warning">{{ running_analyses }}</h4>
+                <p class="text-muted mb-0">Running</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card metric-card">
+            <div class="card-body text-center">
+                <i class="bi bi-percent text-info fs-2 mb-2"></i>
+                <h4 class="text-info">{{ success_rate|floatformat:0 }}%</h4>
+                <p class="text-muted mb-0">Success Rate</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Analyses -->
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">📊 Recent Analyses</h5>
+                <a href="{% url 'user_analyses' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                {% if recent_analyses %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Repository</th>
+                                    <th>Status</th>
+                                    <th>Commits</th>
+                                    <th>Developers</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for analysis in recent_analyses %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ analysis.repo_url }}" target="_blank" class="text-decoration-none">
+                                            {{ analysis.get_repo_name }}
+                                        </a>
+                                        {% if not analysis.is_public %}
+                                            <i class="bi bi-lock text-muted ms-1" title="Private"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{% if analysis.status == 'completed' %}success{% elif analysis.status == 'running' %}warning{% elif analysis.status == 'failed' %}danger{% else %}secondary{% endif %}">
+                                            {{ analysis.get_status_display }}
+                                        </span>
+                                    </td>
+                                    <td>{{ analysis.total_commits|default:"-" }}</td>
+                                    <td>{{ analysis.total_developers|default:"-" }}</td>
+                                    <td>
+                                        <span title="{{ analysis.created_at|date:'M d, Y H:i:s' }}">
+                                            {{ analysis.created_at|timesince }} ago
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{% url 'analysis_detail' analysis.id %}" class="btn btn-outline-primary">
+                                                View
+                                            </a>
+                                            {% if analysis.status == 'completed' %}
+                                                <a href="{% url 'dashboard' analysis.id %}" class="btn btn-outline-success">
+                                                    Dashboard
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="bi bi-graph-up fs-1 text-muted mb-3"></i>
+                        <h5>No analyses yet</h5>
+                        <p class="text-muted">Start your first analysis to see developer insights!</p>
+                        <a href="{% url 'create_analysis' %}" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-2"></i>Create First Analysis
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Activity Log -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">📋 Recent Activity</h5>
+                <a href="{% url 'activity_log' %}" class="btn btn-sm btn-outline-secondary">View All</a>
+            </div>
+            <div class="card-body">
+                {% if recent_activity %}
+                    {% for activity in recent_activity %}
+                        <div class="d-flex align-items-start mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
+                            <div class="flex-shrink-0 me-3">
+                                {% if activity.action == 'login' %}
+                                    <i class="bi bi-box-arrow-in-right text-success"></i>
+                                {% elif activity.action == 'analysis_create' %}
+                                    <i class="bi bi-plus-circle text-primary"></i>
+                                {% elif activity.action == 'analysis_view' %}
+                                    <i class="bi bi-eye text-info"></i>
+                                {% elif activity.action == 'analysis_delete' %}
+                                    <i class="bi bi-trash text-danger"></i>
+                                {% else %}
+                                    <i class="bi bi-activity text-muted"></i>
+                                {% endif %}
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="small fw-medium">{{ activity.get_action_display }}</div>
+                                {% if activity.description %}
+                                    <div class="small text-muted">{{ activity.description }}</div>
+                                {% endif %}
+                                <div class="small text-muted">{{ activity.created_at|timesince }} ago</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-3">
+                        <i class="bi bi-activity fs-3 text-muted mb-2"></i>
+                        <p class="text-muted mb-0">No recent activity</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="mb-0">⚡ Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'create_analysis' %}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-2"></i>New Analysis
+                    </a>
+                    <a href="{% url 'analysis_list' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-list me-2"></i>Browse Public Analyses
+                    </a>
+                    <a href="{% url 'user_settings' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-gear me-2"></i>Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- GitHub Token Warning -->
+{% if not user.github_access_token %}
+<div class="alert alert-warning mt-4">
+    <div class="d-flex align-items-center">
+        <i class="bi bi-exclamation-triangle me-3 fs-4"></i>
+        <div class="flex-grow-1">
+            <strong>GitHub Token Required</strong>
+            <p class="mb-0">To create analyses, you need to configure your GitHub access token in settings.</p>
+        </div>
+        <a href="{% url 'user_settings' %}" class="btn btn-warning">
+            Configure Now
+        </a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Auto-refresh for running analyses
+document.addEventListener('DOMContentLoaded', function() {
+    const runningAnalyses = document.querySelectorAll('.badge.bg-warning');
+    if (runningAnalyses.length > 0) {
+        // Refresh page every 30 seconds if there are running analyses
+        setTimeout(() => {
+            location.reload();
+        }, 30000);
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'dev_productivity/base.html' %}
+{% block title %}Build {{ batch.batch_id }} Details{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">Build {{ batch.batch_id }} Details</h3>
+  <a href="{% url 'analysis_detail' analysis.id %}" class="btn btn-outline-secondary">Back</a>
+  </div>
+
+<div class="row g-3">
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm"><div class="card-body">
+      <div class="text-muted small">Importance</div>
+      <div class="fs-3 fw-bold">{{ batch.importance|floatformat:2 }}</div>
+      <div class="small text-muted">Total Contribution: {{ batch.total_contribution|floatformat:2 }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm"><div class="card-body">
+      <div class="text-muted small">Commits</div>
+      <div class="fs-3 fw-bold">{{ batch.commit_count }}</div>
+      <div class="small text-muted">Unique Authors: {{ batch.unique_authors }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm"><div class="card-body">
+      <div class="text-muted small">Churn & Files</div>
+      <div class="fs-3 fw-bold">{{ batch.total_churn|floatformat:0 }}</div>
+      <div class="small text-muted">Files: {{ batch.total_files }}</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <div class="card-header">Top Developers (overall)</div>
+  <div class="card-body">
+    {% if batch_developers %}
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <thead><tr><th>#</th><th>Developer</th><th>FDS</th><th>Builds</th><th>Commits</th></tr></thead>
+        <tbody>
+          {% for d in batch_developers %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ d.author_email }}</td>
+            <td>{{ d.fds_score|floatformat:2 }}</td>
+            <td>{{ d.unique_batches }}</td>
+            <td>{{ d.total_commits }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <p class="text-muted mb-0">No developers found.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+

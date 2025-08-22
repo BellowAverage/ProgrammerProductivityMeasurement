@@ -1,0 +1,2 @@
+scale_raw,scope_raw,centrality_raw,complexity_raw,type_raw,release_raw,batch_id,batch_start_ts,batch_end_ts,batch_commit_count,batch_total_churn,scale_z,scope_z,centrality_z,complexity_z,type_z,release_z,importance
+10.165482518051924,690.630623992775,0.0,5.522358875893143,1.1,0.5,0,1752066426,1754078401,100,25989.4,1.0,1.0,0.5,1.0,1.0,1.0,0.9249999999999999
