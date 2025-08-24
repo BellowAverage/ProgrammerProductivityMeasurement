@@ -1,0 +1,14 @@
+[Unit]
+Description=uWSGI instance to serve FDS Web Application
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/fds_webapp
+Environment="PATH=/var/www/fds_webapp/venv/bin"
+ExecStart=/var/www/fds_webapp/venv/bin/uwsgi --ini /var/www/fds_webapp/uwsgi.ini
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
