@@ -1,7 +1,18 @@
 from django.urls import path
+from django.http import FileResponse
+from django.conf import settings
 from . import views, auth_views
+import os
+
+def favicon_view(request):
+    favicon_path = os.path.join(settings.BASE_DIR, 'static', 'img', 'fds_logo.png')
+    return FileResponse(open(favicon_path, 'rb'), content_type='image/png')
 
 urlpatterns = [
+    # Favicon
+    path('favicon.ico', favicon_view, name='favicon'),
+    path('static/img/fds_logo.png', favicon_view, name='fds_logo'),
+    
     # Public pages
     path('', views.home, name='home'),
     path('analyses/', views.analysis_list, name='analysis_list'),
@@ -45,4 +56,12 @@ urlpatterns = [
     path('tools/settings/', views.settings_page, name='settings'),
     path('tools/test-runner/', views.test_runner_page, name='test_runner'),
     path('auth/clear-github-token/', auth_views.clear_github_token, name='clear_github_token'),
+    
+    # Parameter management
+    path('parameters/', views.parameter_list, name='parameter_list'),
+    path('parameters/create/', views.parameter_create, name='parameter_create'),
+    path('parameters/<int:pk>/edit/', views.parameter_edit, name='parameter_edit'),
+    path('parameters/<int:pk>/delete/', views.parameter_delete, name='parameter_delete'),
+    path('parameters/<int:pk>/duplicate/', views.parameter_duplicate, name='parameter_duplicate'),
+    path('api/parameter-presets/', views.parameter_presets_api, name='parameter_presets_api'),
 ]

@@ -6,7 +6,7 @@
 <!-- Welcome Header -->
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h2>👋 Welcome back, {{ user.first_name }}!</h2>
+        <h2>👋 Welcome back, {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}!</h2>
         <p class="text-muted mb-0">Here's what's happening with your FDS analyses</p>
     </div>
     <a href="{% url 'create_analysis' %}" class="btn btn-primary">

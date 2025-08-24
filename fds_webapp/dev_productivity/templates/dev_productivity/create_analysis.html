@@ -126,6 +126,24 @@
                         </div>
                     </div>
                     
+                    <div class="mb-4">
+                        <label for="{{ form.parameter_set.id_for_label }}" class="form-label">
+                            <i class="bi bi-sliders me-2"></i>{{ form.parameter_set.label }}
+                        </label>
+                        {{ form.parameter_set }}
+                        {% if form.parameter_set.help_text %}
+                            <div class="form-text">{{ form.parameter_set.help_text }}</div>
+                        {% endif %}
+                        {% if form.parameter_set.errors %}
+                            <div class="text-danger">{{ form.parameter_set.errors.0 }}</div>
+                        {% endif %}
+                        <div class="mt-2">
+                            <a href="{% url 'parameter_list' %}" class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-gear me-1"></i>Manage Parameters
+                            </a>
+                        </div>
+                    </div>
+                    
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-play-circle me-2"></i>Start Analysis

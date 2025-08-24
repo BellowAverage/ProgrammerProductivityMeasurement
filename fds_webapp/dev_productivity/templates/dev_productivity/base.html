@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +7,7 @@
     <title>{% block title %}Fair Developer Score Analysis{% endblock %}</title>
     
     <!-- Favicon -->
-    {% load static %}
-    <link rel="icon" type="image/png" href="{% static 'dev_productivity/img/fds_logo.png' %}">
-    <link rel="shortcut icon" type="image/png" href="{% static 'dev_productivity/img/fds_logo.png' %}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%236633ff'/><text x='50' y='55' font-family='Arial' font-size='30' fill='white' text-anchor='middle' dominant-baseline='middle'>FDS</text></svg>">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -63,10 +62,17 @@
     <div class="app-shell" id="appShell">
         <aside class="sidebar">
             <div class="brand">
-                <div class="brand-logo">FD</div>
+                <div class="brand-logo">
+                    <div class="bg-primary text-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; border-radius: 8px; font-weight: bold; font-size: 14px;">FDS</div>
+                </div>
                 <div>
-                    <div class="brand-name">Fair Developer</div>
-                    <div class="small">FDS Analyzer</div>
+                    {% if user.is_authenticated %}
+                        <div class="brand-name">{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}</div>
+                        <div class="small">{{ user.email|default:"FDS User" }}</div>
+                    {% else %}
+                        <div class="brand-name">Fair Developer</div>
+                        <div class="small">FDS Analyzer</div>
+                    {% endif %}
                 </div>
             </div>
             <div class="nav-section">Navigation</div>
@@ -97,6 +103,9 @@
             <div class="nav-section">Tools</div>
             <nav class="d-grid gap-1">
                 <a class="nav-link" href="{% url 'settings' %}">⚙️ System Settings</a>
+                {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'parameter_list' %}">🎛️ Parameter Configs</a>
+                {% endif %}
                 <a class="nav-link" href="{% url 'test_runner' %}">🧪 Test Runner</a>
             </nav>
             <div class="mt-auto small" style="position:absolute; bottom:1rem; color:var(--sidebar-muted)">© 2025 FDS</div>
@@ -112,7 +121,7 @@
                         {% if analysis %}
                           Viewing: {{ analysis.repo_url }}
                         {% else %}
-                          {% if user.is_authenticated %}Welcome, {{ user.first_name }}{% else %}FDS Analyzer{% endif %}
+                          {% if user.is_authenticated %}Welcome, {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}{% else %}FDS Analyzer{% endif %}
                         {% endif %}
                         </div>
                     </div>
@@ -121,7 +130,7 @@
                             <div class="dropdown">
                                 <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
                                     <i class="bi bi-person-circle"></i>
-                                    <span>{{ user.first_name }}</span>
+                                    <span>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><h6 class="dropdown-header">{{ user.get_full_name }}</h6></li>

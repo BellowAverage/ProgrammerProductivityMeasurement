@@ -1,0 +1,480 @@
+{% extends 'dev_productivity/base.html' %}
+
+{% block title %}{{ title }} - FDS Analyzer{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'parameter_list' %}">Parameters</a></li>
+                    <li class="breadcrumb-item active">{{ title }}</li>
+                </ol>
+            </nav>
+            
+            <h2><i class="bi bi-sliders"></i> {{ title }}</h2>
+            
+            {% if original %}
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i>
+                Creating a copy of "<strong>{{ original.name }}</strong>" ({{ original.get_preset_type_display }})
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <form method="post" class="row">
+        {% csrf_token %}
+        
+        <!-- Basic Configuration -->
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-info-circle"></i> Basic Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="{{ form.name.id_for_label }}" class="form-label">Name</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="text-danger">{{ form.name.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.preset_type.id_for_label }}" class="form-label">Preset Type</label>
+                        {{ form.preset_type }}
+                        {% if form.preset_type.errors %}
+                            <div class="text-danger">{{ form.preset_type.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Preset Quick-Load Buttons -->
+                    <div class="mb-3">
+                        <label class="form-label">Quick Load Presets</label>
+                        <div class="btn-group-vertical d-grid gap-2">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="default">
+                                Load Default (Balanced)
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="time_sensitive">
+                                Load Time Sensitive
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="complexity_focused">
+                                Load Complexity Focused
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="contribution_focused">
+                                Load Contribution Focused
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Torque Clustering Parameters -->
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="bi bi-diagram-3"></i> Torque Clustering</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small">Controls how commits are grouped into builds/batches.</p>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.torque_alpha.id_for_label }}" class="form-label">
+                            Alpha (Time Weight) <span class="text-muted">α</span>
+                        </label>
+                        {{ form.torque_alpha }}
+                        <div class="form-text">Time-weight coefficient. Higher values = more time-sensitive clustering.</div>
+                        {% if form.torque_alpha.errors %}
+                            <div class="text-danger">{{ form.torque_alpha.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.torque_beta.id_for_label }}" class="form-label">
+                            Beta (LOC Weight) <span class="text-muted">β</span>
+                        </label>
+                        {{ form.torque_beta }}
+                        <div class="form-text">Lines-of-code weight coefficient. Higher values = more size-sensitive clustering.</div>
+                        {% if form.torque_beta.errors %}
+                            <div class="text-danger">{{ form.torque_beta.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.torque_gap.id_for_label }}" class="form-label">
+                            Gap Threshold
+                        </label>
+                        {{ form.torque_gap }}
+                        <div class="form-text">Torque threshold for starting new batch. Lower values = smaller batches.</div>
+                        {% if form.torque_gap.errors %}
+                            <div class="text-danger">{{ form.torque_gap.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Effort Weights -->
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="bi bi-person-workspace"></i> Effort Dimension Weights</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small">Weights for calculating developer effort scores. Must sum to 1.0.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.effort_share_weight.id_for_label }}" class="form-label">Share</label>
+                                {{ form.effort_share_weight }}
+                                <div class="form-text">Contribution sharing with others</div>
+                                {% if form.effort_share_weight.errors %}
+                                    <div class="text-danger">{{ form.effort_share_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.effort_scale_weight.id_for_label }}" class="form-label">Scale</label>
+                                {{ form.effort_scale_weight }}
+                                <div class="form-text">Size of contributions</div>
+                                {% if form.effort_scale_weight.errors %}
+                                    <div class="text-danger">{{ form.effort_scale_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.effort_reach_weight.id_for_label }}" class="form-label">Reach</label>
+                                {{ form.effort_reach_weight }}
+                                <div class="form-text">Directory/component reach</div>
+                                {% if form.effort_reach_weight.errors %}
+                                    <div class="text-danger">{{ form.effort_reach_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.effort_centrality_weight.id_for_label }}" class="form-label">Centrality</label>
+                                {{ form.effort_centrality_weight }}
+                                <div class="form-text">Network centrality importance</div>
+                                {% if form.effort_centrality_weight.errors %}
+                                    <div class="text-danger">{{ form.effort_centrality_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.effort_dominance_weight.id_for_label }}" class="form-label">Dominance</label>
+                                {{ form.effort_dominance_weight }}
+                                <div class="form-text">First/last commit dominance</div>
+                                {% if form.effort_dominance_weight.errors %}
+                                    <div class="text-danger">{{ form.effort_dominance_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.effort_novelty_weight.id_for_label }}" class="form-label">Novelty</label>
+                                {{ form.effort_novelty_weight }}
+                                <div class="form-text">New file/directory contributions</div>
+                                {% if form.effort_novelty_weight.errors %}
+                                    <div class="text-danger">{{ form.effort_novelty_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.effort_speed_weight.id_for_label }}" class="form-label">Speed</label>
+                                {{ form.effort_speed_weight }}
+                                <div class="form-text">Commit frequency/speed</div>
+                                {% if form.effort_speed_weight.errors %}
+                                    <div class="text-danger">{{ form.effort_speed_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning" id="effort-sum-warning" style="display: none;">
+                        <small><strong>Warning:</strong> Effort weights should sum to 1.0. Current sum: <span id="effort-sum">0</span></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Importance Weights -->
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="bi bi-star"></i> Importance Dimension Weights</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small">Weights for calculating build importance scores. Must sum to 1.0.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.importance_scale_weight.id_for_label }}" class="form-label">Scale</label>
+                                {{ form.importance_scale_weight }}
+                                <div class="form-text">Build size/commits</div>
+                                {% if form.importance_scale_weight.errors %}
+                                    <div class="text-danger">{{ form.importance_scale_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.importance_scope_weight.id_for_label }}" class="form-label">Scope</label>
+                                {{ form.importance_scope_weight }}
+                                <div class="form-text">Files/directories affected</div>
+                                {% if form.importance_scope_weight.errors %}
+                                    <div class="text-danger">{{ form.importance_scope_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.importance_centrality_weight.id_for_label }}" class="form-label">Centrality</label>
+                                {{ form.importance_centrality_weight }}
+                                <div class="form-text">Network importance</div>
+                                {% if form.importance_centrality_weight.errors %}
+                                    <div class="text-danger">{{ form.importance_centrality_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.importance_complexity_weight.id_for_label }}" class="form-label">Complexity</label>
+                                {{ form.importance_complexity_weight }}
+                                <div class="form-text">Code complexity metrics</div>
+                                {% if form.importance_complexity_weight.errors %}
+                                    <div class="text-danger">{{ form.importance_complexity_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.importance_type_weight.id_for_label }}" class="form-label">Type</label>
+                                {{ form.importance_type_weight }}
+                                <div class="form-text">File type diversity</div>
+                                {% if form.importance_type_weight.errors %}
+                                    <div class="text-danger">{{ form.importance_type_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.importance_release_weight.id_for_label }}" class="form-label">Release</label>
+                                {{ form.importance_release_weight }}
+                                <div class="form-text">Proximity to releases</div>
+                                {% if form.importance_release_weight.errors %}
+                                    <div class="text-danger">{{ form.importance_release_weight.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning" id="importance-sum-warning" style="display: none;">
+                        <small><strong>Warning:</strong> Importance weights should sum to 1.0. Current sum: <span id="importance-sum">0</span></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- General Thresholds -->
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="bi bi-gear"></i> General Thresholds</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="{{ form.noise_threshold.id_for_label }}" class="form-label">Noise Threshold</label>
+                                {{ form.noise_threshold }}
+                                <div class="form-text">Filter out minor changes</div>
+                                {% if form.noise_threshold.errors %}
+                                    <div class="text-danger">{{ form.noise_threshold.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="{{ form.contribution_threshold.id_for_label }}" class="form-label">Contribution Threshold</label>
+                                {{ form.contribution_threshold }}
+                                <div class="form-text">Minimum meaningful contribution</div>
+                                {% if form.contribution_threshold.errors %}
+                                    <div class="text-danger">{{ form.contribution_threshold.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="{{ form.pagerank_damping.id_for_label }}" class="form-label">PageRank Damping</label>
+                                {{ form.pagerank_damping }}
+                                <div class="form-text">PageRank algorithm damping factor</div>
+                                {% if form.pagerank_damping.errors %}
+                                    <div class="text-danger">{{ form.pagerank_damping.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="{{ form.min_churn_for_edge.id_for_label }}" class="form-label">Min Churn for Edge</label>
+                                {{ form.min_churn_for_edge }}
+                                <div class="form-text">Minimum churn for directory graph</div>
+                                {% if form.min_churn_for_edge.errors %}
+                                    <div class="text-danger">{{ form.min_churn_for_edge.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Form Errors -->
+        {% if form.non_field_errors %}
+        <div class="col-12">
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Submit Buttons -->
+        <div class="col-12">
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'parameter_list' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to Parameters
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle"></i> {{ submit_text }}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load preset configurations
+    const presetButtons = document.querySelectorAll('[data-preset]');
+    
+    // Fetch presets from API
+    fetch('{% url "parameter_presets_api" %}')
+        .then(response => response.json())
+        .then(presets => {
+            presetButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const presetType = this.dataset.preset;
+                    const preset = presets[presetType];
+                    
+                    if (preset) {
+                        // Load basic info
+                        document.getElementById('id_preset_type').value = presetType;
+                        
+                        // Load torque parameters
+                        document.getElementById('id_torque_alpha').value = preset.torque_alpha;
+                        document.getElementById('id_torque_beta').value = preset.torque_beta;
+                        document.getElementById('id_torque_gap').value = preset.torque_gap;
+                        
+                        // Load effort weights
+                        const effortWeights = preset.effort_weights;
+                        document.getElementById('id_effort_share_weight').value = effortWeights.share;
+                        document.getElementById('id_effort_scale_weight').value = effortWeights.scale;
+                        document.getElementById('id_effort_reach_weight').value = effortWeights.reach;
+                        document.getElementById('id_effort_centrality_weight').value = effortWeights.centrality;
+                        document.getElementById('id_effort_dominance_weight').value = effortWeights.dominance;
+                        document.getElementById('id_effort_novelty_weight').value = effortWeights.novelty;
+                        document.getElementById('id_effort_speed_weight').value = effortWeights.speed;
+                        
+                        // Load importance weights
+                        const importanceWeights = preset.importance_weights;
+                        document.getElementById('id_importance_scale_weight').value = importanceWeights.scale;
+                        document.getElementById('id_importance_scope_weight').value = importanceWeights.scope;
+                        document.getElementById('id_importance_centrality_weight').value = importanceWeights.centrality;
+                        document.getElementById('id_importance_complexity_weight').value = importanceWeights.complexity;
+                        document.getElementById('id_importance_type_weight').value = importanceWeights.type;
+                        document.getElementById('id_importance_release_weight').value = importanceWeights.release;
+                        
+                        // Update sum warnings
+                        updateWeightSums();
+                        
+                        // Visual feedback
+                        this.classList.add('btn-success');
+                        this.innerHTML = '<i class="bi bi-check"></i> Loaded!';
+                        setTimeout(() => {
+                            this.classList.remove('btn-success');
+                            this.innerHTML = this.textContent.replace('Loaded!', 'Load ' + preset.name);
+                        }, 2000);
+                    }
+                });
+            });
+        });
+    
+    // Weight sum validation
+    function updateWeightSums() {
+        // Effort weights
+        const effortInputs = [
+            'id_effort_share_weight', 'id_effort_scale_weight', 'id_effort_reach_weight',
+            'id_effort_centrality_weight', 'id_effort_dominance_weight', 
+            'id_effort_novelty_weight', 'id_effort_speed_weight'
+        ];
+        
+        let effortSum = 0;
+        effortInputs.forEach(id => {
+            const input = document.getElementById(id);
+            if (input && input.value) {
+                effortSum += parseFloat(input.value) || 0;
+            }
+        });
+        
+        const effortWarning = document.getElementById('effort-sum-warning');
+        const effortSumSpan = document.getElementById('effort-sum');
+        effortSumSpan.textContent = effortSum.toFixed(3);
+        
+        if (Math.abs(effortSum - 1.0) > 0.001) {
+            effortWarning.style.display = 'block';
+        } else {
+            effortWarning.style.display = 'none';
+        }
+        
+        // Importance weights
+        const importanceInputs = [
+            'id_importance_scale_weight', 'id_importance_scope_weight', 'id_importance_centrality_weight',
+            'id_importance_complexity_weight', 'id_importance_type_weight', 'id_importance_release_weight'
+        ];
+        
+        let importanceSum = 0;
+        importanceInputs.forEach(id => {
+            const input = document.getElementById(id);
+            if (input && input.value) {
+                importanceSum += parseFloat(input.value) || 0;
+            }
+        });
+        
+        const importanceWarning = document.getElementById('importance-sum-warning');
+        const importanceSumSpan = document.getElementById('importance-sum');
+        importanceSumSpan.textContent = importanceSum.toFixed(3);
+        
+        if (Math.abs(importanceSum - 1.0) > 0.001) {
+            importanceWarning.style.display = 'block';
+        } else {
+            importanceWarning.style.display = 'none';
+        }
+    }
+    
+    // Add listeners to weight inputs
+    const weightInputs = document.querySelectorAll('[id*="_weight"]');
+    weightInputs.forEach(input => {
+        input.addEventListener('input', updateWeightSums);
+    });
+    
+    // Initial sum check
+    updateWeightSums();
+});
+</script>
+{% endblock %}
+

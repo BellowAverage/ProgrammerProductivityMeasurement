@@ -11,6 +11,8 @@
 
 Large organizations still lean on simplistic signals (commit counts, raw LOC). Those are easy to game and ignore context. FDS separates **how much a developer contributed** from **how much that work mattered** by first grouping commits into **builds** (logical working units) and then scoring each developer–build pair with transparent math.
 
+Video Walkthrough: https://youtu.be/pn11I-acq8w
+
 ---
 
 ## 💡 Core idea
@@ -268,7 +270,5 @@ Contributions are welcome—new message classifiers, better noise rules, UI inte
 <div align="center">
 
 **⭐ Star this repo if FDS helps you build fairer developer evaluation systems! ⭐**
-
-Made with ❤️ for transparent and equitable software development
 
 </div>

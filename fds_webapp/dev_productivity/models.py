@@ -107,6 +107,109 @@ class UserSession(models.Model):
         return f"Session for {self.user.email} from {self.ip_address}"
 
 
+class FDSParameterSet(models.Model):
+    """Model to store FDS algorithm parameter configurations"""
+    
+    PRESET_CHOICES = [
+        ('default', 'Default (Balanced)'),
+        ('time_sensitive', 'Time Sensitive'),
+        ('complexity_focused', 'Complexity Focused'),
+        ('contribution_focused', 'Contribution Focused'),
+        ('custom', 'Custom'),
+    ]
+    
+    # Basic info
+    name = models.CharField(max_length=100, help_text="Parameter set name")
+    preset_type = models.CharField(max_length=20, choices=PRESET_CHOICES, default='default')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='parameter_sets', null=True, blank=True)
+    is_system_preset = models.BooleanField(default=False, help_text="System-provided preset")
+    created_at = models.DateTimeField(default=timezone.now)
+    
+    # Torque Clustering Parameters
+    torque_alpha = models.FloatField(default=0.001, help_text="Time-weight coefficient (α)")
+    torque_beta = models.FloatField(default=0.1, help_text="LOC-weight coefficient (β)")
+    torque_gap = models.FloatField(default=30.0, help_text="Torque threshold for starting new batch")
+    
+    # Effort Calculation Weights (should sum to 1.0)
+    effort_share_weight = models.FloatField(default=0.25, help_text="Share dimension weight")
+    effort_scale_weight = models.FloatField(default=0.15, help_text="Scale dimension weight")
+    effort_reach_weight = models.FloatField(default=0.20, help_text="Reach dimension weight")
+    effort_centrality_weight = models.FloatField(default=0.20, help_text="Centrality dimension weight")
+    effort_dominance_weight = models.FloatField(default=0.15, help_text="Dominance dimension weight")
+    effort_novelty_weight = models.FloatField(default=0.05, help_text="Novelty dimension weight")
+    effort_speed_weight = models.FloatField(default=0.05, help_text="Speed dimension weight")
+    
+    # Importance Calculation Weights (should sum to 1.0)
+    importance_scale_weight = models.FloatField(default=0.30, help_text="Scale dimension weight")
+    importance_scope_weight = models.FloatField(default=0.20, help_text="Scope dimension weight")
+    importance_centrality_weight = models.FloatField(default=0.15, help_text="Centrality dimension weight")
+    importance_complexity_weight = models.FloatField(default=0.15, help_text="Complexity dimension weight")
+    importance_type_weight = models.FloatField(default=0.10, help_text="Type dimension weight")
+    importance_release_weight = models.FloatField(default=0.10, help_text="Release proximity weight")
+    
+    # General Thresholds
+    noise_threshold = models.FloatField(default=0.1, help_text="Noise filtering threshold")
+    contribution_threshold = models.FloatField(default=0.01, help_text="Minimum meaningful contribution")
+    pagerank_damping = models.FloatField(default=0.85, help_text="PageRank damping factor")
+    min_churn_for_edge = models.IntegerField(default=2, help_text="Minimum churn for directory graph edge")
+    
+    class Meta:
+        ordering = ['is_system_preset', '-created_at']
+        verbose_name = "FDS Parameter Set"
+        verbose_name_plural = "FDS Parameter Sets"
+        unique_together = [['user', 'name']]
+    
+    def __str__(self):
+        return f"{self.name} ({self.get_preset_type_display()})"
+    
+    def get_config_dict(self):
+        """Return parameters as a configuration dictionary"""
+        return {
+            # Torque clustering
+            'alpha': self.torque_alpha,
+            'beta': self.torque_beta,
+            'gap': self.torque_gap,
+            
+            # Effort weights
+            'effort_weights': {
+                'share': self.effort_share_weight,
+                'scale': self.effort_scale_weight,
+                'reach': self.effort_reach_weight,
+                'centrality': self.effort_centrality_weight,
+                'dominance': self.effort_dominance_weight,
+                'novelty': self.effort_novelty_weight,
+                'speed': self.effort_speed_weight,
+            },
+            
+            # Importance weights
+            'importance_weights': {
+                'scale': self.importance_scale_weight,
+                'scope': self.importance_scope_weight,
+                'centrality': self.importance_centrality_weight,
+                'complexity': self.importance_complexity_weight,
+                'type': self.importance_type_weight,
+                'release': self.importance_release_weight,
+            },
+            
+            # General config
+            'noise_threshold': self.noise_threshold,
+            'contribution_threshold': self.contribution_threshold,
+            'pagerank_damping': self.pagerank_damping,
+            'min_churn_for_edge': self.min_churn_for_edge,
+        }
+    
+    @classmethod
+    def get_default_parameters(cls):
+        """Get or create default parameter set"""
+        defaults, created = cls.objects.get_or_create(
+            name="Default",
+            preset_type='default',
+            is_system_preset=True,
+            user=None
+        )
+        return defaults
+
+
 class FDSAnalysis(models.Model):
     """Model to store FDS analysis jobs and results"""
     
@@ -124,6 +227,10 @@ class FDSAnalysis(models.Model):
     repo_url = models.URLField(max_length=500, help_text="GitHub repository URL")
     access_token = models.CharField(max_length=200, help_text="GitHub access token", blank=True)
     commit_limit = models.IntegerField(default=300, help_text="Number of commits to analyze")
+    
+    # FDS Parameters
+    parameter_set = models.ForeignKey(FDSParameterSet, on_delete=models.SET_NULL, null=True, blank=True, 
+                                    help_text="Parameter configuration used for this analysis")
     
     # Analysis metadata
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')

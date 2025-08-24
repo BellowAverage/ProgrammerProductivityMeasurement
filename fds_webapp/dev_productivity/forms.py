@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.contrib.auth import authenticate
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from .models import FDSAnalysis, User, UserPreference
+from .models import FDSAnalysis, User, UserPreference, FDSParameterSet
+from django.db import models
 import re
 
 
@@ -250,9 +251,17 @@ class FDSAnalysisForm(forms.ModelForm):
         help_text="Allow other users to view this analysis"
     )
     
+    parameter_set = forms.ModelChoiceField(
+        queryset=FDSParameterSet.objects.none(),
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-select'}),
+        label="Parameter Configuration",
+        help_text="Choose parameter configuration for this analysis (optional - uses default if not selected)"
+    )
+    
     class Meta:
         model = FDSAnalysis
-        fields = ['repo_url', 'commit_limit', 'access_token', 'is_public']
+        fields = ['repo_url', 'commit_limit', 'access_token', 'is_public', 'parameter_set']
     
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -263,6 +272,18 @@ class FDSAnalysisForm(forms.ModelForm):
             self.fields['commit_limit'].initial = self.user.default_commit_limit
             if hasattr(self.user, 'preferences'):
                 self.fields['is_public'].initial = self.user.preferences.default_repo_privacy
+            
+            # Populate parameter sets for the user
+            self.fields['parameter_set'].queryset = FDSParameterSet.objects.filter(
+                models.Q(user=self.user) | models.Q(is_system_preset=True)
+            ).order_by('is_system_preset', 'name')
+            
+            # Set default to system default
+            try:
+                default_params = FDSParameterSet.objects.get(is_system_preset=True, preset_type='default')
+                self.fields['parameter_set'].initial = default_params
+            except FDSParameterSet.DoesNotExist:
+                pass
     
     def clean_repo_url(self):
         url = self.cleaned_data.get('repo_url')
@@ -403,3 +424,119 @@ class AnalysisSharingForm(forms.Form):
                 raise ValidationError(f"Invalid email address: {email}")
         
         return valid_emails
+
+
+class FDSParameterForm(forms.ModelForm):
+    """Form for creating and editing FDS parameter configurations"""
+    
+    class Meta:
+        model = FDSParameterSet
+        fields = [
+            'name', 'preset_type',
+            'torque_alpha', 'torque_beta', 'torque_gap',
+            'effort_share_weight', 'effort_scale_weight', 'effort_reach_weight',
+            'effort_centrality_weight', 'effort_dominance_weight', 'effort_novelty_weight', 'effort_speed_weight',
+            'importance_scale_weight', 'importance_scope_weight', 'importance_centrality_weight',
+            'importance_complexity_weight', 'importance_type_weight', 'importance_release_weight',
+            'noise_threshold', 'contribution_threshold', 'pagerank_damping', 'min_churn_for_edge'
+        ]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'My Custom Parameters'}),
+            'preset_type': forms.Select(attrs={'class': 'form-select'}),
+            
+            # Torque clustering parameters
+            'torque_alpha': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.0001', 'min': '0'}),
+            'torque_beta': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0'}),
+            'torque_gap': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.1', 'min': '0'}),
+            
+            # Effort weights
+            'effort_share_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'effort_scale_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'effort_reach_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'effort_centrality_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'effort_dominance_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'effort_novelty_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'effort_speed_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            
+            # Importance weights  
+            'importance_scale_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'importance_scope_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'importance_centrality_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'importance_complexity_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'importance_type_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'importance_release_weight': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            
+            # General thresholds
+            'noise_threshold': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'contribution_threshold': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.001', 'min': '0', 'max': '1'}),
+            'pagerank_damping': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0', 'max': '1'}),
+            'min_churn_for_edge': forms.NumberInput(attrs={'class': 'form-control', 'min': '1'}),
+        }
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        
+        # Validate effort weights sum to 1.0
+        effort_weights = [
+            cleaned_data.get('effort_share_weight', 0),
+            cleaned_data.get('effort_scale_weight', 0),
+            cleaned_data.get('effort_reach_weight', 0),
+            cleaned_data.get('effort_centrality_weight', 0),
+            cleaned_data.get('effort_dominance_weight', 0),
+            cleaned_data.get('effort_novelty_weight', 0),
+            cleaned_data.get('effort_speed_weight', 0),
+        ]
+        effort_sum = sum(w for w in effort_weights if w is not None)
+        if abs(effort_sum - 1.0) > 0.001:
+            raise ValidationError(f"Effort weights must sum to 1.0 (currently {effort_sum:.3f})")
+        
+        # Validate importance weights sum to 1.0
+        importance_weights = [
+            cleaned_data.get('importance_scale_weight', 0),
+            cleaned_data.get('importance_scope_weight', 0),
+            cleaned_data.get('importance_centrality_weight', 0),
+            cleaned_data.get('importance_complexity_weight', 0),
+            cleaned_data.get('importance_type_weight', 0),
+            cleaned_data.get('importance_release_weight', 0),
+        ]
+        importance_sum = sum(w for w in importance_weights if w is not None)
+        if abs(importance_sum - 1.0) > 0.001:
+            raise ValidationError(f"Importance weights must sum to 1.0 (currently {importance_sum:.3f})")
+        
+        return cleaned_data
+
+
+class FDSAnalysisAdvancedForm(forms.ModelForm):
+    """Advanced form for FDS analysis with parameter selection"""
+    
+    parameter_set = forms.ModelChoiceField(
+        queryset=FDSParameterSet.objects.none(),
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-select'}),
+        help_text="Choose a parameter configuration for this analysis"
+    )
+    
+
+    
+    class Meta:
+        model = FDSAnalysis
+        fields = ['repo_url', 'commit_limit', 'is_public', 'parameter_set']
+        widgets = {
+            'repo_url': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://github.com/owner/repo'}),
+            'commit_limit': forms.NumberInput(attrs={'class': 'form-control', 'min': '10', 'max': '5000'}),
+            'is_public': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+    
+    def __init__(self, user=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if user:
+            # Show user's parameter sets and system presets
+            self.fields['parameter_set'].queryset = FDSParameterSet.objects.filter(
+                models.Q(user=user) | models.Q(is_system_preset=True)
+            ).order_by('is_system_preset', 'name')
+            # Set default to system default
+            try:
+                default_params = FDSParameterSet.objects.get(is_system_preset=True, preset_type='default')
+                self.fields['parameter_set'].initial = default_params
+            except FDSParameterSet.DoesNotExist:
+                pass

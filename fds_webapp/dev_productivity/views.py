@@ -8,8 +8,8 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 from django.db import models
 from django.core.exceptions import PermissionDenied
-from .models import FDSAnalysis, DeveloperScore, BatchMetrics, User
-from .forms import FDSAnalysisForm, AnalysisSharingForm
+from .models import FDSAnalysis, DeveloperScore, BatchMetrics, User, FDSParameterSet
+from .forms import FDSAnalysisForm, AnalysisSharingForm, FDSParameterForm
 from .services import FDSAnalysisService
 from .utils import log_user_activity, get_user_preferences
 import json
@@ -650,3 +650,203 @@ def dashboard_data(request, analysis_id: int):
     }
 
     return JsonResponse(payload)
+
+
+@login_required
+def parameter_list(request):
+    """List user's parameter configurations"""
+    user_params = FDSParameterSet.objects.filter(user=request.user)
+    system_params = FDSParameterSet.objects.filter(is_system_preset=True)
+    
+    context = {
+        'user_params': user_params,
+        'system_params': system_params,
+    }
+    return render(request, 'dev_productivity/parameters/parameter_list.html', context)
+
+
+@login_required 
+def parameter_create(request):
+    """Create new parameter configuration"""
+    if request.method == 'POST':
+        form = FDSParameterForm(request.POST)
+        if form.is_valid():
+            parameter_set = form.save(commit=False)
+            parameter_set.user = request.user
+            parameter_set.save()
+            messages.success(request, f'Parameter set "{parameter_set.name}" created successfully!')
+            return redirect('parameter_list')
+    else:
+        form = FDSParameterForm()
+    
+    context = {
+        'form': form,
+        'title': 'Create Parameter Configuration',
+        'submit_text': 'Create Parameters',
+    }
+    return render(request, 'dev_productivity/parameters/parameter_form.html', context)
+
+
+@login_required
+def parameter_edit(request, pk):
+    """Edit existing parameter configuration"""
+    parameter_set = get_object_or_404(FDSParameterSet, pk=pk, user=request.user)
+    
+    if request.method == 'POST':
+        form = FDSParameterForm(request.POST, instance=parameter_set)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Parameter set "{parameter_set.name}" updated successfully!')
+            return redirect('parameter_list')
+    else:
+        form = FDSParameterForm(instance=parameter_set)
+    
+    context = {
+        'form': form,
+        'parameter_set': parameter_set,
+        'title': f'Edit "{parameter_set.name}"',
+        'submit_text': 'Update Parameters',
+    }
+    return render(request, 'dev_productivity/parameters/parameter_form.html', context)
+
+
+@login_required
+def parameter_delete(request, pk):
+    """Delete parameter configuration"""
+    parameter_set = get_object_or_404(FDSParameterSet, pk=pk, user=request.user)
+    
+    if request.method == 'POST':
+        name = parameter_set.name
+        parameter_set.delete()
+        messages.success(request, f'Parameter set "{name}" deleted successfully!')
+        return redirect('parameter_list')
+    
+    context = {
+        'parameter_set': parameter_set,
+    }
+    return render(request, 'dev_productivity/parameters/parameter_confirm_delete.html', context)
+
+
+@login_required
+def parameter_duplicate(request, pk):
+    """Duplicate an existing parameter configuration"""
+    original = get_object_or_404(FDSParameterSet, pk=pk)
+    
+    # Check permissions - user can duplicate their own or system presets
+    if original.user != request.user and not original.is_system_preset:
+        messages.error(request, "You don't have permission to duplicate this parameter set.")
+        return redirect('parameter_list')
+    
+    if request.method == 'POST':
+        form = FDSParameterForm(request.POST)
+        if form.is_valid():
+            new_param = form.save(commit=False)
+            new_param.user = request.user
+            new_param.preset_type = 'custom'
+            new_param.is_system_preset = False
+            new_param.save()
+            messages.success(request, f'Parameter set "{new_param.name}" created from "{original.name}"!')
+            return redirect('parameter_list')
+    else:
+        # Pre-populate form with original values
+        form_data = {
+            'name': f"{original.name} (Copy)",
+            'preset_type': 'custom',
+            'torque_alpha': original.torque_alpha,
+            'torque_beta': original.torque_beta,
+            'torque_gap': original.torque_gap,
+            'effort_share_weight': original.effort_share_weight,
+            'effort_scale_weight': original.effort_scale_weight,
+            'effort_reach_weight': original.effort_reach_weight,
+            'effort_centrality_weight': original.effort_centrality_weight,
+            'effort_dominance_weight': original.effort_dominance_weight,
+            'effort_novelty_weight': original.effort_novelty_weight,
+            'effort_speed_weight': original.effort_speed_weight,
+            'importance_scale_weight': original.importance_scale_weight,
+            'importance_scope_weight': original.importance_scope_weight,
+            'importance_centrality_weight': original.importance_centrality_weight,
+            'importance_complexity_weight': original.importance_complexity_weight,
+            'importance_type_weight': original.importance_type_weight,
+            'importance_release_weight': original.importance_release_weight,
+            'noise_threshold': original.noise_threshold,
+            'contribution_threshold': original.contribution_threshold,
+            'pagerank_damping': original.pagerank_damping,
+            'min_churn_for_edge': original.min_churn_for_edge,
+        }
+        form = FDSParameterForm(initial=form_data)
+    
+    context = {
+        'form': form,
+        'original': original,
+        'title': f'Duplicate "{original.name}"',
+        'submit_text': 'Create Copy',
+    }
+    return render(request, 'dev_productivity/parameters/parameter_form.html', context)
+
+
+def parameter_presets_api(request):
+    """API endpoint to get preset parameter configurations"""
+    presets = {
+        'default': {
+            'name': 'Default (Balanced)',
+            'description': 'Balanced approach suitable for most repositories',
+            'torque_alpha': 0.001,
+            'torque_beta': 0.1,
+            'torque_gap': 30.0,
+            'effort_weights': {
+                'share': 0.25, 'scale': 0.15, 'reach': 0.20, 
+                'centrality': 0.20, 'dominance': 0.15, 'novelty': 0.05, 'speed': 0.05
+            },
+            'importance_weights': {
+                'scale': 0.30, 'scope': 0.20, 'centrality': 0.15,
+                'complexity': 0.15, 'type': 0.10, 'release': 0.10
+            }
+        },
+        'time_sensitive': {
+            'name': 'Time Sensitive',
+            'description': 'Higher sensitivity to commit timing and speed',
+            'torque_alpha': 0.005,
+            'torque_beta': 0.05,
+            'torque_gap': 15.0,
+            'effort_weights': {
+                'share': 0.20, 'scale': 0.10, 'reach': 0.15,
+                'centrality': 0.15, 'dominance': 0.20, 'novelty': 0.10, 'speed': 0.10
+            },
+            'importance_weights': {
+                'scale': 0.25, 'scope': 0.25, 'centrality': 0.20,
+                'complexity': 0.10, 'type': 0.10, 'release': 0.10
+            }
+        },
+        'complexity_focused': {
+            'name': 'Complexity Focused',
+            'description': 'Emphasizes code complexity and technical difficulty',
+            'torque_alpha': 0.0005,
+            'torque_beta': 0.2,
+            'torque_gap': 50.0,
+            'effort_weights': {
+                'share': 0.15, 'scale': 0.25, 'reach': 0.15,
+                'centrality': 0.25, 'dominance': 0.10, 'novelty': 0.10, 'speed': 0.00
+            },
+            'importance_weights': {
+                'scale': 0.20, 'scope': 0.15, 'centrality': 0.15,
+                'complexity': 0.35, 'type': 0.15, 'release': 0.00
+            }
+        },
+        'contribution_focused': {
+            'name': 'Contribution Focused',
+            'description': 'Emphasizes individual contributions and sharing',
+            'torque_alpha': 0.002,
+            'torque_beta': 0.08,
+            'torque_gap': 25.0,
+            'effort_weights': {
+                'share': 0.40, 'scale': 0.15, 'reach': 0.25,
+                'centrality': 0.10, 'dominance': 0.10, 'novelty': 0.00, 'speed': 0.00
+            },
+            'importance_weights': {
+                'scale': 0.40, 'scope': 0.30, 'centrality': 0.10,
+                'complexity': 0.05, 'type': 0.05, 'release': 0.10
+            }
+        }
+    }
+    
+    return JsonResponse(presets)

@@ -1,0 +1,53 @@
+{% extends 'dev_productivity/base.html' %}
+
+{% block title %}Delete Parameter Set - FDS Analyzer{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'parameter_list' %}">Parameters</a></li>
+                    <li class="breadcrumb-item active">Delete</li>
+                </ol>
+            </nav>
+            
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Confirm Deletion</h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-4">Are you sure you want to delete the parameter set "<strong>{{ parameter_set.name }}</strong>"?</p>
+                    
+                    <div class="alert alert-warning">
+                        <i class="bi bi-warning"></i>
+                        <strong>Warning:</strong> This action cannot be undone. Any analyses using this parameter set will no longer have access to the original configuration.
+                    </div>
+                    
+                    <!-- Parameter Summary -->
+                    <div class="mb-4">
+                        <h6>Parameter Summary:</h6>
+                        <ul class="list-unstyled">
+                            <li><strong>Type:</strong> {{ parameter_set.get_preset_type_display }}</li>
+                            <li><strong>Created:</strong> {{ parameter_set.created_at|date:"M d, Y" }}</li>
+                            <li><strong>Torque Parameters:</strong> α={{ parameter_set.torque_alpha }}, β={{ parameter_set.torque_beta }}, gap={{ parameter_set.torque_gap }}</li>
+                        </ul>
+                    </div>
+                    
+                    <form method="post" class="d-flex justify-content-between">
+                        {% csrf_token %}
+                        <a href="{% url 'parameter_list' %}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Delete Parameter Set
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

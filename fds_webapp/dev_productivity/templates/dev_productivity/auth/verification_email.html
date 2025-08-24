@@ -22,7 +22,7 @@
         </div>
         
         <div class="content">
-            <p>Hi {{ user.first_name }},</p>
+            <p>Hi {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</p>
             
             <p>Thank you for creating an account with {{ site_name }}! To complete your registration and start analyzing repositories, please verify your email address by clicking the button below:</p>
             

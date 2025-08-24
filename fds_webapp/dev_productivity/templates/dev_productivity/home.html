@@ -35,7 +35,7 @@
   <div class="blob blob-2"></div>
   <div class="row align-items-center position-relative" style="z-index:1">
     <div class="col-lg-7 mb-4 mb-lg-0">
-      <div class="pill mb-2 d-inline-block">{% if user.is_authenticated %}Welcome, {{ user.first_name }}{% else %}Open Source Edition{% endif %}</div>
+      <div class="pill mb-2 d-inline-block">{% if user.is_authenticated %}Welcome, {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}{% else %}Open Source Edition{% endif %}</div>
       <h1 class="display-6 fw-bold mb-2" style="color:#111827">Fair Developer Score</h1>
       <p class="lead mb-3" style="color:#374151">{% if user.is_authenticated %}Run productivity assessments with one click{% else %}Explore example analyses and create your account to start analyzing your repositories{% endif %}. TORQUE build clustering + 6D FDS with MAD-Z normalization.</p>
       <div class="d-flex flex-wrap gap-2">
